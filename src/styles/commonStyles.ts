@@ -292,6 +292,39 @@ export const containerStyles = StyleSheet.create({
   chatContent: {
     flex: 1,
   },
+  safeArea: {
+    flex: 1,
+    backgroundColor: theme.colors.background,
+  },
+  loginScrollContainer: {
+    flexGrow: 1,
+    justifyContent: 'center',
+    padding: theme.spacing.md,
+  },
+  logoContainer: {
+    alignItems: 'center',
+    marginBottom: theme.spacing.lg,
+  },
+  formContainer: {
+    marginBottom: theme.spacing.lg,
+  },
+  userTypeContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginVertical: theme.spacing.sm,
+  },
+  checkboxContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  footer: {
+    alignItems: 'center',
+    marginTop: theme.spacing.md,
+  },
+  forgotPasswordContainer: {
+    alignItems: 'center',
+    marginTop: theme.spacing.md,
+  },
   settingItem:{
     flexDirection: 'row',
     alignItems: 'center',
@@ -317,9 +350,6 @@ export const containerStyles = StyleSheet.create({
   statusBarTime:{
     
   },
-  footer:{
-    flexDirection: 'row',
-  },
   checkboxChecked:{
     backgroundColor: theme.colors.primary,
   },
@@ -332,16 +362,10 @@ export const containerStyles = StyleSheet.create({
   centeredContent:{
     flex: 1,
   },
-  safeArea:{
-    flex: 1,
-  },
   navBarContainer:{
     flexDirection: 'row',
   },
   navTabItem:{
-    flex: 1,
-  },
-  forgotPasswordContainer:{
     flex: 1,
   },
   centeredContainer:{
@@ -350,22 +374,6 @@ export const containerStyles = StyleSheet.create({
     alignItems: 'center',
   },
   baseContainer:{
-    flex: 1,
-  },
-  userTypeContainer: {
-    flexDirection: 'row',
-  },
-  checkboxContainer: {
-    flexDirection: 'row',
-  },
-  formContainer: {
-    flex: 1,
-  },
-  loginScrollContainer: {
-    flex: 1,
-    padding: theme.spacing.md,
-  },
-  logoContainer: {
     flex: 1,
   },
   headerContainer: {
@@ -900,6 +908,33 @@ export const buttonStyles = StyleSheet.create({
 // Text styles shared across the app
 export const textStyles = StyleSheet.create({
   // Heading styles
+  appName: {
+    fontSize: 32,
+    fontWeight: 'bold',
+    color: theme.colors.primary,
+  },
+  tagline: {
+    fontSize: 16,
+    color: theme.colors.textSecondary,
+  },
+  userTypeText: {
+    fontSize: 16,
+    color: theme.colors.text,
+    marginLeft: theme.spacing.sm,
+  },
+  forgotPasswordText: {
+    fontSize: 14,
+    color: theme.colors.primary,
+  },
+  footerText: {
+    fontSize: 14,
+    color: theme.colors.textSecondary,
+  },
+  signUpText: {
+    fontSize: 14,
+    color: theme.colors.primary,
+    fontWeight: 'bold',
+  },
   headerTitle:{
     fontSize: theme.typography.fontSize.lg,
   },
@@ -993,13 +1028,6 @@ export const textStyles = StyleSheet.create({
     color: theme.colors.text,
     marginBottom: theme.spacing.md,
   },
-  footerText:{
-    fontSize: theme.typography.fontSize.sm,
-  },
-  forgotPasswordText:{
-    fontSize: theme.typography.fontSize.sm,
-  },
-
   fullWidthText: {
     width: '100%',
   },
@@ -1073,22 +1101,6 @@ export const textStyles = StyleSheet.create({
     color: theme.colors.text,
     marginTop: theme.spacing.sm,
     marginBottom: theme.spacing.xs,
-  },
-
-  appName:{
-    fontSize: theme.typography.fontSize.xxl,
-  },
-
-  tagline:{
-    fontSize: theme.typography.fontSize.sm,
-  },
-
-  userTypeText:{
-    fontSize: theme.typography.fontSize.sm,
-  },
-
-  signUpText:{
-    fontSize: theme.typography.fontSize.sm,
   },
   
   // Email display

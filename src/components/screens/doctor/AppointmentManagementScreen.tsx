@@ -4,48 +4,26 @@ import { View, Text, TouchableOpacity, ScrollView, SafeAreaView } from 'react-na
 
 // Third-party imports
 import { useNavigation } from '@react-navigation/native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 // Local imports
-import { DoctorStackParamList } from '../../../types/types';
-import { theme, commonStyles, sharedStyles, textStyles } from '../../../styles/commonStyles';
-import Header from '../../common/Header';
+import { commonStyles, sharedStyles, textStyles, theme } from '../../../styles/commonStyles';
+import BackButton from '../../common/BackButton';
 
 const AppointmentManagementScreen = () => {
-  const navigation = useNavigation<NativeStackNavigationProp<DoctorStackParamList>>();
+  const navigation = useNavigation();
 
   return (
     <SafeAreaView style={commonStyles.safeArea}>
-      <Header title="Appointments" />
-      
       <ScrollView style={commonStyles.scrollView}>
+        <BackButton />
         <View style={commonStyles.contentContainer}>
-          {/* Today's Appointments */}
-          <View style={[commonStyles.sectionContainer, sharedStyles.shadow]}>
-            <Text style={commonStyles.titleText}>Today's Appointments</Text>
-            <TouchableOpacity 
-              style={[commonStyles.listItem, sharedStyles.shadow]}
-              onPress={() => navigation.navigate('AppointmentDetail', { appointmentId: '1' })}
-              accessibilityRole="button"
-              accessibilityLabel="View appointment with John Smith"
-            >
-              <View style={commonStyles.flexRow}>
-                <View style={{ flex: 1 }}>
-                  <Text style={commonStyles.bodyText}>John Smith</Text>
-                  <Text style={textStyles.smallText}>10:00 AM - General Checkup</Text>
-                </View>
-                <Icon name="video-camera" size={16} color={theme.colors.primary} />
-              </View>
-            </TouchableOpacity>
-          </View>
-
-          {/* Upcoming Appointments */}
+          {/* Appointments List */}
           <View style={[commonStyles.sectionContainer, sharedStyles.shadow]}>
             <Text style={commonStyles.titleText}>Upcoming Appointments</Text>
             <TouchableOpacity 
               style={[commonStyles.listItem, sharedStyles.shadow]}
-              onPress={() => navigation.navigate('AppointmentDetail', { appointmentId: '2' })}
+              onPress={() => {}}
               accessibilityRole="button"
               accessibilityLabel="View appointment with Sarah Johnson"
             >
