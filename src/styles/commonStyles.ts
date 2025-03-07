@@ -906,10 +906,16 @@ export const textStyles = StyleSheet.create({
   settingText:{
     fontSize: theme.typography.fontSize.md,
   },
+  label:{
+    fontSize: theme.typography.fontSize.md,
+  },
   doctorName:{
     fontSize: theme.typography.fontSize.lg,
   },
   reportDate:{
+    fontSize: theme.typography.fontSize.md,
+  },
+  input:{
     fontSize: theme.typography.fontSize.md,
   },
   reviewedText:{

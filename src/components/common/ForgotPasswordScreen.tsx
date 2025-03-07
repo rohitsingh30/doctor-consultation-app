@@ -3,11 +3,10 @@ import { View, Text, TouchableOpacity, SafeAreaView, Alert } from 'react-native'
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { AuthStackParamList } from '../../types/types';
-import { commonStyles, containerStyles, headerStyles } from '../../styles/commonStyles';
+import { commonStyles, containerStyles, headerStyles,textStyles } from '../../styles/commonStyles';
 import CustomInput from './CustomInput';
 import CustomButton from './CustomButton';
 import BackButton from './BackButton';
-import { textStyles } from 'src/styles/theme';
 
 const ForgotPasswordScreen = () => {
   const navigation = useNavigation<NativeStackNavigationProp<AuthStackParamList>>();
