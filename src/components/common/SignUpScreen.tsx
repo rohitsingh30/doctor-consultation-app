@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { AuthStackParamList } from '../../types/types';
 import { AuthContext } from '../../context/AuthContext';
-import { commonStyles } from '../../styles/commonStyles';
+import { buttonStyles, commonStyles, containerStyles, textStyles } from '../../styles/commonStyles';
 import CustomInput from './CustomInput';
 import CustomButton from './CustomButton';
 
@@ -56,13 +56,13 @@ const SignUpScreen = () => {
 
   return (
     <SafeAreaView style={commonStyles.safeArea}>
-      <ScrollView contentContainerStyle={commonStyles.loginScrollContainer}>
-        <View style={commonStyles.logoContainer}>
-          <Text style={commonStyles.appName}>Doc-X</Text>
-          <Text style={commonStyles.tagline}>Create your account</Text>
+      <ScrollView contentContainerStyle={containerStyles.loginScrollContainer}>
+        <View style={containerStyles.logoContainer}>
+          <Text style={textStyles.appName}>Doc-X</Text>
+          <Text style={textStyles.tagline}>Create your account</Text>
         </View>
 
-        <View style={commonStyles.formContainer}>
+        <View style={containerStyles.formContainer}>
           <CustomInput
             label="Full Name"
             placeholder="Enter your full name"
@@ -99,14 +99,14 @@ const SignUpScreen = () => {
           />
 
           <TouchableOpacity 
-            style={commonStyles.userTypeContainer}
+            style={containerStyles.userTypeContainer}
             onPress={() => setIsDoctor(!isDoctor)}
           >
-            <View style={commonStyles.checkboxContainer}>
-              <View style={[commonStyles.checkbox, isDoctor && commonStyles.checkboxChecked]}>
-                {isDoctor && <View style={commonStyles.checkboxInner} />}
+            <View style={containerStyles.checkboxContainer}>
+              <View style={[containerStyles.checkbox, isDoctor && containerStyles.checkboxChecked]}>
+                {isDoctor && <View style={containerStyles.checkboxInner} />}
               </View>
-              <Text style={commonStyles.userTypeText}>Register as Doctor</Text>
+              <Text style={textStyles.userTypeText}>Register as Doctor</Text>
             </View>
           </TouchableOpacity>
 
@@ -114,14 +114,14 @@ const SignUpScreen = () => {
             title="Sign Up"
             onPress={handleSignUp}
             isLoading={isLoading}
-            style={commonStyles.loginButton}
+            style={buttonStyles.loginButton}
           />
         </View>
 
-        <View style={commonStyles.footer}>
-          <Text style={commonStyles.footerText}>Already have an account?</Text>
+        <View style={containerStyles.footer}>
+          <Text style={textStyles.footerText}>Already have an account?</Text>
           <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-            <Text style={commonStyles.signUpText}>Login</Text>
+            <Text style={textStyles.signUpText}>Login</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>

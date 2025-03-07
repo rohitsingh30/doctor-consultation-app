@@ -4,10 +4,10 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { AuthStackParamList } from '../../types/types';
 import { AuthContext } from '../../context/AuthContext';
-import { buttonStyles, commonStyles, containerStyles, sharedStyles, viewStyles } from '../../styles/commonStyles';
+import { buttonStyles, commonStyles, containerStyles, sharedStyles } from '../../styles/commonStyles';
 import CustomInput from './CustomInput';
 import CustomButton from './CustomButton';
-import { textStyles } from 'src/styles/theme';
+import { textStyles } from 'src/styles/commonStyles';
 
 const LoginScreen = () => {
   const navigation = useNavigation<NativeStackNavigationProp<AuthStackParamList>>();
@@ -44,7 +44,7 @@ const LoginScreen = () => {
   };
 
   return (
-    <SafeAreaView style={sharedStyles.safeArea}>
+    <SafeAreaView style={containerStyles.safeArea}>
       <ScrollView contentContainerStyle={containerStyles.loginScrollContainer}>
         <View style={containerStyles.logoContainer}>
           <Text style={textStyles.appName}>Doc-X</Text>

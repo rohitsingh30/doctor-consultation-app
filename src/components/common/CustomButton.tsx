@@ -1,6 +1,6 @@
 import React from 'react';
 import { TouchableOpacity, Text, ActivityIndicator, StyleProp, ViewStyle, TextStyle } from 'react-native';
-import { commonStyles, textStyles, theme } from '../../styles/commonStyles';
+import { buttonStyles, commonStyles, theme } from '../../styles/commonStyles';
 
 interface CustomButtonProps {
   title: string;
@@ -29,14 +29,14 @@ const CustomButton: React.FC<CustomButtonProps> = ({
 
   const getTextStyle = () => {
     if (variant === 'primary') return commonStyles.primaryButtonText;
-    return textStyles.secondaryButtonText;
+    return buttonStyles.secondaryButtonText;
   };
 
   return (
     <TouchableOpacity
       style={[
         getButtonStyle(),
-        disabled || isLoading ? commonStyles.disabledButton : null,
+        disabled || isLoading ? buttonStyles.disabledButton : null,
         style,
       ]}
       onPress={onPress}

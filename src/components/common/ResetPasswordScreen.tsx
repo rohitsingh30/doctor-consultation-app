@@ -4,7 +4,7 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RouteProp } from '@react-navigation/native';
 import { AuthStackParamList } from '../../types/types';
-import { commonStyles } from '../../styles/commonStyles';
+import { commonStyles, containerStyles,textStyles } from '../../styles/commonStyles';
 import CustomInput from './CustomInput';
 import CustomButton from './CustomButton';
 import BackButton from './BackButton';
@@ -56,9 +56,9 @@ const ResetPasswordScreen = () => {
 
   return (
     <SafeAreaView style={commonStyles.safeArea}>
-      <View style={commonStyles.headerContainer}>
+      <View style={containerStyles.headerContainer}>
         <BackButton />
-        <Text style={commonStyles.headerTitle}>Create New Password</Text>
+        <Text style={textStyles.headerTitle}>Create New Password</Text>
         <View style={{ width: 40 }} />
       </View>
       

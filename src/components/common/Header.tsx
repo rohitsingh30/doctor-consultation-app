@@ -44,7 +44,7 @@ const Header: React.FC<HeaderProps> = ({
         {title}
       </Text>
       
-      <View style={commonStyles.headerRight}>
+      <View style={headerStyles.headerRight}>
         {rightComponent}
       </View>
     </View>

@@ -279,6 +279,54 @@ export const containerStyles = StyleSheet.create({
   chatContent: {
     flex: 1,
   },
+  slotGrid:{
+    flexDirection: 'row',
+  },
+  slotPickerContainer: {
+    flex: 1,
+    padding: theme.spacing.md,
+  },
+  statusBarIconsContainer:{
+    flexDirection: 'row',
+  },
+  statusBarContainer:{
+    height: 40,
+  },
+  statusBarTime:{
+    
+  },
+  footer:{
+    flexDirection: 'row',
+  },
+  checkboxChecked:{
+    backgroundColor: theme.colors.primary,
+  },
+  checkboxInner:{
+    backgroundColor: theme.colors.primary,
+  },
+  checkbox:{
+    marginRight: theme.spacing.sm,
+  },
+  centeredContent:{
+    flex: 1,
+  },
+  safeArea:{
+    flex: 1,
+  },
+  navBarContainer:{
+    flexDirection: 'row',
+  },
+  navTabItem:{
+    flex: 1,
+  },
+  forgotPasswordContainer:{
+    flex: 1,
+  },
+  centeredContainer:{
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   baseContainer:{
     flex: 1,
   },
@@ -402,6 +450,9 @@ export const headerStyles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: theme.spacing.md,
+  },
+  headerRight:{
+    flexDirection: 'row',
   },
   container: {
     flexDirection: 'row',
@@ -654,6 +705,13 @@ export const buttonStyles = StyleSheet.create({
     paddingHorizontal: theme.spacing.md,
   },
 
+  selectedSlotButton:{
+    backgroundColor: theme.colors.secondary,
+  },
+
+  slotButton:{
+    paddingVertical: theme.spacing.sm,
+  },
   button: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -804,11 +862,59 @@ export const buttonStyles = StyleSheet.create({
 // Text styles shared across the app
 export const textStyles = StyleSheet.create({
   // Heading styles
+  headerTitle:{
+    fontSize: theme.typography.fontSize.lg,
+  },
+  selectedSlotText:{
+    fontSize: theme.typography.fontSize.sm,
+  },
+  slotText:{
+    fontSize: theme.typography.fontSize.sm,
+  },
+  slotPickerTitle:{
+    fontSize: theme.typography.fontSize.lg,
+  },
+  statusBarTime:{
+    fontSize: theme.typography.fontSize.sm,
+  },
+  navTabLabel:{
+    fontSize: theme.typography.fontSize.sm,
+  },
+  activeNavTabLabel:{
+    fontSize: theme.typography.fontSize.sm,
+  },
   h1: {
     fontSize: theme.typography.fontSize.xxl,
     fontWeight: 'bold' as FontWeight,
     color: theme.colors.text,
     marginBottom: theme.spacing.md,
+  },
+  footerText:{
+    fontSize: theme.typography.fontSize.sm,
+  },
+  forgotPasswordText:{
+    fontSize: theme.typography.fontSize.sm,
+  },
+
+  fullWidthText: {
+    width: '100%',
+  },
+
+  text:{
+    fontSize: theme.typography.fontSize.md,
+  },
+
+  disabledText: {
+    color: theme.colors.textTertiary,
+  },
+
+  outlineText: {
+    color: theme.colors.primary,
+    borderWidth: 1,
+    borderColor: theme.colors.primary,
+    paddingVertical: theme.spacing.sm,
+    paddingHorizontal: theme.spacing.md,
+    borderRadius: theme.borderRadius.sm,
   },
   
   h2: {
@@ -844,6 +950,17 @@ export const textStyles = StyleSheet.create({
     color: theme.colors.text,
     marginBottom: theme.spacing.sm,
   },
+
+  buttonText: {
+    fontSize: theme.typography.fontSize.md,
+    fontWeight: 'bold' as FontWeight,
+    color: theme.colors.textInverted,
+  },
+
+  secondaryText: {
+    fontSize: theme.typography.fontSize.sm,
+    color: theme.colors.textSecondary,
+  },
   
   // Name display
   name: {
@@ -852,6 +969,22 @@ export const textStyles = StyleSheet.create({
     color: theme.colors.text,
     marginTop: theme.spacing.sm,
     marginBottom: theme.spacing.xs,
+  },
+
+  appName:{
+    fontSize: theme.typography.fontSize.xxl,
+  },
+
+  tagline:{
+    fontSize: theme.typography.fontSize.sm,
+  },
+
+  userTypeText:{
+    fontSize: theme.typography.fontSize.sm,
+  },
+
+  signUpText:{
+    fontSize: theme.typography.fontSize.sm,
   },
   
   // Email display

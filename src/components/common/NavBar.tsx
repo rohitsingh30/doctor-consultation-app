@@ -2,7 +2,7 @@ import React, { useState, useCallback } from 'react';
 import { View, TouchableOpacity, Text } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faHome, faSearch, faCalendarCheck, faUser } from '@fortawesome/free-solid-svg-icons';
-import { commonStyles } from '../../styles/commonStyles';
+import { commonStyles, containerStyles,textStyles } from '../../styles/commonStyles';
 import { theme } from '../../styles/theme';
 type TabName = 'home' | 'search' | 'appointments' | 'profile';
 
@@ -21,7 +21,7 @@ const NavBar: React.FC<NavBarProps> = ({ onTabChange, initialTab = 'home' }) => 
   
   const renderTab = useCallback((tabName: TabName, icon: any, label: string) => (
     <TouchableOpacity 
-      style={commonStyles.navTabItem} 
+      style={containerStyles.navTabItem} 
       onPress={() => handleTabPress(tabName)}
       activeOpacity={0.7}
       accessibilityRole="tab"
@@ -34,15 +34,15 @@ const NavBar: React.FC<NavBarProps> = ({ onTabChange, initialTab = 'home' }) => 
         color={activeTab === tabName ? theme.colors.primary : theme.colors.textTertiary} 
       />
       <Text style={[
-        commonStyles.navTabLabel,
-        activeTab === tabName && commonStyles.activeNavTabLabel
+        textStyles.navTabLabel,
+        activeTab === tabName && textStyles.activeNavTabLabel
       ]}>{label}</Text>
     </TouchableOpacity>
   ), [activeTab, handleTabPress]);
 
   return (
     <View 
-      style={commonStyles.navBarContainer}
+      style={containerStyles.navBarContainer}
       accessibilityRole="tablist"
       accessible={true}
     >

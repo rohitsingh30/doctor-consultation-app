@@ -1,10 +1,10 @@
 import React from 'react';
 import { View, ActivityIndicator } from 'react-native';
-import { commonStyles, theme } from '../../styles/commonStyles';
+import { commonStyles, containerStyles, theme } from '../../styles/commonStyles';
 
 const LoadingScreen = () => {
   return (
-    <View style={commonStyles.centeredContent}>
+    <View style={containerStyles.centeredContainer}>
       <ActivityIndicator size="large" color={theme.colors.primary} />
     </View>
   );

@@ -1,7 +1,7 @@
 import React from 'react';
 import { TouchableOpacity, Text, StyleSheet, ActivityIndicator, ViewStyle, TextStyle } from 'react-native';
 import { theme } from '../../styles/theme';
-import { buttonStyles, commonStyles } from 'src/styles/commonStyles';
+import { buttonStyles, commonStyles,textStyles } from 'src/styles/commonStyles';
 
 type ButtonVariant = 'primary' | 'secondary' | 'outline';
 
@@ -46,20 +46,20 @@ const Button: React.FC<ButtonProps> = ({
       case 'primary':
         return commonStyles.primaryText;
       case 'secondary':
-        return textStyle.secondaryText;
+        return textStyles.secondaryText;
       case 'outline':
-        return textStyle.outlineText;
+        return textStyles.outlineText;
       default:
-        return textStyle.primaryText;
+        return commonStyles.primaryText;
     }
   };
 
   return (
     <TouchableOpacity
       style={[
-        styles.button,
+        buttonStyles.button,
         getButtonStyle(),
-        fullWidth && styles.fullWidth,
+        fullWidth && textStyles.fullWidthText,
         disabled && buttonStyles.disabledButton,
         style,
       ]}
@@ -77,9 +77,9 @@ const Button: React.FC<ButtonProps> = ({
           {icon && icon}
           <Text 
             style={[
-                textStyle.text, 
+                textStyles.text, 
               getTextStyle(), 
-              disabled && textStyle.disabledText,
+              disabled && textStyles.disabledText,
               icon ? { marginLeft: theme.spacing.xs } : null,
               textStyle
             ]}
