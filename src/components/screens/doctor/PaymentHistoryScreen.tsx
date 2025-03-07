@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, ActivityIndicator } from 'react-native';
 import { fetchPaymentHistory,PaymentHistoryItem } from '../../../services/api';
-import { colors, spacing, commonStyles } from '../../../styles/commonStyles';
+import { commonStyles, containerStyles, textStyles, theme } from '../../../styles/commonStyles';
 import Header from '../../common/Header';
 
 const PaymentHistoryScreen = () => {
@@ -27,16 +27,16 @@ const PaymentHistoryScreen = () => {
 
   if (loading) {
     return (
-      <View style={commonStyles.centeredContent}>
-        <ActivityIndicator size="large" color={colors.primary} />
+      <View style={containerStyles.centeredContent}>
+        <ActivityIndicator size="large" color={theme.colors.primary} />
       </View>
     );
   }
 
   if (error) {
     return (
-      <View style={commonStyles.centeredContent}>
-        <Text style={commonStyles.errorText}>{error}</Text>
+      <View style={containerStyles.centeredContent}>
+        <Text style={textStyles.errorText}>{error}</Text>
       </View>
     );
   }

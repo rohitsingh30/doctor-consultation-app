@@ -51,6 +51,19 @@ const shadows = {
 
 // Core styles - fundamental building blocks
 export const commonStyles = StyleSheet.create({
+  rootContainer: {
+    flex: 1,
+    backgroundColor: theme.colors.background,
+  },
+  listItem:{
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: theme.spacing.md,
+    backgroundColor: theme.colors.surface,
+    borderRadius: theme.borderRadius.sm,
+    marginBottom: theme.spacing.sm,
+    ...shadows.sm,
+  },
   // Layout styles
   container: {
     flex: 1,
@@ -278,6 +291,15 @@ export const sharedStyles = {
 export const containerStyles = StyleSheet.create({
   chatContent: {
     flex: 1,
+  },
+  settingItem:{
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: theme.spacing.md,
+    backgroundColor: theme.colors.surface,
+    borderRadius: theme.borderRadius.sm,
+    marginBottom: theme.spacing.sm,
+    ...sharedStyles.shadow,
   },
   slotGrid:{
     flexDirection: 'row',
@@ -705,6 +727,22 @@ export const buttonStyles = StyleSheet.create({
     paddingHorizontal: theme.spacing.md,
   },
 
+  profileButton:{
+    backgroundColor: theme.colors.primary,
+    paddingVertical: theme.spacing.sm,
+    paddingHorizontal: theme.spacing.md,
+    borderRadius: theme.borderRadius.sm,
+    marginRight: theme.spacing.sm,
+  },
+
+  suggestionButton:{
+    backgroundColor: theme.colors.primaryLight,
+    paddingVertical: theme.spacing.sm,
+    paddingHorizontal: theme.spacing.md,
+    borderRadius: theme.borderRadius.sm,
+    marginRight: theme.spacing.sm,
+  },
+
   selectedSlotButton:{
     backgroundColor: theme.colors.secondary,
   },
@@ -865,6 +903,66 @@ export const textStyles = StyleSheet.create({
   headerTitle:{
     fontSize: theme.typography.fontSize.lg,
   },
+  settingText:{
+    fontSize: theme.typography.fontSize.md,
+  },
+  doctorName:{
+    fontSize: theme.typography.fontSize.lg,
+  },
+  reportDate:{
+    fontSize: theme.typography.fontSize.md,
+  },
+  reviewedText:{
+    fontSize: theme.typography.fontSize.md,
+  },
+  pendingText:{
+    fontSize: theme.typography.fontSize.md,
+  },
+  statusText:{
+    fontSize: theme.typography.fontSize.md,
+  },
+  reportTitle:{
+    fontSize: theme.typography.fontSize.lg,
+  },
+  noDataText:{
+    fontSize: theme.typography.fontSize.md,
+    color: theme.colors.textTertiary,
+  },
+  appointmentSpecialty:{
+    fontSize: theme.typography.fontSize.md,
+  },
+  appointmentDateTime:{
+    fontSize: theme.typography.fontSize.md,
+  },
+  bookAppointmentText:{
+    fontSize: theme.typography.fontSize.md,
+  },
+  actionText:{
+    fontSize: theme.typography.fontSize.md,
+  },
+  viewAllText:{
+    fontSize: theme.typography.fontSize.sm,
+    color: theme.colors.primary,
+  },
+  smallText:{
+    fontSize: theme.typography.fontSize.sm,
+  },
+  rating:{
+    fontSize: theme.typography.fontSize.sm,
+  },
+  titleText:{
+    fontSize: theme.typography.fontSize.xl,
+  },
+  errorText:{
+    fontSize: theme.typography.fontSize.sm,
+    color: theme.colors.error,
+  },
+  experience:{
+    fontSize: theme.typography.fontSize.sm,
+  },
+  description:{
+    fontSize: theme.typography.fontSize.sm,
+  },
   selectedSlotText:{
     fontSize: theme.typography.fontSize.sm,
   },
@@ -1007,9 +1105,4 @@ export const textStyles = StyleSheet.create({
     color: theme.colors.textTertiary,
   },
   
-  // Small text
-  smallText: {
-    fontSize: theme.typography.fontSize.sm,
-    color: theme.colors.textSecondary,
-  },
 });

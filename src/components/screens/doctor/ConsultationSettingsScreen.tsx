@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, ScrollView, Switch, TouchableOpacity, ActivityIndicator, SafeAreaView } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { colors, spacing, commonStyles } from '../../../styles/commonStyles';
+import { commonStyles, containerStyles } from '../../../styles/commonStyles';
 import Header from '../../common/Header';
+import { theme } from '../../../styles/theme'
 
 interface ConsultationSettings {
   allowInstantConsultation: boolean;
@@ -67,8 +68,8 @@ const ConsultationSettingsScreen = () => {
     return (
       <SafeAreaView style={commonStyles.safeArea}>
         <Header title="Consultation Settings" />
-        <View style={commonStyles.centeredContent}>
-          <ActivityIndicator size="large" color={colors.primary} />
+        <View style={containerStyles.centeredContent}>
+          <ActivityIndicator size="large" color={theme.colors.primary} />
         </View>
       </SafeAreaView>
     );
@@ -78,8 +79,8 @@ const ConsultationSettingsScreen = () => {
     return (
       <SafeAreaView style={commonStyles.safeArea}>
         <Header title="Consultation Settings" />
-        <View style={commonStyles.centeredContent}>
-          <Text style={[commonStyles.bodyText, { marginBottom: spacing.medium }]}>{error}</Text>
+        <View style={containerStyles.centeredContent}>
+          <Text style={[commonStyles.bodyText, { marginBottom: theme.spacing.md }]}>{error}</Text>
           <TouchableOpacity 
             style={commonStyles.primaryButton}
             onPress={loadSettings}
@@ -95,16 +96,16 @@ const ConsultationSettingsScreen = () => {
     <SafeAreaView style={commonStyles.safeArea}>
       <Header title="Consultation Settings" />
       <ScrollView style={commonStyles.container}>
-        <View style={{ padding: spacing.medium }}>
+        <View style={{ padding: theme.spacing.md }}>
           <View style={commonStyles.sectionContainer}>
-            <Text style={[commonStyles.titleText, { marginBottom: spacing.medium }]}>Consultation Preferences</Text>
+            <Text style={[commonStyles.titleText, { marginBottom: theme.spacing.md }]}>Consultation Preferences</Text>
             
             <View style={[commonStyles.listItem, { alignItems: 'center' }]}>
               <Text style={commonStyles.bodyText}>Allow Instant Consultation</Text>
               <Switch
                 value={settings.allowInstantConsultation}
                 onValueChange={() => toggleSetting('allowInstantConsultation')}
-                trackColor={{ false: colors.disabled, true: colors.primary }}
+                trackColor={{ false: theme.colors.disabled, true: theme.colors.primary }}
               />
             </View>
 
@@ -113,7 +114,7 @@ const ConsultationSettingsScreen = () => {
               <Switch
                 value={settings.availableForConsultation}
                 onValueChange={() => toggleSetting('availableForConsultation')}
-                trackColor={{ false: colors.disabled, true: colors.primary }}
+                trackColor={{ false: theme.colors.disabled, true: theme.colors.primary }}
               />
             </View>
 
@@ -122,14 +123,14 @@ const ConsultationSettingsScreen = () => {
               <Switch
                 value={settings.autoAcceptBookings}
                 onValueChange={() => toggleSetting('autoAcceptBookings')}
-                trackColor={{ false: colors.disabled, true: colors.primary }}
+                trackColor={{ false: theme.colors.disabled, true: theme.colors.primary }}
               />
             </View>
           </View>
           
           {/* Save Button */}
           <TouchableOpacity 
-            style={[commonStyles.primaryButton, { marginTop: spacing.large }]}
+            style={[commonStyles.primaryButton, { marginTop: theme.spacing.lg }]}
           >
             <Text style={commonStyles.primaryButtonText}>Save Changes</Text>
           </TouchableOpacity>

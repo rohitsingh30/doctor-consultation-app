@@ -5,7 +5,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RouteProp } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { RootStackParamList } from '../../../types/types';
-import { theme, commonStyles } from '../../../styles/commonStyles';
+import { theme, commonStyles, sharedStyles, textStyles, headerStyles, buttonStyles, avatarStyles } from '../../../styles/commonStyles';
 
 type ReportDetailScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'ReportDetail'>;
 type ReportDetailScreenRouteProp = RouteProp<RootStackParamList, 'ReportDetail'>;
@@ -67,25 +67,25 @@ const ReportDetailScreen = () => {
         )}
         
         {/* Header with back button */}
-        <View style={[commonStyles.header, commonStyles.flexRow]}>
+        <View style={[headerStyles.header, commonStyles.flexRow]}>
           <TouchableOpacity 
-            style={commonStyles.backButton}
+            style={buttonStyles.backButton}
             onPress={() => navigation.goBack()}
             accessibilityLabel="Go back"
             accessibilityRole="button"
           >
             <Icon name="arrow-left" size={20} color={theme.colors.primary} />
           </TouchableOpacity>
-          <Text style={commonStyles.headerTitle}>Hypertension Report</Text>
-          <View style={commonStyles.headerRight} />
+          <Text style={textStyles.headerTitle}>Hypertension Report</Text>
+          <View style={headerStyles.headerRight} />
         </View>
 
         {/* Patient Info */}
-        <View style={[commonStyles.sectionContainer, commonStyles.shadow]}>
+        <View style={[commonStyles.sectionContainer, sharedStyles.shadow]}>
           <View style={commonStyles.flexRow}>
             <Image
               source={{ uri: 'https://storage.googleapis.com/a1aa/image/6fyF3y0DLyaItEtWXJM-T9OeAvtRk_oFrwowidQFvl0.jpg' }}
-              style={commonStyles.profileImage}
+              style={avatarStyles.image}
               accessibilityLabel="Patient profile picture"
             />
             <View style={{ flex: 1, marginLeft: theme.spacing.md }}>
@@ -101,17 +101,17 @@ const ReportDetailScreen = () => {
         </View>
 
         {/* Report Sections */}
-        <View style={[commonStyles.sectionContainer, commonStyles.shadow]}>
+        <View style={[commonStyles.sectionContainer, sharedStyles.shadow]}>
           <Text style={[commonStyles.bodyText, { color: theme.colors.primary, fontWeight: '600' }]}>Main Diagnosis</Text>
           <Text style={commonStyles.bodyText}>Hypertension, High Risk</Text>
         </View>
 
-        <View style={[commonStyles.sectionContainer, commonStyles.shadow]}>
+        <View style={[commonStyles.sectionContainer, sharedStyles.shadow]}>
           <Text style={[commonStyles.bodyText, { color: theme.colors.primary, fontWeight: '600' }]}>Medication</Text>
           <Text style={commonStyles.bodyText}>Lisinopril 10mg daily</Text>
         </View>
 
-        <View style={[commonStyles.sectionContainer, commonStyles.shadow]}>
+        <View style={[commonStyles.sectionContainer, sharedStyles.shadow]}>
           <Text style={[commonStyles.bodyText, { color: theme.colors.primary, fontWeight: '600' }]}>Test Suggested</Text>
           <Text style={commonStyles.bodyText}>Blood Pressure Monitoring, Blood Test</Text>
         </View>

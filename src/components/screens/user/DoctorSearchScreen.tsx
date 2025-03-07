@@ -4,8 +4,9 @@ import Header from '../../common/Header';
 import Button from '../../common/CustomButton';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../../../types/types';
-import { colors, spacing, commonStyles } from '../../../styles/commonStyles';
+import { Doctor, RootStackParamList } from '../../../types/types';
+import { commonStyles, sharedStyles } from '../../../styles/commonStyles';
+import {theme} from '../../../styles/theme';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const doctors = [
@@ -56,11 +57,11 @@ const DoctorSearchScreen = () => {
       <Header title="Find a Doctor" />
 
       <View style={styles.searchContainer}>
-        <Icon name="search" size={20} color={colors.textTertiary} style={styles.searchIcon} />
+        <Icon name="search" size={20} color={theme.colors.textTertiary} style={styles.searchIcon} />
         <TextInput
           style={styles.searchInput}
           placeholder="Search by name or specialty"
-          placeholderTextColor={colors.textTertiary}
+          placeholderTextColor={theme.colors.textTertiary}
           value={searchQuery}
           onChangeText={setSearchQuery}
         />
@@ -91,8 +92,8 @@ const DoctorSearchScreen = () => {
         renderItem={({ item }) => (
           <TouchableOpacity
             style={styles.doctorCard}
-            onPress={() => navigation.navigate('AppointmentBooking', { doctor: item })}
-          >
+            onPress={() => navigation.navigate('AppointmentBooking', { doctor: item as unknown as Doctor })} 
+            >
             <Image 
               source={{ uri: item.avatar }} 
               style={styles.doctorAvatar} 
@@ -111,7 +112,7 @@ const DoctorSearchScreen = () => {
             <Button 
               title="Book" 
               variant="primary" 
-              onPress={() => navigation.navigate('AppointmentBooking', { doctor: item })} 
+              onPress={() => navigation.navigate('AppointmentBooking', { doctor: item as unknown as Doctor })} 
               style={styles.bookButton}
               textStyle={styles.bookButtonText}
             />
@@ -119,7 +120,7 @@ const DoctorSearchScreen = () => {
         )}
         ListEmptyComponent={
           <View style={styles.emptyContainer}>
-            <Icon name="search-off" size={64} color={colors.textTertiary} />
+            <Icon name="search-off" size={64} color={theme.colors.textTertiary} />
             <Text style={styles.emptyText}>No doctors found</Text>
             <Text style={styles.emptySubtext}>Try adjusting your search</Text>
           </View>
@@ -133,64 +134,64 @@ const styles = StyleSheet.create({
   searchContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: colors.card,
+    backgroundColor: theme.colors.card,
     borderRadius: 8,
-    marginHorizontal: spacing.medium,
-    marginVertical: spacing.medium,
-    paddingHorizontal: spacing.medium,
-    ...commonStyles.shadow,
+    marginHorizontal: theme.spacing.md,
+    marginVertical: theme.spacing.md,
+    paddingHorizontal: theme.spacing.md,
+    ...sharedStyles.shadow,
   },
   searchIcon: {
-    marginRight: spacing.small,
+    marginRight: theme.spacing.sm,
   },
   searchInput: {
     flex: 1,
     height: 50,
-    color: colors.text,
+    color: theme.colors.text,
     fontSize: 16,
   },
   filterContainer: {
-    marginHorizontal: spacing.medium,
-    marginBottom: spacing.medium,
+    marginHorizontal: theme.spacing.md,
+    marginBottom: theme.spacing.md,
   },
   filterLabel: {
     fontSize: 14,
     fontWeight: '500',
-    color: colors.textSecondary,
-    marginBottom: spacing.xs,
+    color: theme.colors.textSecondary,
+    marginBottom: theme.spacing.xs,
   },
   filterScroll: {
     flexDirection: 'row',
   },
   filterChip: {
-    paddingHorizontal: spacing.medium,
-    paddingVertical: spacing.xs,
-    backgroundColor: colors.primaryLight,
+    paddingHorizontal: theme.spacing.md,
+    paddingVertical: theme.spacing.xs,
+    backgroundColor: theme.colors.primaryLight,
     borderRadius: 20,
-    marginRight: spacing.small,
+    marginRight: theme.spacing.sm,
   },
   filterChipText: {
-    color: colors.primary,
+    color: theme.colors.primary,
     fontSize: 14,
     fontWeight: '500',
   },
   listContainer: {
-    padding: spacing.medium,
+    padding: theme.spacing.md,
   },
   doctorCard: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: colors.surface,
+    backgroundColor: theme.colors.surface,
     borderRadius: 8,
-    padding: spacing.medium,
-    marginBottom: spacing.medium,
-    ...commonStyles.shadow,
+    padding: theme.spacing.md,
+    marginBottom: theme.spacing.md,
+    ...sharedStyles.shadow,
   },
   doctorAvatar: {
     width: 60,
     height: 60,
     borderRadius: 30,
-    marginRight: spacing.medium,
+    marginRight: theme.spacing.md,
   },
   doctorInfo: {
     flex: 1,
@@ -198,13 +199,13 @@ const styles = StyleSheet.create({
   doctorName: {
     fontSize: 16,
     fontWeight: '600',
-    color: colors.text,
-    marginBottom: spacing.xxs,
+    color: theme.colors.text,
+    marginBottom: theme.spacing.xxs,
   },
   doctorSpecialty: {
     fontSize: 14,
-    color: colors.textSecondary,
-    marginBottom: spacing.xs,
+    color: theme.colors.textSecondary,
+    marginBottom: theme.spacing.xs,
   },
   doctorMeta: {
     flexDirection: 'row',
@@ -213,20 +214,20 @@ const styles = StyleSheet.create({
   ratingContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginRight: spacing.medium,
+    marginRight: theme.spacing.md,
   },
   ratingText: {
     fontSize: 14,
-    color: colors.textSecondary,
-    marginLeft: spacing.xxs,
+    color: theme.colors.textSecondary,
+    marginLeft: theme.spacing.xxs,
   },
   experienceText: {
     fontSize: 14,
-    color: colors.textSecondary,
+    color: theme.colors.textSecondary,
   },
   bookButton: {
-    paddingVertical: spacing.xs,
-    paddingHorizontal: spacing.small,
+    paddingVertical: theme.spacing.xs,
+    paddingHorizontal: theme.spacing.sm,
     height: 36,
     minHeight: 0,
   },
@@ -236,18 +237,18 @@ const styles = StyleSheet.create({
   emptyContainer: {
     alignItems: 'center',
     justifyContent: 'center',
-    padding: spacing.xl,
+    padding: theme.spacing.xl,
   },
   emptyText: {
     fontSize: 18,
     fontWeight: '500',
-    color: colors.textSecondary,
-    marginTop: spacing.medium,
+    color: theme.colors.textSecondary,
+    marginTop: theme.spacing.md,
   },
   emptySubtext: {
     fontSize: 16,
-    color: colors.textTertiary,
-    marginTop: spacing.xs,
+    color: theme.colors.textTertiary,
+    marginTop: theme.spacing.xs,
   },
 });
 

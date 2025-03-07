@@ -10,9 +10,8 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 // Local imports
 import { DoctorStackParamList } from '../../../types/types';
 import { AuthContext } from '../../../context/AuthContext';
-import { theme, commonStyles, sharedStyles, buttonStyles } from '../../../styles/commonStyles';
+import { theme, commonStyles, sharedStyles, buttonStyles,textStyles } from '../../../styles/commonStyles';
 import Header from '../../common/Header';
-import { textStyles } from 'src/styles/theme';
 
 const DoctorDashboardScreen = () => {
   const navigation = useNavigation<NativeStackNavigationProp<DoctorStackParamList>>();

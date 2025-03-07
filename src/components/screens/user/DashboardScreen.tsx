@@ -10,7 +10,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 // Local imports
 import { HealthReport, UserStackParamList } from '../../../types/types';
 import { AuthContext } from '../../../context/AuthContext';
-import { commonStyles,profileImage,dashBoardStyle,buttonStyles, containerStyles, headerStyles, sharedStyles, textStyles, cardStyles, appointmentCard, badgeStyles } from '../../../styles/commonStyles';
+import { commonStyles,avatarStyles,dashBoardStyle,buttonStyles, containerStyles, headerStyles, sharedStyles, textStyles, cardStyles, appointmentCard, badgeStyles } from '../../../styles/commonStyles';
 import { theme } from '../../../styles/theme';
 
 const DashboardScreen = () => {
@@ -62,11 +62,11 @@ const DashboardScreen = () => {
           onPress={() => navigation.navigate('Profile')}
           accessibilityRole="button"
           accessibilityLabel="View Profile"
-          style={[commonStyles.profileButton, sharedStyles.shadow]}
+          style={[buttonStyles.profileButton, sharedStyles.shadow]}
         >
           <Image
             source={{ uri: 'https://randomuser.me/api/portraits/men/32.jpg' }}
-            style={[profileImage, { borderColor: theme.colors.border }]}
+            style={[avatarStyles.image, { borderColor: theme.colors.border }]}
             accessibilityRole="image"
             accessibilityLabel="Profile picture"
           />

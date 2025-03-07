@@ -9,7 +9,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 // Local imports
 import { DoctorStackParamList } from '../../../types/types';
-import { theme, commonStyles, sharedStyles } from '../../../styles/commonStyles';
+import { theme, commonStyles, sharedStyles, textStyles } from '../../../styles/commonStyles';
 import Header from '../../common/Header';
 
 const AppointmentManagementScreen = () => {
@@ -33,7 +33,7 @@ const AppointmentManagementScreen = () => {
               <View style={commonStyles.flexRow}>
                 <View style={{ flex: 1 }}>
                   <Text style={commonStyles.bodyText}>John Smith</Text>
-                  <Text style={commonStyles.smallText}>10:00 AM - General Checkup</Text>
+                  <Text style={textStyles.smallText}>10:00 AM - General Checkup</Text>
                 </View>
                 <Icon name="video-camera" size={16} color={theme.colors.primary} />
               </View>
@@ -52,7 +52,7 @@ const AppointmentManagementScreen = () => {
               <View style={commonStyles.flexRow}>
                 <View style={{ flex: 1 }}>
                   <Text style={commonStyles.bodyText}>Sarah Johnson</Text>
-                  <Text style={commonStyles.smallText}>Tomorrow, 2:30 PM - Follow-up</Text>
+                  <Text style={textStyles.smallText}>Tomorrow, 2:30 PM - Follow-up</Text>
                 </View>
                 <Icon name="calendar" size={16} color={theme.colors.primary} />
               </View>

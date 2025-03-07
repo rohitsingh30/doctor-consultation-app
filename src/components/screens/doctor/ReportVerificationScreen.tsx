@@ -9,7 +9,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 // Local imports
 import { DoctorStackParamList } from '../../../types/types';
-import { theme, commonStyles, sharedStyles } from '../../../styles/commonStyles';
+import { theme, commonStyles, sharedStyles, textStyles } from '../../../styles/commonStyles';
 import Header from '../../common/Header';
 
 type Report = {
@@ -55,7 +55,7 @@ const ReportVerificationScreen = () => {
                 <View style={commonStyles.flexRow}>
                   <View style={{ flex: 1 }}>
                     <Text style={commonStyles.bodyText}>{report.patientName}</Text>
-                    <Text style={commonStyles.smallText}>{report.reportType}</Text>
+                    <Text style={textStyles.smallText}>{report.reportType}</Text>
                   </View>
                   <Icon name="chevron-right" size={16} color={theme.colors.primary} />
                 </View>
@@ -77,7 +77,7 @@ const ReportVerificationScreen = () => {
                 <View style={commonStyles.flexRow}>
                   <View style={{ flex: 1 }}>
                     <Text style={commonStyles.bodyText}>{report.patientName}</Text>
-                    <Text style={commonStyles.smallText}>{report.reportType}</Text>
+                    <Text style={textStyles.smallText}>{report.reportType}</Text>
                   </View>
                   <Icon name="check-circle" size={16} color={theme.colors.success} />
                 </View>

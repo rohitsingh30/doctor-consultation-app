@@ -1,26 +1,24 @@
 import React from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
-import { avatarStyles, textStyles, buttonStyles, headerStyles, containerStyles, commonStyles } from '../../../styles/commonStyles';
+import { View, Text, Image, TouchableOpacity } from 'react-native';
+import { avatarStyles as styles, textStyles,buttonStyles,headerStyles,containerStyles } from '../../../styles/commonStyles';
 
 const ProfileScreen = () => {
   return (
-    <View style={commonStyles.container}>
+    <View style={styles.container}>
       <View style={headerStyles.profileHeader}>
         <Image 
           source={{ uri: 'https://example.com/user.jpg' }}
-          style={[avatarStyles.image, styles.profileImage]}
+          style={styles.image}
         />
-        <Text style={[textStyles.titleText, styles.nameText]}>John Doe</Text>
-        <Text style={textStyles.bodyText}>john.doe@example.com</Text>
+        <Text style={textStyles.name}>John Doe</Text>
+        <Text style={textStyles.email}>john.doe@example.com</Text>
       </View>
       <View style={containerStyles.sectionContainer}>
-        <Text style={textStyles.titleText}>Personal Information</Text>
-        <View style={styles.infoContainer}>
-          <Text style={textStyles.bodyText}>Add your personal information here</Text>
-        </View>
+        <Text style={textStyles.sectionTitle}>Personal Information</Text>
+        {/* Add personal information fields here */}
       </View>
-      <TouchableOpacity style={[commonStyles.primaryButton, styles.logoutButton]}>
-        <Text style={commonStyles.primaryButtonText}>Log Out</Text>
+      <TouchableOpacity style={buttonStyles.logoutButton}>
+        <Text style={textStyles.buttonText}>Log Out</Text>
       </TouchableOpacity>
     </View>
   );

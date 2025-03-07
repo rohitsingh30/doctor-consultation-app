@@ -9,7 +9,7 @@ import { UserStackParamList } from '../../../types/types';
 
 // Local imports
 import { useChatContext } from '../../../context/ChatContext';
-import { chatStyles, commonStyles, containerStyles, sharedStyles, theme } from '../../../styles/commonStyles';
+import { buttonStyles, chatStyles, commonStyles, containerStyles, sharedStyles, textStyles, theme } from '../../../styles/commonStyles';
 import Header from '../../common/Header';
 
 type Message = {
@@ -59,7 +59,7 @@ const TypingIndicator = memo(() => {
   }, [dots]);
 
   return (
-    <View style={[commonStyles.flexRow, commonStyles.centeredContent]}>
+    <View style={[commonStyles.flexRow, containerStyles.centeredContent]}>
       {dots.map((dot, index) => (
         <Animated.View
           key={index}
@@ -310,16 +310,16 @@ const ChatBotScreen = () => {
             <TouchableOpacity
               key={index}
               style={[
-                commonStyles.suggestionButton,
+                buttonStyles.suggestionButton,
                 sharedStyles.shadow,
-                selectedSuggestions[message.id] && selectedSuggestions[message.id] !== suggestion && commonStyles.disabledButton
+                selectedSuggestions[message.id] && selectedSuggestions[message.id] !== suggestion && buttonStyles.disabledButton
               ]}
               onPress={() => handleSuggestionPress(suggestion)}
               disabled={!!selectedSuggestions[message.id]}
             >
               <Text style={[
-                commonStyles.smallText,
-                (message.answeredOptions?.includes(suggestion) || selectedSuggestions[message.id]) && commonStyles.disabledText
+                textStyles.smallText,
+                (message.answeredOptions?.includes(suggestion) || selectedSuggestions[message.id]) && textStyles.disabledText
               ]}>
                 {suggestion}
               </Text>

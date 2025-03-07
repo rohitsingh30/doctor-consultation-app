@@ -9,7 +9,7 @@ import { RouteProp } from '@react-navigation/native';
 
 // Local imports
 import { Doctor, RootStackParamList } from '../../../types/types';
-import { commonStyles, headerStyles, sharedStyles, textStyles, theme } from '../../../styles/commonStyles';
+import { avatarStyles, commonStyles, headerStyles, sharedStyles, textStyles, theme } from '../../../styles/commonStyles';
 
 type DoctorProfileRouteProp = RouteProp<RootStackParamList, 'DoctorProfile'>;
 
@@ -52,7 +52,7 @@ const DoctorProfileScreen = () => {
       <View style={headerStyles.profileHeader}>
         <Image 
           source={{ uri: doctor.image }}
-          style={commonStyles.profileImage as ImageStyle}
+          style={avatarStyles.image as ImageStyle}
           accessibilityRole="image"
           accessibilityLabel={`Profile picture of ${doctor.name}`}
         />

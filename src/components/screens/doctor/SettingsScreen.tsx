@@ -1,15 +1,15 @@
 import React from 'react';
 import { View, Text, Switch } from 'react-native';
-import { styles } from '../../../styles/SettingsScreenStyles'; // Fixed import path
+import {textStyles,containerStyles } from 'src/styles/commonStyles';
 
 const SettingsScreen = () => {
   const [notificationsEnabled, setNotificationsEnabled] = React.useState(true);
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Settings</Text>
-      <View style={styles.settingItem}>
-        <Text style={styles.settingText}>Enable Notifications</Text>
+    <View style={containerStyles.container}>
+      <Text style={textStyles.titleText}>Settings</Text>
+      <View style={containerStyles.settingItem}>
+        <Text style={textStyles.settingText}>Enable Notifications</Text>
         <Switch
           value={notificationsEnabled}
           onValueChange={setNotificationsEnabled}

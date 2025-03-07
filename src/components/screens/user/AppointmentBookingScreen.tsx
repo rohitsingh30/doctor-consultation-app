@@ -8,8 +8,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 // Local imports
 import { RootStackParamList, UserStackParamList } from '../../../types/types';
 import Header from '../../common/Header';
-import { buttonStyles, commonStyles, sharedStyles, theme } from '../../../styles/commonStyles';
-import { textStyles } from 'src/styles/theme';
+import { buttonStyles, commonStyles, sharedStyles, textStyles, theme } from '../../../styles/commonStyles';
 
 type AppointmentBookingScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'AppointmentBooking'>;
 
@@ -72,7 +71,7 @@ export const AppointmentBookingScreen = () => {
                 <TouchableOpacity
                   key={index}
                   style={[
-                    commonStyles.suggestionButton,
+                    buttonStyles.suggestionButton,
                     sharedStyles.shadow,
                     selectedDate === date && commonStyles.primaryButton
                   ]}
@@ -82,7 +81,7 @@ export const AppointmentBookingScreen = () => {
                   accessibilityState={{ selected: selectedDate === date }}
                 >
                   <Text style={[
-                    commonStyles.smallText,
+                    textStyles.smallText,
                     selectedDate === date && commonStyles.primaryButtonText
                   ]}>{date}</Text>
                 </TouchableOpacity>
@@ -125,7 +124,7 @@ export const AppointmentBookingScreen = () => {
             style={[
               buttonStyles.primary,
               sharedStyles.shadow,
-              (!selectedDate || !selectedTime) && commonStyles.disabledButton
+              (!selectedDate || !selectedTime) && buttonStyles.disabledButton
             ]}
             onPress={handleConfirm}
             disabled={!selectedDate || !selectedTime}

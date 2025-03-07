@@ -14,7 +14,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RouteProp } from '@react-navigation/native';
 import { DoctorStackParamList } from '../../../types/types';
 import Header from '../../common/Header';
-import { colors, commonStyles, spacing } from '../../../styles/commonStyles';
+import { commonStyles, containerStyles, theme } from '../../../styles/commonStyles';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 type DoctorChatRouteProp = RouteProp<DoctorStackParamList, 'DoctorChat'>;
@@ -28,10 +28,10 @@ type Message = {
 const MessageBubble = memo(({ message }: { message: Message }) => (
   <View
     style={[
-      commonStyles.messageContainer,
+      containerStyles.messageContainer,
       {
         alignSelf: message.sender === 'doctor' ? 'flex-end' : 'flex-start',
-        backgroundColor: message.sender === 'doctor' ? colors.primary : colors.surface
+        backgroundColor: message.sender === 'doctor' ? theme.colors.primary : theme.colors.surface
       }
     ]}
     accessibilityLabel={`${message.sender} message: ${message.text}`}
@@ -39,7 +39,7 @@ const MessageBubble = memo(({ message }: { message: Message }) => (
   >
     <Text
       style={{
-        color: message.sender === 'doctor' ? colors.textInverted : colors.text
+        color: message.sender === 'doctor' ? theme.colors.textInverted : theme.colors.text
       }}
     >
       {message.text}
@@ -47,9 +47,9 @@ const MessageBubble = memo(({ message }: { message: Message }) => (
     <Text
       style={{
         fontSize: 12,
-        color: message.sender === 'doctor' ? colors.textInverted : colors.textTertiary,
+        color: message.sender === 'doctor' ? theme.colors.textInverted : theme.colors.textTertiary,
         alignSelf: 'flex-end',
-        marginTop: spacing.xxs
+        marginTop: theme.spacing.xxs
       }}
     >
       {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
@@ -131,8 +131,8 @@ const DoctorChatScreen = () => {
       >
         <ScrollView
           ref={scrollViewRef}
-          style={{ flex: 1, padding: spacing.medium }}
-          contentContainerStyle={{ paddingBottom: spacing.large }}
+          style={{ flex: 1, padding: theme.spacing.md }}
+          contentContainerStyle={{ paddingBottom: theme.spacing.lg }}
           onContentSizeChange={scrollToBottom}
         >
           {messages.map(message => (
@@ -143,10 +143,10 @@ const DoctorChatScreen = () => {
         <View
           style={{
             flexDirection: 'row',
-            padding: spacing.medium,
-            backgroundColor: colors.background,
+            padding: theme.spacing.md,
+            backgroundColor: theme.colors.background,
             borderTopWidth: 1,
-            borderTopColor: colors.border,
+            borderTopColor: theme.colors.border,
             alignItems: 'center'
           }}
         >
@@ -154,21 +154,20 @@ const DoctorChatScreen = () => {
             style={{
               flex: 1,
               height: 40,
-              backgroundColor: colors.surface,
+              backgroundColor: theme.colors.surface,
               borderRadius: 20,
-              paddingHorizontal: spacing.medium,
-              marginRight: spacing.small
+              paddingHorizontal: theme.spacing.md,
+              marginRight: theme.spacing.sm
             }}
             value={newMessage}
             onChangeText={setNewMessage}
             placeholder="Type a message..."
             accessibilityLabel="Message input field"
-            accessibilityRole="textbox"
           />
           <TouchableOpacity
             onPress={sendMessage}
             style={{
-              backgroundColor: colors.primary,
+              backgroundColor: theme.colors.primary,
               width: 40,
               height: 40,
               borderRadius: 20,
@@ -179,7 +178,7 @@ const DoctorChatScreen = () => {
             accessibilityRole="button"
             disabled={newMessage.trim() === ''}
           >
-            <Icon name="send" size={16} color={colors.textInverted} />
+            <Icon name="send" size={16} color={theme.colors.textInverted} />
           </TouchableOpacity>
         </View>
       </KeyboardAvoidingView>

@@ -9,7 +9,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 // Local imports
 import { DoctorStackParamList } from '../../../types/types';
-import { theme, commonStyles } from '../../../styles/commonStyles';
+import { theme, commonStyles, sharedStyles, textStyles } from '../../../styles/commonStyles';
 import Header from '../../common/Header';
 
 const AvailabilitySettingsScreen = () => {
@@ -33,11 +33,11 @@ const AvailabilitySettingsScreen = () => {
       <ScrollView style={commonStyles.scrollView}>
         <View style={commonStyles.contentContainer}>
           {/* Overall Availability Toggle */}
-          <View style={[commonStyles.sectionContainer, commonStyles.shadow]}>
+          <View style={[commonStyles.sectionContainer, sharedStyles.shadow]}>
             <View style={[commonStyles.flexRow, commonStyles.spaceBetween]}>
               <View>
                 <Text style={commonStyles.titleText}>Available for Appointments</Text>
-                <Text style={commonStyles.smallText}>Toggle to show/hide your availability</Text>
+                <Text style={textStyles.smallText}>Toggle to show/hide your availability</Text>
               </View>
               <Switch
                 value={isAvailable}
@@ -51,12 +51,12 @@ const AvailabilitySettingsScreen = () => {
           </View>
 
           {/* Weekly Schedule */}
-          <View style={[commonStyles.sectionContainer, commonStyles.shadow]}>
+          <View style={[commonStyles.sectionContainer, sharedStyles.shadow]}>
             <Text style={commonStyles.titleText}>Weekly Schedule</Text>
             {weekDays.map((day) => (
               <TouchableOpacity 
                 key={day.day}
-                style={[commonStyles.listItem, commonStyles.shadow]}
+                style={[commonStyles.listItem, sharedStyles.shadow]}
                 onPress={() => {}}
                 accessibilityRole="button"
                 accessibilityLabel={`Edit schedule for ${day.day}`}
@@ -64,7 +64,7 @@ const AvailabilitySettingsScreen = () => {
                 <View style={commonStyles.flexRow}>
                   <View style={{ flex: 1 }}>
                     <Text style={commonStyles.bodyText}>{day.day}</Text>
-                    <Text style={commonStyles.smallText}>{day.hours}</Text>
+                    <Text style={textStyles.smallText}>{day.hours}</Text>
                   </View>
                   <Icon name="pencil" size={16} color={theme.colors.primary} />
                 </View>
@@ -74,7 +74,7 @@ const AvailabilitySettingsScreen = () => {
 
           {/* Save Button */}
           <TouchableOpacity 
-            style={[commonStyles.primaryButton, commonStyles.shadow]}
+            style={[commonStyles.primaryButton, sharedStyles.shadow]}
             onPress={() => navigation.goBack()}
             accessibilityRole="button"
             accessibilityLabel="Save availability settings"

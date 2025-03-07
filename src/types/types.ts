@@ -105,7 +105,7 @@ export type UserStackParamList = {
   AppointmentBooking: { doctor?: Doctor };
   AppointmentConfirmation: { appointmentId: string };
   AppointmentList: undefined;
-  AppointmentDetail: { appointmentId: string,date:string ,time:string  };
+  AppointmentDetail: { appointmentId: string,date?:string ,time?:string  };
   MedicalRecords: { report?: HealthReport };
   ReportDetail: { reportId: string; isReviewed?: boolean };
   Profile: undefined;
