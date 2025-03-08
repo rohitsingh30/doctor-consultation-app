@@ -1,10 +1,11 @@
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { NavigationContainer } from '@react-navigation/native';
 import { AuthProvider } from './src/context/AuthContext';
 import { ChatProvider } from './src/context/ChatContext';
-import RootNavigator from './src/navigation/RootNavigator';
 import { View } from 'react-native';
 import { commonStyles } from './src/styles/commonStyles';
+import { AppNavigator } from './src/navigation/AppNavigator';
 
 export default function App() {
   return (
@@ -13,7 +14,9 @@ export default function App() {
         <StatusBar style="dark" />
         <AuthProvider>
           <ChatProvider>
-            <RootNavigator />
+            <NavigationContainer>
+              <AppNavigator />
+            </NavigationContainer>
           </ChatProvider>
         </AuthProvider>
       </View>

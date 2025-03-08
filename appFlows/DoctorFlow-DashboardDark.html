@@ -1,0 +1,203 @@
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>MedAI Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-100 h-full">
+    <div class="flex flex-col">
+        <!-- Header -->
+        <header class="w-full bg-gray-800 p-5 border-b border-gray-700 shadow-lg flex items-center justify-between">
+            <div class="text-xl font-bold">
+                Hi, Dr. Sarah
+            </div>
+            <div class="flex items-center">
+                <div class="mr-5 text-gray-300 flex items-center">
+                    <i class="fas fa-wallet text-blue-400 text-xl mr-2"></i>
+                    <span>$1,200</span>
+                </div>
+                <img alt="Doctor's profile picture" class="rounded-full" height="40" src="https://storage.googleapis.com/a1aa/image/r6uEw-ZkOko-9Naler8Pl6zTawAc6lzfFtZyJRaGr8A.jpg" width="40"/>
+            </div>
+        </header>
+        <!-- Main Content -->
+        <div class="w-full p-5">
+            <!-- Today's Appointments -->
+            <div class="mb-5">
+                <h2 class="text-xl font-bold mb-3 flex items-center">
+                    Today's Appointments
+                    <span class="ml-2 bg-blue-600 text-white text-sm font-semibold px-2 py-1 rounded-full">3</span>
+                </h2>
+                <div class="flex space-x-3 overflow-x-auto">
+                    <div class="bg-gray-800 p-4 rounded-lg shadow-md min-w-[200px]">
+                        <div class="flex items-center justify-between mb-2">
+                            <div class="flex items-center">
+                                <i class="fas fa-clock text-gray-400 mr-2"></i>
+                                <div class="text-gray-300 text-sm">
+                                    09:00 AM
+                                </div>
+                            </div>
+                            <div class="text-gray-300 text-sm">
+                                <i class="fas fa-video text-gray-400"></i>
+                            </div>
+                        </div>
+                        <div class="flex items-center mb-2">
+                            <img alt="John Smith's profile picture" class="rounded-full mr-2" height="30" src="https://storage.googleapis.com/a1aa/image/Eo0ibwmehk00hvZ8fYsDMRHqp5442O6J2_3LpTTtlqU.jpg" width="30"/>
+                            <div class="text-gray-300 text-sm">
+                                John Smith
+                            </div>
+                        </div>
+                        <div class="text-gray-300 text-sm mb-2">
+                            Cardiology Check-up
+                        </div>
+                        <div class="text-green-400 text-sm">
+                            Confirmed
+                        </div>
+                    </div>
+                    <div class="bg-gray-800 p-4 rounded-lg shadow-md min-w-[200px]">
+                        <div class="flex items-center justify-between mb-2">
+                            <div class="flex items-center">
+                                <i class="fas fa-clock text-gray-400 mr-2"></i>
+                                <div class="text-gray-300 text-sm">
+                                    11:30 AM
+                                </div>
+                            </div>
+                            <div class="text-gray-300 text-sm">
+                                <i class="fas fa-user-md text-gray-400"></i>
+                            </div>
+                        </div>
+                        <div class="flex items-center mb-2">
+                            <img alt="Emma Davis's profile picture" class="rounded-full mr-2" height="30" src="https://storage.googleapis.com/a1aa/image/4y8fGWLVAiK9fRHkpDLi2HXrYDd6OK4fBjkFrOJV2KY.jpg" width="30"/>
+                            <div class="text-gray-300 text-sm">
+                                Emma Davis
+                            </div>
+                        </div>
+                        <div class="text-gray-300 text-sm mb-2">
+                            Follow-up
+                        </div>
+                        <div class="text-green-400 text-sm">
+                            Confirmed
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-center min-w-[40px]">
+                        <i class="fas fa-chevron-right text-gray-400"></i>
+                    </div>
+                </div>
+            </div>
+            <!-- Recent Patient History -->
+            <div class="mb-5">
+                <h2 class="text-xl font-bold mb-3 flex items-center">
+                    Recent Patient History
+                    <span class="ml-2 bg-blue-600 text-white text-sm font-semibold px-2 py-1 rounded-full">3</span>
+                </h2>
+                <div class="flex space-x-3 overflow-x-auto">
+                    <div class="bg-gray-800 p-4 rounded-lg shadow-md min-w-[200px]">
+                        <div class="flex items-center mb-2">
+                            <img alt="Michael Brown's profile picture" class="rounded-full mr-2" height="30" src="https://storage.googleapis.com/a1aa/image/u8hsR0gg2XWUNY-FBJOyfQK1muYG-8pkxyndTCMRCeg.jpg" width="30"/>
+                            <div class="text-gray-300 text-sm">
+                                Michael Brown
+                            </div>
+                        </div>
+                        <div class="flex items-center text-gray-300 text-sm mb-2">
+                            <i class="fas fa-calendar-alt text-gray-400 mr-1"></i>
+                            <div>Last visit: 2 days ago</div>
+                        </div>
+                    </div>
+                    <div class="bg-gray-800 p-4 rounded-lg shadow-md min-w-[200px]">
+                        <div class="flex items-center mb-2">
+                            <img alt="Sarah Johnson's profile picture" class="rounded-full mr-2" height="30" src="https://storage.googleapis.com/a1aa/image/BK17QOjIvTjUYGzFvf0SnKosOYjqd9jlelOzieJnedw.jpg" width="30"/>
+                            <div class="text-gray-300 text-sm">
+                                Sarah Johnson
+                            </div>
+                        </div>
+                        <div class="flex items-center text-gray-300 text-sm mb-2">
+                            <i class="fas fa-calendar-alt text-gray-400 mr-1"></i>
+                            <div>Last visit: 5 days ago</div>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-center min-w-[40px]">
+                        <i class="fas fa-chevron-right text-gray-400"></i>
+                    </div>
+                </div>
+            </div>
+            <!-- Recent Prescriptions -->
+            <div>
+                <h2 class="text-xl font-bold mb-3 flex items-center">
+                    Recent Prescriptions
+                    <span class="ml-2 bg-blue-600 text-white text-sm font-semibold px-2 py-1 rounded-full">3</span>
+                </h2>
+                <div class="flex space-x-3 overflow-x-auto">
+                    <div class="bg-gray-800 p-4 rounded-lg shadow-md min-w-[200px]">
+                        <div class="flex items-center justify-between mb-2">
+                            <div class="flex items-center">
+                                <i class="fas fa-user text-gray-400 mr-2"></i>
+                                <div class="text-gray-300 text-sm">
+                                    John Smith
+                                </div>
+                            </div>
+                            <div class="text-green-400 text-sm">
+                                Active
+                            </div>
+                        </div>
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-prescription-bottle-alt text-gray-400 mr-2"></i>
+                            <div class="text-gray-300 text-sm">
+                                Lisinopril 10mg
+                            </div>
+                        </div>
+                        <div class="flex justify-between text-gray-300 text-sm mb-2">
+                            <div class="flex items-center">
+                                <i class="fas fa-pills text-gray-400 mr-1"></i>
+                                <div>Once daily</div>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-calendar-alt text-gray-400 mr-1"></i>
+                                <div>7 days</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-gray-800 p-4 rounded-lg shadow-md min-w-[200px]">
+                        <div class="flex items-center justify-between mb-2">
+                            <div class="flex items-center">
+                                <i class="fas fa-user text-gray-400 mr-2"></i>
+                                <div class="text-gray-300 text-sm">
+                                    Emma Davis
+                                </div>
+                            </div>
+                            <div class="text-green-400 text-sm">
+                                Active
+                            </div>
+                        </div>
+                        <div class="flex items-center mb-2">
+                            <i class="fas fa-prescription-bottle-alt text-gray-400 mr-2"></i>
+                            <div class="text-gray-300 text-sm">
+                                Metformin 500mg
+                            </div>
+                        </div>
+                        <div class="flex justify-between text-gray-300 text-sm mb-2">
+                            <div class="flex items-center">
+                                <i class="fas fa-pills text-gray-400 mr-1"></i>
+                                <div>Twice daily</div>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-calendar-alt text-gray-400 mr-1"></i>
+                                <div>30 days</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-center min-w-[40px]">
+                        <i class="fas fa-chevron-right text-gray-400"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

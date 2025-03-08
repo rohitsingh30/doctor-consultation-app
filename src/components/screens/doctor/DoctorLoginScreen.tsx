@@ -1,20 +1,20 @@
 import React, { useState, useContext } from 'react';
-import { View, Text, TouchableOpacity, ScrollView, SafeAreaView, Alert, Image } from 'react-native';
+import { View, Text, SafeAreaView, ScrollView, Alert, Image, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { AuthStackParamList } from '../../types/types';
-import { AuthContext } from '../../context/AuthContext';
-import { buttonStyles, commonStyles, containerStyles, sharedStyles, textStyles } from '../../styles/commonStyles';
-import CustomInput from './CustomInput';
-import CustomButton from './CustomButton';
+import { AuthContext } from '../../../context/AuthContext';
+import { DoctorStackParamList } from '../../../types/types';
+import { commonStyles, containerStyles, textStyles, buttonStyles } from '../../../styles/commonStyles';
+import CustomInput from '../../common/CustomInput';
+import CustomButton from '../../common/CustomButton';
+import BackButton from '../../common/BackButton';
 
-const LoginScreen = () => {
-  const navigation = useNavigation<NativeStackNavigationProp<AuthStackParamList>>();
+const DoctorLoginScreen = () => {
+  const navigation = useNavigation<NativeStackNavigationProp<DoctorStackParamList>>();
   const { login } = useContext(AuthContext);
-  
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isDoctor, setIsDoctor] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleLogin = async () => {
@@ -23,36 +23,31 @@ const LoginScreen = () => {
       const userData = {
         id: '123',
         email,
-        name: isDoctor ? 'Dr. John Doe' : 'John Smith',
-        type: isDoctor ? 'doctor' : 'user',
+        name: 'Dr. John Doe',
+        type: 'doctor',
       };
 
       await login(userData);
-      navigation.navigate(isDoctor ? 'DoctorDashboard' : 'UserDashboard');
+      navigation.navigate('DoctorDashboard');
     } catch (error) {
-      Alert.alert('Login Failed', 'Invalid email or password');
+      Alert.alert('Login Failed', 'Something went wrong.');
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <SafeAreaView style={containerStyles.safeArea}>
+    <SafeAreaView style={commonStyles.safeArea}>
       <ScrollView contentContainerStyle={containerStyles.loginScrollContainer}>
         <View style={containerStyles.logoContainer}>
-          <Image
-            source={{ uri: 'https://example.com/logo.png' }}
-            style={{ width: 100, height: 100, marginBottom: 20 }}
-            accessibilityLabel="App Logo"
-          />
           <Text style={textStyles.appName}>Doc-X</Text>
-          <Text style={textStyles.tagline}>Your Health, Our Priority</Text>
+          <Text style={textStyles.tagline}>Access your healthcare dashboard</Text>
         </View>
 
         <View style={containerStyles.formContainer}>
           <CustomInput
             label="Email"
-            placeholder="Enter your email"
+            placeholder="Enter your email address"
             value={email}
             onChangeText={setEmail}
             keyboardType="email-address"
@@ -66,27 +61,15 @@ const LoginScreen = () => {
             secureTextEntry
           />
 
-          <TouchableOpacity 
-            style={containerStyles.userTypeContainer}
-            onPress={() => setIsDoctor(!isDoctor)}
-          >
-            <View style={containerStyles.checkboxContainer}>
-              <View style={[buttonStyles.checkbox, isDoctor && buttonStyles.checkboxChecked]}>
-                {isDoctor && <View style={buttonStyles.checkboxInner} />}
-              </View>
-              <Text style={textStyles.userTypeText}>Login as Doctor</Text>
-            </View>
-          </TouchableOpacity>
-
           <CustomButton
-            title="Login"
+            title="Sign In"
             onPress={handleLogin}
             isLoading={isLoading}
             style={buttonStyles.primary}
           />
 
           <TouchableOpacity 
-            style={containerStyles.forgotPasswordContainer}
+            style={{ marginTop: 20, alignItems: 'flex-end' }}
             onPress={() => navigation.navigate('ForgotPassword')}
           >
             <Text style={textStyles.forgotPasswordText}>Forgot Password?</Text>
@@ -95,7 +78,7 @@ const LoginScreen = () => {
 
         <View style={containerStyles.footer}>
           <Text style={textStyles.footerText}>Don't have an account?</Text>
-          <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
+          <TouchableOpacity onPress={() => navigation.navigate('DoctorSignUp')}>
             <Text style={textStyles.signUpText}>Sign Up</Text>
           </TouchableOpacity>
         </View>
@@ -104,4 +87,4 @@ const LoginScreen = () => {
   );
 };
 
-export default LoginScreen;
+export default DoctorLoginScreen;

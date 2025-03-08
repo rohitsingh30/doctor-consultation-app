@@ -1,0 +1,181 @@
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Medical History</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <script>
+    function toggleDropdown(id) {
+      const dropdown = document.getElementById(id);
+      dropdown.classList.toggle('hidden');
+    }
+  </script>
+</head>
+<body class="bg-gray-50">
+  <div class="flex flex-col h-screen">
+    <!-- Header -->
+    <header class="bg-white shadow-md py-4 px-6 w-full">
+      <div class="flex justify-between items-center">
+        <button class="text-gray-300 hover:text-gray-500 transition duration-200">
+          <i class="fas fa-arrow-left text-2xl"></i>
+        </button>
+        <div class="text-lg font-semibold text-gray-900">Medical History</div>
+        <div></div>
+      </div>
+    </header>
+    <!-- Main Content -->
+    <div class="flex-1 p-6 w-full">
+      <div class="w-full mx-auto">
+        <!-- Profile and Vitals -->
+        <div class="bg-blue-50 p-4 rounded-lg shadow-md mb-6 w-full">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="flex items-center">
+              <div class="bg-blue-200 p-4 rounded-full inline-block">
+                <i class="fas fa-user text-blue-500 text-2xl"></i>
+              </div>
+            </div>
+            <div class="flex items-center justify-end">
+              <button class="bg-blue-500 text-white px-2 py-1 text-sm rounded-lg hover:bg-blue-600">Schedule Consultation</button>
+            </div>
+            <div class="flex items-center">
+              <div class="font-semibold">John Doe</div>
+            </div>
+            <div class="flex items-center justify-end">
+              <i class="fas fa-tachometer-alt text-blue-500 mr-1"></i>
+              <span>BP: 120/80</span>
+            </div>
+            <div class="flex items-center">
+              <i class="fas fa-pills text-blue-500 mr-1"></i>
+              <span>Penicillin</span>
+            </div>
+            <div class="flex items-center justify-end">
+              <i class="fas fa-heart text-blue-500 mr-1"></i>
+              <span>Heart Rate: 72 bpm</span>
+            </div>
+            <div class="flex items-center">
+              <i class="fas fa-tint text-blue-500 mr-1"></i>
+              <span>Blood Type: A+</span>
+            </div>
+            <div class="flex items-center justify-end">
+              <i class="fas fa-thermometer-half text-blue-500 mr-1"></i>
+              <span>Temp: 98.6°F</span>
+            </div>
+          </div>
+        </div>
+        <!-- Dropdowns -->
+        <div class="space-y-4 w-full">
+          <div class="bg-white p-4 rounded-lg shadow-md w-full">
+            <div class="flex justify-between items-center cursor-pointer" onclick="toggleDropdown('consultations')">
+              <div class="text-gray-700 font-semibold flex items-center">
+                <i class="fas fa-stethoscope text-blue-500 mr-2"></i>
+                Consultations
+              </div>
+              <i class="fas fa-chevron-down text-gray-500"></i>
+            </div>
+            <div class="hidden mt-4" id="consultations">
+              <div class="bg-gray-50 p-4 rounded-lg shadow-inner">
+                <div class="space-y-4">
+                  <div class="flex justify-between items-center">
+                    <div class="text-gray-500">Flu Symptoms</div>
+                    <div class="text-right">
+                      <div class="text-gray-500">Dr. Sarah Smith</div>
+                    </div>
+                  </div>
+                  <div class="flex justify-between items-center">
+                    <div class="text-gray-500">Annual Checkup</div>
+                    <div class="text-right">
+                      <div class="text-gray-500">Dr. Mike Johnson</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="bg-white p-4 rounded-lg shadow-md w-full">
+            <div class="flex justify-between items-center cursor-pointer" onclick="toggleDropdown('lab-results')">
+              <div class="text-gray-700 font-semibold flex items-center">
+                <i class="fas fa-vials text-blue-500 mr-2"></i>
+                Lab Results
+              </div>
+              <i class="fas fa-chevron-down text-gray-500"></i>
+            </div>
+            <div class="hidden mt-4" id="lab-results">
+              <div class="bg-gray-50 p-4 rounded-lg shadow-inner">
+                <div class="space-y-4">
+                  <div class="flex justify-between items-center">
+                    <div class="text-gray-500">Blood Test</div>
+                    <div class="text-right">
+                      <div class="text-gray-500">Dr. Emma Wilson</div>
+                    </div>
+                  </div>
+                  <div class="flex justify-between items-center">
+                    <div class="text-gray-500">X-Ray</div>
+                    <div class="text-right">
+                      <div class="text-gray-500">Dr. John Doe</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="bg-white p-4 rounded-lg shadow-md w-full">
+            <div class="flex justify-between items-center cursor-pointer" onclick="toggleDropdown('prescriptions')">
+              <div class="text-gray-700 font-semibold flex items-center">
+                <i class="fas fa-prescription-bottle-alt text-blue-500 mr-2"></i>
+                Prescriptions
+              </div>
+              <i class="fas fa-chevron-down text-gray-500"></i>
+            </div>
+            <div class="hidden mt-4" id="prescriptions">
+              <div class="bg-gray-50 p-4 rounded-lg shadow-inner">
+                <div class="space-y-4">
+                  <div class="flex justify-between items-center">
+                    <div class="text-gray-500">Lisinopril</div>
+                    <div class="text-right">
+                      <div class="text-gray-500">Dr. Sarah Smith</div>
+                    </div>
+                  </div>
+                  <div class="flex justify-between items-center">
+                    <div class="text-gray-500">Metformin</div>
+                    <div class="text-right">
+                      <div class="text-gray-500">Dr. Mike Johnson</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="bg-white p-4 rounded-lg shadow-md w-full">
+            <div class="flex justify-between items-center cursor-pointer" onclick="toggleDropdown('chronic-conditions')">
+              <div class="text-gray-700 font-semibold flex items-center">
+                <i class="fas fa-heartbeat text-blue-500 mr-2"></i>
+                Chronic Conditions
+              </div>
+              <i class="fas fa-chevron-down text-gray-500"></i>
+            </div>
+            <div class="hidden mt-4" id="chronic-conditions">
+              <div class="bg-gray-50 p-4 rounded-lg shadow-inner">
+                <div class="space-y-4">
+                  <div class="flex justify-between items-center">
+                    <div class="text-gray-500">Hypertension</div>
+                    <div class="text-right">
+                      <div class="text-gray-500">Diagnosed: Jan 2022</div>
+                    </div>
+                  </div>
+                  <div class="flex justify-between items-center">
+                    <div class="text-gray-500">Type 2 Diabetes</div>
+                    <div class="text-right">
+                      <div class="text-gray-500">Diagnosed: Mar 2021</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

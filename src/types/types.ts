@@ -89,14 +89,6 @@ export type Appointment = {
   notes?: string;
 };
 
-// Navigation types
-export type AuthStackParamList = {
-  Login: undefined;
-  SignUp: undefined;
-  ForgotPassword: undefined;
-  ResetPassword: { token: string };
-};
-
 export type UserStackParamList = {
   Dashboard: undefined;
   ChatBot: undefined;
@@ -112,6 +104,11 @@ export type UserStackParamList = {
 };
 
 export type DoctorStackParamList = {
+  DoctorSignUp: undefined;
+  DoctorLogin: undefined;
+  ForgotPassword: undefined;
+  RecommendedTests: undefined;
+  ResetPassword: { token: string };
   DoctorDashboard: undefined;
   ReportVerification: undefined;
   ReportDetail: { reportId: string };
@@ -123,12 +120,16 @@ export type DoctorStackParamList = {
   DoctorChat: { chatId: string };
   ConsultationRequests: undefined;
   ConsultationRequestDetail: { requestId: string };
+  PatientHistory: undefined;
+  ConsultationConfirm: undefined;
+  VideoConsultation: { patientId?: string; appointmentId?: string };
+  AIReports: undefined;
 };
 
-export type RootStackParamList = AuthStackParamList & UserStackParamList & DoctorStackParamList;
+export type AppStackParamList = {loginScreen?: undefined} & UserStackParamList & DoctorStackParamList;
 
 // Common navigation prop type
-export type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
+export type NavigationProp = NativeStackNavigationProp<AppStackParamList>;
 
 // Add navigation types specifically for screens in their new locations
 export type NavigationScreenProps = {

@@ -1,0 +1,154 @@
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>
+   AI Reports
+  </title>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <style>
+   body, html {
+            height: 100%;
+            margin: 0;
+        }
+  </style>
+  <script>
+   function toggleDetails(id) {
+            const details = document.getElementById(id);
+            const chevron = document.getElementById('chevron-' + id);
+            details.classList.toggle('hidden');
+            chevron.classList.toggle('fa-chevron-down');
+            chevron.classList.toggle('fa-chevron-up');
+        }
+  </script>
+ </head>
+ <body class="bg-gray-900 text-gray-100 h-full">
+  <div class="max-w-screen-sm mx-auto border border-gray-700 shadow-lg rounded-lg overflow-hidden h-full flex flex-col">
+   <header class="bg-gray-800 shadow-md p-4 flex items-center justify-between">
+    <button class="text-gray-400 hover:text-gray-200 transition duration-200">
+     <i class="fas fa-arrow-left text-2xl">
+     </i>
+    </button>
+    <h1 class="text-lg font-semibold text-gray-100">
+     AI Reports
+    </h1>
+    <div>
+    </div>
+   </header>
+   <main class="p-4 flex-1 overflow-y-auto">
+    <div class="space-y-4">
+     <!-- Report 1 -->
+     <div class="bg-gray-800 p-4 rounded-lg shadow-md">
+      <div class="flex justify-between items-center">
+       <div class="flex items-center cursor-pointer" onclick="toggleDetails('details1')">
+        <i class="fas fa-chevron-down text-gray-400 mr-2 transition-transform duration-200" id="chevron-details1">
+        </i>
+        <div>
+         <h2 class="font-semibold text-gray-100">
+          Report 1
+         </h2>
+         <p class="text-green-400 font-semibold">
+          Status: Completed
+         </p>
+        </div>
+       </div>
+       <button class="bg-blue-600 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-700 transition duration-200">
+        View Report
+       </button>
+      </div>
+      <div class="mt-4 hidden" id="details1">
+       <p class="text-gray-400">
+        This report indicates a high likelihood of Angina Pectoris. The patient should follow up with a cardiologist for further evaluation and management.
+       </p>
+       <ul class="list-disc list-inside text-gray-400 mt-2">
+        <li>
+         Patient: John Doe
+        </li>
+        <li>
+         Age: 45
+        </li>
+        <li>
+         Date: 2023-10-01
+        </li>
+       </ul>
+      </div>
+     </div>
+     <!-- Report 2 -->
+     <div class="bg-gray-800 p-4 rounded-lg shadow-md">
+      <div class="flex justify-between items-center">
+       <div class="flex items-center cursor-pointer" onclick="toggleDetails('details2')">
+        <i class="fas fa-chevron-down text-gray-400 mr-2 transition-transform duration-200" id="chevron-details2">
+        </i>
+        <div>
+         <h2 class="font-semibold text-gray-100">
+          Report 2
+         </h2>
+         <p class="text-yellow-400 font-semibold">
+          Status: In Progress
+         </p>
+        </div>
+       </div>
+       <button class="bg-blue-600 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-700 transition duration-200">
+        View Report
+       </button>
+      </div>
+      <div class="mt-4 hidden" id="details2">
+       <p class="text-gray-400">
+        This report suggests a moderate risk of Hypertension. The patient should monitor their blood pressure regularly and consult with a healthcare provider.
+       </p>
+       <ul class="list-disc list-inside text-gray-400 mt-2">
+        <li>
+         Patient: Jane Smith
+        </li>
+        <li>
+         Age: 50
+        </li>
+        <li>
+         Date: 2023-10-02
+        </li>
+       </ul>
+      </div>
+     </div>
+     <!-- Report 3 -->
+     <div class="bg-gray-800 p-4 rounded-lg shadow-md">
+      <div class="flex justify-between items-center">
+       <div class="flex items-center cursor-pointer" onclick="toggleDetails('details3')">
+        <i class="fas fa-chevron-down text-gray-400 mr-2 transition-transform duration-200" id="chevron-details3">
+        </i>
+        <div>
+         <h2 class="font-semibold text-gray-100">
+          Report 3
+         </h2>
+         <p class="text-yellow-400 font-semibold">
+          Status: In Progress
+         </p>
+        </div>
+       </div>
+       <button class="bg-blue-600 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-700 transition duration-200">
+        View Report
+       </button>
+      </div>
+      <div class="mt-4 hidden" id="details3">
+       <p class="text-gray-400">
+        This report indicates a low risk of Diabetes. The patient should maintain a healthy lifestyle and have regular check-ups.
+       </p>
+       <ul class="list-disc list-inside text-gray-400 mt-2">
+        <li>
+         Patient: Michael Johnson
+        </li>
+        <li>
+         Age: 55
+        </li>
+        <li>
+         Date: 2023-10-03
+        </li>
+       </ul>
+      </div>
+     </div>
+    </div>
+   </main>
+  </div>
+ </body>
+</html>

@@ -1,4 +1,4 @@
-import { Dimensions, Platform } from 'react-native';
+import { Dimensions } from 'react-native';
 
 const { width, height } = Dimensions.get('window');
 
@@ -25,6 +25,7 @@ export const theme = {
     textInverted: '#FFFFFF',
     border: '#E5E7EB',
     divider: '#E5E7EB',
+
     
     // Feedback colors
     error: '#EF4444',
@@ -41,6 +42,7 @@ export const theme = {
     suggestionBackground: '#F9FAFB',
     suggestionText: '#0073EA',
     errorText: '#EF4444',
+    darkBackground: '#111827', // Added dark background color
   },
   
   spacing: {

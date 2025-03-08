@@ -1,0 +1,206 @@
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Test Results</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <style>
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 120px;
+            background-color: black;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -60px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+    <script>
+        function toggleDetails(id) {
+            const element = document.getElementById(id);
+            element.classList.toggle('hidden');
+        }
+        function addTest() {
+            const container = document.getElementById('tests-container');
+            const newTest = document.createElement('div');
+            newTest.classList.add('mb-6');
+            newTest.innerHTML = `
+                <h3 class="text-lg font-semibold mb-2 flex items-center justify-between cursor-pointer" onclick="toggleDetails('test${container.children.length + 1}')">
+                    <div class="flex items-center">
+                        <i class="fas fa-vial mr-2"></i> Test ${container.children.length + 1}
+                    </div>
+                    <div class="flex items-center">
+                        <span class="ml-2 text-sm text-green-500">Added by Doctor</span>
+                        <i class="fas fa-chevron-down ml-2"></i>
+                    </div>
+                </h3>
+                <div class="text-gray-600 mb-2 text-sm">
+                    <p><span class="font-semibold">Add any special instructions or warnings</span></p>
+                </div>
+                <div class="hidden" id="test${container.children.length + 1}">
+                    <div class="mb-4">
+                        <label class="block text-gray-700 mb-2">Test Name</label>
+                        <input class="w-full p-3 border rounded-lg" placeholder="Enter test name" type="text"/>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 mb-2">Things to Take Care</label>
+                        <textarea class="w-full p-3 border rounded-lg" placeholder="Add any special instructions or warnings"></textarea>
+                    </div>
+                    <button class="bg-blue-500 text-white px-4 py-2 rounded-lg w-full">Save Changes</button>
+                </div>
+            `;
+            container.appendChild(newTest);
+        }
+    </script>
+</head>
+<body class="bg-gray-50">
+    <div class="flex flex-col h-screen">
+        <!-- Header -->
+        <header class="bg-white shadow-md py-4 px-6 w-full">
+            <div class="flex justify-between items-center">
+                <button class="text-gray-300 hover:text-gray-500 transition duration-200">
+                    <i class="fas fa-arrow-left text-2xl"></i>
+                </button>
+                <div class="text-lg font-semibold text-gray-900">Test Results</div>
+                <div></div>
+            </div>
+        </header>
+        <!-- Main Content -->
+        <div class="flex-1 p-6 w-full">
+            <div class="w-full mx-auto">
+                <div class="bg-blue-50 p-8 rounded-lg mb-6 w-full">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-vial text-blue-500 text-2xl mr-4"></i>
+                        <h2 class="text-2xl font-semibold">Recommended Tests</h2>
+                    </div>
+                    <div class="flex justify-between">
+                        <div class="w-1/2">
+                            <h3 class="text-gray-600 font-semibold">Symptoms</h3>
+                            <p>Chest pain</p>
+                            <p>Shortness of breath</p>
+                        </div>
+                        <div class="w-1/2 text-right">
+                            <h3 class="text-gray-600 font-semibold">Suggested Tests</h3>
+                            <p>Blood Pressure Monitoring</p>
+                            <p>Neurological Examination</p>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h2 class="text-xl font-semibold mb-4 flex items-center">
+                        Test Details
+                        <button class="ml-2 bg-blue-500 text-white p-1 rounded-full" onclick="addTest()">
+                            <i class="fas fa-plus text-xs"></i>
+                        </button>
+                    </h2>
+                    <div id="tests-container">
+                        <!-- Test 1 -->
+                        <div class="mb-6">
+                            <h3 class="text-lg font-semibold mb-2 flex items-center justify-between cursor-pointer" onclick="toggleDetails('test1')">
+                                <div class="flex items-center">
+                                    <i class="fas fa-vial mr-2"></i>
+                                    Blood Pressure Monitoring
+                                </div>
+                                <div class="flex items-center">
+                                    <span class="ml-2 text-sm text-green-500">Verified by Doctor</span>
+                                    <i class="fas fa-chevron-down ml-2"></i>
+                                </div>
+                            </h3>
+                            <div class="text-gray-600 mb-2 text-sm">
+                                <p><span class="font-semibold">Avoid caffeine and exercise 30 minutes before the test. Sit quietly for 5 minutes before the test.</span></p>
+                            </div>
+                            <div class="hidden" id="test1">
+                                <div class="mb-4">
+                                    <label class="block text-gray-700 mb-2">Test Name</label>
+                                    <input class="w-full p-3 border rounded-lg" placeholder="Blood Pressure Monitoring" type="text" value="Blood Pressure Monitoring" readonly/>
+                                </div>
+                                <div class="mb-4">
+                                    <label class="block text-gray-700 mb-2">Things to Take Care</label>
+                                    <textarea class="w-full p-3 border rounded-lg" placeholder="Avoid caffeine and exercise 30 minutes before the test. Sit quietly for 5 minutes before the test." readonly>Avoid caffeine and exercise 30 minutes before the test. Sit quietly for 5 minutes before the test.</textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Test 2 -->
+                        <div class="mb-6">
+                            <h3 class="text-lg font-semibold mb-2 flex items-center justify-between cursor-pointer" onclick="toggleDetails('test2')">
+                                <div class="flex items-center">
+                                    <i class="fas fa-vial mr-2"></i>
+                                    Neurological Examination
+                                </div>
+                                <div class="flex items-center">
+                                    <span class="ml-2 text-sm text-red-500 tooltip">
+                                        AI Added
+                                        <i class="fas fa-info-circle"></i>
+                                        <span class="tooltiptext">Kindly review</span>
+                                    </span>
+                                    <i class="fas fa-chevron-down ml-2"></i>
+                                </div>
+                            </h3>
+                            <div class="text-gray-600 mb-2 text-sm">
+                                <p><span class="font-semibold">Wear comfortable clothing. Inform the doctor of any medications you are taking.</span></p>
+                            </div>
+                            <div class="hidden" id="test2">
+                                <div class="mb-4">
+                                    <label class="block text-gray-700 mb-2">Test Name</label>
+                                    <input class="w-full p-3 border rounded-lg" placeholder="Neurological Examination" type="text" value="Neurological Examination" readonly/>
+                                </div>
+                                <div class="mb-4">
+                                    <label class="block text-gray-700 mb-2">Things to Take Care</label>
+                                    <textarea class="w-full p-3 border rounded-lg" placeholder="Wear comfortable clothing. Inform the doctor of any medications you are taking." readonly>Wear comfortable clothing. Inform the doctor of any medications you are taking.</textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Test 3 -->
+                        <div class="mb-6">
+                            <h3 class="text-lg font-semibold mb-2 flex items-center justify-between cursor-pointer" onclick="toggleDetails('test3')">
+                                <div class="flex items-center">
+                                    <i class="fas fa-vial mr-2"></i>
+                                    Test 3
+                                </div>
+                                <div class="flex items-center">
+                                    <span class="ml-2 text-sm text-green-500">Added by Doctor</span>
+                                    <i class="fas fa-chevron-down ml-2"></i>
+                                </div>
+                            </h3>
+                            <div class="text-gray-600 mb-2 text-sm">
+                                <p><span class="font-semibold">Add any special instructions or warnings</span></p>
+                            </div>
+                            <div class="hidden" id="test3">
+                                <div class="mb-4">
+                                    <label class="block text-gray-700 mb-2">Test Name</label>
+                                    <input class="w-full p-3 border rounded-lg" placeholder="Enter test name" type="text"/>
+                                </div>
+                                <div class="mb-4">
+                                    <label class="block text-gray-700 mb-2">Things to Take Care</label>
+                                    <textarea class="w-full p-3 border rounded-lg" placeholder="Add any special instructions or warnings"></textarea>
+                                </div>
+                                <button class="bg-blue-500 text-white px-4 py-2 rounded-lg w-full">Save Changes</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex space-x-4">
+                        <button class="bg-blue-500 text-white px-4 py-2 rounded-lg w-full">Save Tests</button>
+                        <button class="bg-gray-300 text-gray-700 px-4 py-2 rounded-lg w-full">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

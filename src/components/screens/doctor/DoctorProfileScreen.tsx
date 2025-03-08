@@ -8,10 +8,10 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RouteProp } from '@react-navigation/native';
 
 // Local imports
-import { Doctor, RootStackParamList } from '../../../types/types';
+import { AppStackParamList, Doctor } from '../../../types/types';
 import { avatarStyles, commonStyles, headerStyles, sharedStyles, textStyles, theme } from '../../../styles/commonStyles';
 
-type DoctorProfileRouteProp = RouteProp<RootStackParamList, 'DoctorProfile'>;
+type DoctorProfileRouteProp = RouteProp<AppStackParamList, 'DoctorProfile'>;
 
 // Mock data - in a real app, this would come from an API
 const mockDoctorData = {
@@ -42,7 +42,7 @@ const mockDoctorData = {
 };
 
 const DoctorProfileScreen = () => {
-  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+  const navigation = useNavigation<NativeStackNavigationProp<AppStackParamList>>();
   const route = useRoute<DoctorProfileRouteProp>();
   const { doctorId } = route.params;
   const doctor = mockDoctorData[doctorId as keyof typeof mockDoctorData];

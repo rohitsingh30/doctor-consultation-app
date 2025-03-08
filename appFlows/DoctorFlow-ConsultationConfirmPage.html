@@ -1,0 +1,67 @@
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Consultation Confirmation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-900 h-full">
+    <div class="max-w-screen-sm mx-auto border border-gray-300 shadow-lg rounded-lg overflow-hidden h-full flex flex-col">
+        <header class="bg-white shadow-md p-3 flex items-center justify-between">
+            <button class="text-gray-500 hover:text-gray-700 transition duration-200">
+                <i class="fas fa-arrow-left text-2xl"></i>
+            </button>
+            <h1 class="text-lg font-semibold text-gray-900">Consultation</h1>
+            <div></div>
+        </header>
+        <main class="p-3 flex-1">
+            <div class="bg-white p-4 rounded-lg shadow-md mb-4">
+                <div class="flex items-center mb-2">
+                    <i class="fas fa-check-circle text-blue-500 text-xl mr-2"></i>
+                    <h1 class="text-lg font-semibold text-gray-900">Consultation Scheduled</h1>
+                </div>
+                <p class="text-gray-600 text-sm">Video consultation has been scheduled successfully</p>
+                <div class="mt-4 flex space-x-2">
+                    <button class="bg-blue-600 text-white px-3 py-1 rounded-lg shadow text-sm w-1/2">Add to Calendar</button>
+                    <button class="bg-blue-200 text-blue-800 px-3 py-1 rounded-lg shadow text-sm w-1/2">Share Details</button>
+                </div>
+            </div>
+            <div class="bg-white p-4 rounded-lg shadow-md mb-4">
+                <h2 class="text-lg font-semibold text-gray-900 mb-2">Consultation Details</h2>
+                <div class="flex items-center mb-2">
+                    <img alt="Profile picture of John Doe" class="rounded-full mr-2" height="30" src="https://storage.googleapis.com/a1aa/image/TOLHsurtC0_Ty2w2X_F4yvne6mqJwuSbXCIOITqMR4o.jpg" width="30"/>
+                    <div>
+                        <p class="text-gray-900 font-semibold text-sm">John Doe, 45</p>
+                        <p class="text-gray-600 text-xs">Patient ID: JD123</p>
+                    </div>
+                </div>
+                <div class="flex items-center mb-2">
+                    <i class="fas fa-calendar-alt text-blue-500 text-lg mr-2"></i>
+                    <div>
+                        <p class="text-gray-900 font-semibold text-sm">Thursday, 25 Jan 2024</p>
+                        <p class="text-gray-600 text-xs">10:30 AM - 11:00 AM</p>
+                    </div>
+                </div>
+                <div class="flex items-center mb-4">
+                    <i class="fas fa-video text-blue-500 text-lg mr-2"></i>
+                    <div>
+                        <p class="text-gray-900 font-semibold text-sm">Video Consultation</p>
+                        <p class="text-gray-600 text-xs">Link will be sent 10 minutes before</p>
+                    </div>
+                </div>
+            </div>
+            <div class="flex flex-col space-y-2">
+                <button class="bg-blue-600 text-white px-3 py-2 rounded-lg w-full shadow text-sm">Return to Dashboard</button>
+                <button class="bg-blue-200 text-blue-800 px-3 py-2 rounded-lg w-full shadow text-sm">Patient History</button>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
