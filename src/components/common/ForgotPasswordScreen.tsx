@@ -2,16 +2,18 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, SafeAreaView, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { AuthStackParamList } from '../../types/types';
-import { buttonStyles, commonStyles, containerStyles, textStyles } from '../../styles/commonStyles';
+import { AppStackParamList } from '../../types/types';
+import { buttonStyles, containerStyles, textStyles } from '../../styles/commonStyles';
 import CustomInput from './CustomInput';
 import CustomButton from './CustomButton';
 import BackButton from './BackButton';
+import { useTheme } from 'src/styles/ThemeProvider';
 
 const ForgotPasswordScreen = () => {
-  const navigation = useNavigation<NativeStackNavigationProp<AuthStackParamList>>();
+  const navigation = useNavigation<NativeStackNavigationProp<AppStackParamList>>();
   const [email, setEmail] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const theme = useTheme().theme;
 
   const handleSubmit = async () => {
     setIsLoading(true);
@@ -27,15 +29,14 @@ const ForgotPasswordScreen = () => {
   };
 
   return (
-    <SafeAreaView style={commonStyles.safeArea}>
-      <ScrollView contentContainerStyle={containerStyles.loginScrollContainer}>
+    <SafeAreaView style={containerStyles(theme).safeArea}>
         <BackButton />
-        <View style={containerStyles.logoContainer}>
-          <Text style={textStyles.headerTitle}>Forgot Password</Text>
+        <View style={containerStyles(theme).logoContainer}>
+          <Text style={textStyles(theme).headerTitle}>Forgot Password</Text>
         </View>
         
-        <View style={containerStyles.formContainer}>
-          <Text style={commonStyles.bodyText}>
+        <View style={containerStyles(theme).formContainer}>
+          <Text style={textStyles(theme).bodyText}>
             Enter your email address below to receive a password reset link.
           </Text>
           
@@ -57,12 +58,11 @@ const ForgotPasswordScreen = () => {
           
           <TouchableOpacity 
             style={{ marginTop: 20, alignItems: 'center' }}
-            onPress={() => navigation.navigate('Login')}
+            onPress={() => navigation.navigate('DoctorLogin')}
           >
-            <Text style={commonStyles.primaryButtonText}>Back to Login</Text>
+            <Text style={buttonStyles(theme).primaryButtonText}>Back to Login</Text>
           </TouchableOpacity>
         </View>
-      </ScrollView>
     </SafeAreaView>
   );
 };

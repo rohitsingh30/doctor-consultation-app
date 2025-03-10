@@ -1,3 +1,6 @@
+// Reference - doctor-consultation-app/appFlows/DoctorFlow-Dashboard.html
+// Reference Dark - doctor-consultation-app/appFlows/DoctorFlow-DashboardDark.html
+
 // React and React Native imports
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, ScrollView, SafeAreaView, Switch } from 'react-native';
@@ -8,13 +11,17 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 // Local imports
-import { DoctorStackParamList } from '../../../types/types';
-import { theme, commonStyles, sharedStyles, textStyles } from '../../../styles/commonStyles';
+import { AppStackParamList } from '../../../types/types';
+import { buttonStyles, containerStyles, textStyles } from '../../../styles/commonStyles';
+import { useTheme } from '../../../styles/ThemeProvider';
+import { createAvailabilitySettingsStyles } from '../../../styles/screens/AvailabilitySettingsStyles';
 import Header from '../../common/Header';
 
 const AvailabilitySettingsScreen = () => {
-  const navigation = useNavigation<NativeStackNavigationProp<DoctorStackParamList>>();
+  const navigation = useNavigation<NativeStackNavigationProp<AppStackParamList>>();
   const [isAvailable, setIsAvailable] = useState(true);
+  const { theme } = useTheme();
+  const styles = createAvailabilitySettingsStyles(theme);
 
   const weekDays = [
     { day: 'Monday', available: true, hours: '9:00 AM - 5:00 PM' },
@@ -27,17 +34,17 @@ const AvailabilitySettingsScreen = () => {
   ];
 
   return (
-    <SafeAreaView style={commonStyles.safeArea}>
+    <SafeAreaView style={containerStyles(theme).safeArea}>
       <Header title="Availability Settings" />
       
-      <ScrollView style={commonStyles.scrollView}>
-        <View style={commonStyles.contentContainer}>
+      <ScrollView style={containerStyles(theme).scrollView}>
+        <View style={containerStyles(theme).contentContainer}>
           {/* Overall Availability Toggle */}
-          <View style={[commonStyles.sectionContainer, sharedStyles.shadow]}>
-            <View style={[commonStyles.flexRow, commonStyles.spaceBetween]}>
+          <View style={containerStyles(theme).sectionContainer}>
+            <View style={containerStyles(theme).switchContainer}>
               <View>
-                <Text style={commonStyles.titleText}>Available for Appointments</Text>
-                <Text style={textStyles.smallText}>Toggle to show/hide your availability</Text>
+                <Text style={textStyles(theme).switchLabel}>Available for Appointments</Text>
+                <Text style={textStyles(theme).switchDescription}>Toggle to show/hide your availability</Text>
               </View>
               <Switch
                 value={isAvailable}
@@ -51,20 +58,20 @@ const AvailabilitySettingsScreen = () => {
           </View>
 
           {/* Weekly Schedule */}
-          <View style={[commonStyles.sectionContainer, sharedStyles.shadow]}>
-            <Text style={commonStyles.titleText}>Weekly Schedule</Text>
+          <View style={[containerStyles(theme).sectionContainer]}>
+            <Text style={textStyles(theme).headerText}>Weekly Schedule</Text>
             {weekDays.map((day) => (
               <TouchableOpacity 
                 key={day.day}
-                style={[commonStyles.listItem, sharedStyles.shadow]}
+                style={containerStyles(theme).listItem}
                 onPress={() => {}}
                 accessibilityRole="button"
                 accessibilityLabel={`Edit schedule for ${day.day}`}
               >
-                <View style={commonStyles.flexRow}>
+                <View style={{flexDirection: 'row', alignItems: 'center'}}>
                   <View style={{ flex: 1 }}>
-                    <Text style={commonStyles.bodyText}>{day.day}</Text>
-                    <Text style={textStyles.smallText}>{day.hours}</Text>
+                    <Text style={textStyles(theme).dayText}>{day.day}</Text>
+                    <Text style={textStyles(theme).timeSlot}>{day.hours}</Text>
                   </View>
                   <Icon name="pencil" size={16} color={theme.colors.primary} />
                 </View>
@@ -74,12 +81,12 @@ const AvailabilitySettingsScreen = () => {
 
           {/* Save Button */}
           <TouchableOpacity 
-            style={[commonStyles.primaryButton, sharedStyles.shadow]}
+            style={[buttonStyles(theme).saveButton]}
             onPress={() => navigation.goBack()}
             accessibilityRole="button"
             accessibilityLabel="Save availability settings"
           >
-            <Text style={commonStyles.primaryButtonText}>Save Changes</Text>
+            <Text style={buttonStyles(theme).saveButtonText}>Save Changes</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>

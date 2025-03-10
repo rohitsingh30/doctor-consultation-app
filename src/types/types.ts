@@ -1,18 +1,68 @@
 import { RouteProp } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
+export type ColorPalette = {
+  primary: string;
+  primaryLight: string;
+  secondary: string;
+  background: string;
+  surface: string;
+  text: string;
+  textSecondary: string;
+  textInverted: string;
+  textTertiary: string;
+  border: string;
+  error: string;
+  success: string;
+  shadow: string;
+  // Add new dark mode specific colors
+  divider?: string;
+  overlay?: string;
+  warning?: string;
+  info?: string;
+  disabled?: string;
+};
+
+export type Theme = {
+  colors: ColorPalette;
+  spacing: {
+    xs: number;
+    sm: number;
+    md: number;
+    lg: number;
+    xl: number;
+  };
+  // Add elevation shadows that adapt to dark mode
+  elevation: {
+    sm: object;
+    md: object;
+    lg: object;
+  };
+  fontSize: {
+    xs: number;
+    sm: number;
+    md: number;
+    lg: number;
+    xl: number;
+  };
+  borderRadius: {
+    sm: number;
+    md: number;
+    lg: number;
+  };
+  lineHeight: {
+    xs: number;
+    sm: number;
+    md: number;
+    lg: number;
+    xl: number; 
+  }
+};
+
+
 // Common types for the application
 
 export type UserType = 'user' | 'doctor' | null;
-
-export type AuthContextType = {
-  user: User | null;
-  userType: UserType;
-  isLoading: boolean;
-  login: (userData: any) => Promise<void>;
-  logout: () => Promise<void>;
-  register: (userData: any) => Promise<void>;
-};
 
 export type User = {
   id: string;
@@ -21,32 +71,6 @@ export type User = {
   type: UserType;
 };
 
-export type Symptom = {
-  id: string;
-  name: string;
-  severity: number;
-  duration: string;
-  description?: string;
-};
-
-export type HealthReport = {
-  id?: string;
-  patientId?: string;
-  title: string;
-  symptoms: Symptom[];
-  possibleConditions: string[];
-  recommendations: string[];
-  shouldSeeDoctor: boolean;
-  aiDiagnosis?: string;
-  doctorVerification?: {
-    doctorId: string;
-    verifiedAt: string;
-    comments: string;
-    isVerified: boolean;
-  };
-  createdAt?: string;
-  updatedAt?: string;
-};
 
 export type Doctor = {
   id: string;
@@ -64,15 +88,73 @@ export type Doctor = {
   image: string;
 };
 
-export type Patient = {
+export type PatientHistory = {
+  id: string;
+  patient: string;
+  lastVisit: string;
+  image?: string;
+  date?: string;
+  diagnosis?: string;
+  status?: string;
+};
+
+export type Prescription = {
+  id: string;
+  patient: string;
+  medication: string;
+  frequency: string;
+  duration: string;
+  status: string;
+  image?: string;
+};
+
+export type testResult = {
+  name: string;
+  value: string;
+  normalRange?: string;
+  isNormal: boolean;
+}
+
+export type AuthContextType = {
+  user: User | null;
+  userType: UserType;
+  isLoading: boolean;
+  login: (userData: any) => Promise<void>;
+  logout: () => Promise<void>;
+  register: (userData: any) => Promise<void>;
+};
+
+export type Symptom = {
   id: string;
   name: string;
-  age: number;
-  gender: string;
-  medicalHistory: string[];
-  allergies: string[];
-  currentMedications: string[];
-  image?: string;
+  severity: number;
+  duration: string;
+  description?: string;
+};
+
+export type HealthReport = {
+  id?: string;
+  status: 'in_progress' | 'completed' | 'pending' | 'reviewed';
+  patientId?: string;
+  patientName?: string;
+  title: string;
+  symptoms: string[];
+  possibleConditions: string[];
+  recommendedTest: string[];
+  recommendedMedicine: string[];
+  shouldSeeDoctor: boolean;
+  aiDiagnosis?: string;
+  doctorVerification?: {
+    doctorId: string;
+    verifiedAt: string;
+    comments: string;
+    isVerified: boolean;
+  };
+  patientAge?: number;
+  testResults?: testResult[];
+  diagnosis?: string;
+  createdAt?: string;
+  updatedAt?: string;
 };
 
 export type Appointment = {
@@ -89,65 +171,42 @@ export type Appointment = {
   notes?: string;
 };
 
-export type UserStackParamList = {
-  Dashboard: undefined;
-  ChatBot: undefined;
-  DoctorSearch: undefined;
-  DoctorProfile: { doctorId: string };
-  AppointmentBooking: { doctor?: Doctor };
-  AppointmentConfirmation: { appointmentId: string };
-  AppointmentList: undefined;
-  AppointmentDetail: { appointmentId: string,date?:string ,time?:string  };
-  MedicalRecords: { report?: HealthReport };
-  ReportDetail: { reportId: string; isReviewed?: boolean };
+export type AppStackParam = {
+  Dashboard: {
+    refreshFlag?: boolean;
+  };
+  VideoConsult: { patientId?: string };
+  ConsultationConfirm: { 
+    appointmentId?: string;
+    patientId?: string;
+    dateTime?: string;
+  };
+  PatientHistory: { patientId?: string };
+  RecommendedTests: { patientId?: string };
+  RecommendedMedicine: { patientId?: string };
+  AvailabilitySettings: undefined;
+  ConsultationSettings: undefined;
   Profile: undefined;
-};
-
-export type DoctorStackParamList = {
+  ReportList: { patientId?: string };
+  ReportListDoctor: { doctorId?: string };
+  PrescriptionDetail: { prescriptionId?: string };
   DoctorSignUp: undefined;
   DoctorLogin: undefined;
   ForgotPassword: undefined;
-  RecommendedTests: undefined;
-  ResetPassword: { token: string };
+  ResetPassword: { token?: string };
   DoctorDashboard: undefined;
-  ReportVerification: undefined;
-  ReportDetail: { reportId: string };
+  ReportDetail: { reportId?: string, doctorVerfication?: boolean };
   AppointmentManagement: undefined;
-  AppointmentDetail: { appointmentId: string };
-  AvailabilitySettings: undefined;
-  ConsultationSettings: undefined;
-  DoctorProfile: { doctorId: string };
-  DoctorChat: { chatId: string };
+  AppointmentDetail: { appointmentId?: string };
+  DoctorProfile: { doctorId?: string };
+  DoctorChat: { chatId?: string };
   ConsultationRequests: undefined;
-  ConsultationRequestDetail: { requestId: string };
-  PatientHistory: undefined;
-  ConsultationConfirm: undefined;
+  ConsultationRequestDetail: { requestId?: string };
   VideoConsultation: { patientId?: string; appointmentId?: string };
-  AIReports: undefined;
+  loginScreen: undefined;
 };
 
-export type AppStackParamList = {loginScreen?: undefined} & UserStackParamList & DoctorStackParamList;
+export type AppStackParamList =  AppStackParam;
 
 // Common navigation prop type
-export type NavigationProp = NativeStackNavigationProp<AppStackParamList>;
-
-// Add navigation types specifically for screens in their new locations
-export type NavigationScreenProps = {
-  auth: {
-    Login: typeof import('../components/common/LoginScreen').default;
-    SignUp: typeof import('../components/common/SignUpScreen').default;
-    ForgotPassword: typeof import('../components/common/ForgotPasswordScreen').default;
-    ResetPassword: typeof import('../components/common/ResetPasswordScreen').default;
-  };
-  user: {
-    Dashboard: typeof import('../components/screens/user/DashboardScreen').default;
-    ChatBot: typeof import('../components/screens/user/ChatBotScreen').default;
-    DoctorSearch: typeof import('../components/screens/user/DoctorSearchScreen').default;
-    // ...other user screens
-  };
-  doctor: {
-    DoctorDashboard: typeof import('../components/screens/doctor/DoctorDashboardScreen').default;
-    ReportVerification: typeof import('../components/screens/doctor/ReportVerificationScreen').default;
-    // ...other doctor screens
-  };
-};
+export type NavigationProp = NativeStackNavigationProp<AppStackParam>;

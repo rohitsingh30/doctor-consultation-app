@@ -2,14 +2,18 @@ import React, { useState, useContext } from 'react';
 import { View, Text, ScrollView, SafeAreaView, Alert, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { AuthStackParamList } from '../../types/types';
+import { AppStackParamList } from '../../types/types';
 import { AuthContext } from '../../context/AuthContext';
-import { buttonStyles, commonStyles, containerStyles, textStyles } from '../../styles/commonStyles';
+import { buttonStyles, containerStyles, textStyles } from '../../styles/commonStyles';
 import CustomInput from './CustomInput';
+import { useTheme } from 'src/styles/ThemeProvider';
+
 import CustomButton from './CustomButton';
 
 const SignUpScreen = () => {
-  const navigation = useNavigation<NativeStackNavigationProp<AuthStackParamList>>();
+  const theme = useTheme().theme;
+
+  const navigation = useNavigation<NativeStackNavigationProp<AppStackParamList>>();
   const { register } = useContext(AuthContext);
   
   const [name, setName] = useState('');
@@ -55,14 +59,14 @@ const SignUpScreen = () => {
   };
 
   return (
-    <SafeAreaView style={commonStyles.safeArea}>
-      <ScrollView contentContainerStyle={containerStyles.loginScrollContainer}>
-        <View style={containerStyles.logoContainer}>
-          <Text style={textStyles.appName}>Doc-X</Text>
-          <Text style={textStyles.tagline}>Create your account</Text>
+    <SafeAreaView style={containerStyles(theme).safeArea}>
+      <ScrollView contentContainerStyle={containerStyles(theme).loginScrollContainer}>
+        <View style={containerStyles(theme).logoContainer}>
+          <Text style={textStyles(theme).appName}>Doc-X</Text>
+          <Text style={textStyles(theme).tagline}>Create your account</Text>
         </View>
 
-        <View style={containerStyles.formContainer}>
+        <View style={containerStyles(theme).formContainer}>
           <CustomInput
             label="Full Name"
             placeholder="Enter your full name"
@@ -99,14 +103,14 @@ const SignUpScreen = () => {
           />
 
           <TouchableOpacity 
-            style={containerStyles.userTypeContainer}
+            style={containerStyles(theme).userTypeContainer}
             onPress={() => setIsDoctor(!isDoctor)}
           >
-            <View style={containerStyles.checkboxContainer}>
-              <View style={[containerStyles.checkbox, isDoctor && containerStyles.checkboxChecked]}>
-                {isDoctor && <View style={containerStyles.checkboxInner} />}
+            <View style={containerStyles(theme).checkboxContainer}>
+              <View style={[containerStyles(theme).checkbox, isDoctor && containerStyles(theme).checkboxChecked]}>
+                {isDoctor && <View style={containerStyles(theme).checkboxInner} />}
               </View>
-              <Text style={textStyles.userTypeText}>Register as Doctor</Text>
+              <Text style={textStyles(theme).userTypeText}>Register as Doctor</Text>
             </View>
           </TouchableOpacity>
 
@@ -114,14 +118,14 @@ const SignUpScreen = () => {
             title="Sign Up"
             onPress={handleSignUp}
             isLoading={isLoading}
-            style={buttonStyles.loginButton}
+            style={buttonStyles(theme).loginButton}
           />
         </View>
 
-        <View style={containerStyles.footer}>
-          <Text style={textStyles.footerText}>Already have an account?</Text>
-          <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-            <Text style={textStyles.signUpText}>Login</Text>
+        <View style={containerStyles(theme).footer}>
+          <Text style={textStyles(theme).footerText}>Already have an account?</Text>
+          <TouchableOpacity onPress={() => navigation.navigate('DoctorLogin')}>
+            <Text style={textStyles(theme).signUpText}>Login</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>

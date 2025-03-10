@@ -1,17 +1,24 @@
+// Reference - doctor-consultation-app/appFlows/DoctorFlow-PatientHistory.html 
+// Reference Dark - doctor-consultation-app/appFlows/DoctorFlow-PatientHistoryDark.html
+
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, ScrollView, SafeAreaView } from 'react-native';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-import { DoctorStackParamList } from '../../../types/types';
-import { theme, commonStyles, sharedStyles, textStyles } from '../../../styles/commonStyles';
+import { AppStackParamList } from '../../../types/types';
 import BackButton from '../../common/BackButton';
+import { useTheme } from '../../../styles/ThemeProvider';
+import { createPatientHistoryStyles } from '../../../styles/screens/patientHistoryStyles';
+import { containerStyles, shadowsStyle } from 'src/styles/commonStyles';
 
 type Section = 'consultations' | 'labResults' | 'prescriptions' | 'chronicConditions';
 
 const PatientHistoryScreen = () => {
-  const navigation = useNavigation<NativeStackNavigationProp<DoctorStackParamList>>();
+  const { theme } = useTheme();
+  const styles = createPatientHistoryStyles(theme);
+  const navigation = useNavigation<NativeStackNavigationProp<AppStackParamList>>();
   const [expandedSections, setExpandedSections] = useState<Section[]>([]);
 
   // Mock patient data
@@ -61,218 +68,172 @@ const PatientHistoryScreen = () => {
     return expandedSections.includes(section);
   };
 
+  // Render patient profile and vitals
+  const renderPatientProfile = () => (
+    <View style={[styles.sectionContainer, shadowsStyle(theme).md, { backgroundColor: theme.colors.surface }]}>
+      <View style={[containerStyles(theme).flexRow, containerStyles(theme).spaceBetween]}>
+        <View style={containerStyles(theme).flexRow}>
+          <Icon name="user-circle" size={24} color={theme.colors.primary} style={{ marginRight: theme.spacing.sm }} />
+          <Text style={styles.titleText}>{patient.name}</Text>
+        </View>
+        <TouchableOpacity 
+          style={[styles.outlineButton, { padding: theme.spacing.xs }]}
+          onPress={() => navigation.navigate('AppointmentManagement')}
+          accessibilityRole="button"
+          accessibilityLabel="Schedule consultation"
+        >
+          <Text style={styles.outlineButtonText}>Schedule Consultation</Text>
+        </TouchableOpacity>
+      </View>
+
+      <View style={[containerStyles(theme).flexRow, containerStyles(theme).spaceBetween, { marginTop: theme.spacing.md }]}>
+        <View>
+          <View style={containerStyles(theme).flexRow}>
+            <Icon name="tint" size={16} color={theme.colors.primary} style={{ marginRight: theme.spacing.xs }} />
+            <Text style={styles.smallText}>Blood Type: {patient.bloodType}</Text>
+          </View>
+          <View style={[containerStyles(theme).flexRow, { marginTop: theme.spacing.xs }]}>
+            <Icon name="pills" size={16} color={theme.colors.primary} style={{ marginRight: theme.spacing.xs }} />
+            <Text style={styles.smallText}>Allergies: {patient.allergies.join(', ')}</Text>
+          </View>
+        </View>
+        <View>
+          <View style={containerStyles(theme).flexRow}>
+            <Icon name="tachometer" size={16} color={theme.colors.primary} style={{ marginRight: theme.spacing.xs }} />
+            <Text style={styles.smallText}>BP: {patient.vitals.bloodPressure}</Text>
+          </View>
+          <View style={[containerStyles(theme).flexRow, { marginTop: theme.spacing.xs }]}>
+            <Icon name="heart" size={16} color={theme.colors.primary} style={{ marginRight: theme.spacing.xs }} />
+            <Text style={styles.smallText}>Heart Rate: {patient.vitals.heartRate}</Text>
+          </View>
+          <View style={[containerStyles(theme).flexRow, { marginTop: theme.spacing.xs }]}>
+            <Icon name="thermometer-half" size={16} color={theme.colors.primary} style={{ marginRight: theme.spacing.xs }} />
+            <Text style={styles.smallText}>Temp: {patient.vitals.temperature}</Text>
+          </View>
+        </View>
+      </View>
+    </View>
+  );
+
+  // Render section header
+  const renderSectionHeader = (section: Section, icon: string, title: string) => (
+    <TouchableOpacity 
+      style={[containerStyles(theme).flexRow, containerStyles(theme).spaceBetween]}
+      onPress={() => toggleSection(section)}
+      accessibilityRole="button"
+      accessibilityLabel={`Toggle ${title} section`}
+    >
+      <View style={containerStyles(theme).flexRow}>
+        <Icon name={icon} size={16} color={theme.colors.primary} style={{ marginRight: theme.spacing.sm }} />
+        <Text style={styles.bodyText}>{title}</Text>
+      </View>
+      <Icon 
+        name={isSectionExpanded(section) ? "chevron-up" : "chevron-down"} 
+        size={16} 
+        color={theme.colors.text} 
+      />
+    </TouchableOpacity>
+  );
+
+  // Render history item
+  const renderHistoryItem = (item: any, isChronicCondition: boolean = false) => (
+    <View key={item.id} style={[styles.historyItem, shadowsStyle(theme).md]}>
+      <View style={containerStyles(theme).flexRow}>
+        <View style={{ flex: 1 }}>
+          <Text style={styles.historyItemTitle}>{item.title}</Text>
+          {isChronicCondition ? (
+            <Text style={styles.historyItemSubtitle}>Diagnosed: {item.diagnosedDate}</Text>
+          ) : (
+            <Text style={styles.historyItemSubtitle}>{item.doctor} • {item.date}</Text>
+          )}
+        </View>
+        <Icon name="chevron-right" size={16} color={theme.colors.primary} />
+      </View>
+    </View>
+  );
+
+  // Render consultations section
+  const renderConsultationsSection = () => (
+    <View style={[styles.sectionContainer, shadowsStyle(theme).md]}>
+      {renderSectionHeader('consultations', 'stethoscope', 'Consultations')}
+      {isSectionExpanded('consultations') && (
+        <View style={{ marginTop: theme.spacing.md }}>
+          {medicalHistory.consultations.map(item => renderHistoryItem(item))}
+        </View>
+      )}
+    </View>
+  );
+
+  // Render lab results section
+  const renderLabResultsSection = () => (
+    <View style={[styles.sectionContainer, shadowsStyle(theme).md]}>
+      {renderSectionHeader('labResults', 'vial', 'Lab Results')}
+      {isSectionExpanded('labResults') && (
+        <View style={{ marginTop: theme.spacing.md }}>
+          {medicalHistory.labResults.map(item => renderHistoryItem(item))}
+        </View>
+      )}
+    </View>
+  );
+
+  // Render prescriptions section
+  const renderPrescriptionsSection = () => (
+    <View style={[styles.sectionContainer, shadowsStyle(theme).md]}>
+      {renderSectionHeader('prescriptions', 'prescription-bottle', 'Prescriptions')}
+      {isSectionExpanded('prescriptions') && (
+        <View style={{ marginTop: theme.spacing.md }}>
+          {medicalHistory.prescriptions.map(item => renderHistoryItem(item))}
+        </View>
+      )}
+    </View>
+  );
+
+  // Render chronic conditions section
+  const renderChronicConditionsSection = () => (
+    <View style={[styles.sectionContainer, shadowsStyle(theme).md]}>
+      {renderSectionHeader('chronicConditions', 'heartbeat', 'Chronic Conditions')}
+      {isSectionExpanded('chronicConditions') && (
+        <View style={{ marginTop: theme.spacing.md }}>
+          {medicalHistory.chronicConditions.map(item => renderHistoryItem(item, true))}
+        </View>
+      )}
+    </View>
+  );
+
+  // Render action buttons
+  const renderActionButtons = () => (
+    <View>
+      <TouchableOpacity 
+        style={[styles.primaryButton, shadowsStyle(theme).md]}
+        onPress={() => navigation.navigate('VideoConsultation', { patientId: patient.id })}
+        accessibilityRole="button"
+        accessibilityLabel="Start consultation"
+      >
+        <Text style={styles.primaryButtonText}>Start Consultation</Text>
+      </TouchableOpacity>
+      
+      <TouchableOpacity 
+        style={[styles.secondaryButton, shadowsStyle(theme).md, { marginTop: theme.spacing.md }]}
+        onPress={() => navigation.goBack()}
+        accessibilityRole="button"
+        accessibilityLabel="Return to previous screen"
+      >
+        <Text style={styles.secondaryButtonText}>Back</Text>
+      </TouchableOpacity>
+    </View>
+  );
+
   return (
-    <SafeAreaView style={commonStyles.safeArea}>
-      <ScrollView style={commonStyles.scrollView}>
+    <SafeAreaView style={containerStyles(theme).safeArea}>
+      <ScrollView style={containerStyles(theme).scrollView}>
         <BackButton />
-        <View style={commonStyles.contentContainer}>
-          {/* Patient Profile and Vitals */}
-          <View style={[commonStyles.sectionContainer, sharedStyles.shadow, { backgroundColor: theme.colors.lightBackground }]}>
-            <View style={[commonStyles.flexRow, commonStyles.spaceBetween]}>
-              <View style={commonStyles.flexRow}>
-                <Icon name="user-circle" size={24} color={theme.colors.primary} style={{ marginRight: theme.spacing.sm }} />
-                <Text style={commonStyles.titleText}>{patient.name}</Text>
-              </View>
-              <TouchableOpacity 
-                style={[commonStyles.outlineButton, { padding: theme.spacing.xs }]}
-                onPress={() => navigation.navigate('AppointmentManagement')}
-                accessibilityRole="button"
-                accessibilityLabel="Schedule consultation"
-              >
-                <Text style={commonStyles.outlineButtonText}>Schedule Consultation</Text>
-              </TouchableOpacity>
-            </View>
-
-            <View style={[commonStyles.flexRow, commonStyles.spaceBetween, { marginTop: theme.spacing.md }]}>
-              <View>
-                <View style={commonStyles.flexRow}>
-                  <Icon name="tint" size={16} color={theme.colors.primary} style={{ marginRight: theme.spacing.xs }} />
-                  <Text style={textStyles.smallText}>Blood Type: {patient.bloodType}</Text>
-                </View>
-                <View style={[commonStyles.flexRow, { marginTop: theme.spacing.xs }]}>
-                  <Icon name="pills" size={16} color={theme.colors.primary} style={{ marginRight: theme.spacing.xs }} />
-                  <Text style={textStyles.smallText}>Allergies: {patient.allergies.join(', ')}</Text>
-                </View>
-              </View>
-              <View>
-                <View style={commonStyles.flexRow}>
-                  <Icon name="tachometer-alt" size={16} color={theme.colors.primary} style={{ marginRight: theme.spacing.xs }} />
-                  <Text style={textStyles.smallText}>BP: {patient.vitals.bloodPressure}</Text>
-                </View>
-                <View style={[commonStyles.flexRow, { marginTop: theme.spacing.xs }]}>
-                  <Icon name="heart" size={16} color={theme.colors.primary} style={{ marginRight: theme.spacing.xs }} />
-                  <Text style={textStyles.smallText}>Heart Rate: {patient.vitals.heartRate}</Text>
-                </View>
-                <View style={[commonStyles.flexRow, { marginTop: theme.spacing.xs }]}>
-                  <Icon name="thermometer-half" size={16} color={theme.colors.primary} style={{ marginRight: theme.spacing.xs }} />
-                  <Text style={textStyles.smallText}>Temp: {patient.vitals.temperature}</Text>
-                </View>
-              </View>
-            </View>
-          </View>
-
-          {/* Consultations Section */}
-          <View style={[commonStyles.sectionContainer, sharedStyles.shadow]}>
-            <TouchableOpacity 
-              style={[commonStyles.flexRow, commonStyles.spaceBetween]}
-              onPress={() => toggleSection('consultations')}
-              accessibilityRole="button"
-              accessibilityLabel="Toggle consultations section"
-            >
-              <View style={commonStyles.flexRow}>
-                <Icon name="stethoscope" size={16} color={theme.colors.primary} style={{ marginRight: theme.spacing.sm }} />
-                <Text style={commonStyles.bodyText}>Consultations</Text>
-              </View>
-              <Icon 
-                name={isSectionExpanded('consultations') ? "chevron-up" : "chevron-down"} 
-                size={16} 
-                color={theme.colors.text} 
-              />
-            </TouchableOpacity>
-
-            {isSectionExpanded('consultations') && (
-              <View style={{ marginTop: theme.spacing.md }}>
-                {medicalHistory.consultations.map(item => (
-                  <View key={item.id} style={[commonStyles.listItem, sharedStyles.shadow]}>
-                    <View style={commonStyles.flexRow}>
-                      <View style={{ flex: 1 }}>
-                        <Text style={commonStyles.bodyText}>{item.title}</Text>
-                        <Text style={textStyles.smallText}>{item.doctor} • {item.date}</Text>
-                      </View>
-                      <Icon name="chevron-right" size={16} color={theme.colors.primary} />
-                    </View>
-                  </View>
-                ))}
-              </View>
-            )}
-          </View>
-
-          {/* Lab Results Section */}
-          <View style={[commonStyles.sectionContainer, sharedStyles.shadow]}>
-            <TouchableOpacity 
-              style={[commonStyles.flexRow, commonStyles.spaceBetween]}
-              onPress={() => toggleSection('labResults')}
-              accessibilityRole="button"
-              accessibilityLabel="Toggle lab results section"
-            >
-              <View style={commonStyles.flexRow}>
-                <Icon name="vial" size={16} color={theme.colors.primary} style={{ marginRight: theme.spacing.sm }} />
-                <Text style={commonStyles.bodyText}>Lab Results</Text>
-              </View>
-              <Icon 
-                name={isSectionExpanded('labResults') ? "chevron-up" : "chevron-down"} 
-                size={16} 
-                color={theme.colors.text} 
-              />
-            </TouchableOpacity>
-
-            {isSectionExpanded('labResults') && (
-              <View style={{ marginTop: theme.spacing.md }}>
-                {medicalHistory.labResults.map(item => (
-                  <View key={item.id} style={[commonStyles.listItem, sharedStyles.shadow]}>
-                    <View style={commonStyles.flexRow}>
-                      <View style={{ flex: 1 }}>
-                        <Text style={commonStyles.bodyText}>{item.title}</Text>
-                        <Text style={textStyles.smallText}>{item.doctor} • {item.date}</Text>
-                      </View>
-                      <Icon name="chevron-right" size={16} color={theme.colors.primary} />
-                    </View>
-                  </View>
-                ))}
-              </View>
-            )}
-          </View>
-
-          {/* Prescriptions Section */}
-          <View style={[commonStyles.sectionContainer, sharedStyles.shadow]}>
-            <TouchableOpacity 
-              style={[commonStyles.flexRow, commonStyles.spaceBetween]}
-              onPress={() => toggleSection('prescriptions')}
-              accessibilityRole="button"
-              accessibilityLabel="Toggle prescriptions section"
-            >
-              <View style={commonStyles.flexRow}>
-                <Icon name="prescription-bottle-alt" size={16} color={theme.colors.primary} style={{ marginRight: theme.spacing.sm }} />
-                <Text style={commonStyles.bodyText}>Prescriptions</Text>
-              </View>
-              <Icon 
-                name={isSectionExpanded('prescriptions') ? "chevron-up" : "chevron-down"} 
-                size={16} 
-                color={theme.colors.text} 
-              />
-            </TouchableOpacity>
-
-            {isSectionExpanded('prescriptions') && (
-              <View style={{ marginTop: theme.spacing.md }}>
-                {medicalHistory.prescriptions.map(item => (
-                  <View key={item.id} style={[commonStyles.listItem, sharedStyles.shadow]}>
-                    <View style={commonStyles.flexRow}>
-                      <View style={{ flex: 1 }}>
-                        <Text style={commonStyles.bodyText}>{item.title}</Text>
-                        <Text style={textStyles.smallText}>{item.doctor} • {item.date}</Text>
-                      </View>
-                      <Icon name="chevron-right" size={16} color={theme.colors.primary} />
-                    </View>
-                  </View>
-                ))}
-              </View>
-            )}
-          </View>
-
-          {/* Chronic Conditions Section */}
-          <View style={[commonStyles.sectionContainer, sharedStyles.shadow]}>
-            <TouchableOpacity 
-              style={[commonStyles.flexRow, commonStyles.spaceBetween]}
-              onPress={() => toggleSection('chronicConditions')}
-              accessibilityRole="button"
-              accessibilityLabel="Toggle chronic conditions section"
-            >
-              <View style={commonStyles.flexRow}>
-                <Icon name="heartbeat" size={16} color={theme.colors.primary} style={{ marginRight: theme.spacing.sm }} />
-                <Text style={commonStyles.bodyText}>Chronic Conditions</Text>
-              </View>
-              <Icon 
-                name={isSectionExpanded('chronicConditions') ? "chevron-up" : "chevron-down"} 
-                size={16} 
-                color={theme.colors.text} 
-              />
-            </TouchableOpacity>
-
-            {isSectionExpanded('chronicConditions') && (
-              <View style={{ marginTop: theme.spacing.md }}>
-                {medicalHistory.chronicConditions.map(item => (
-                  <View key={item.id} style={[commonStyles.listItem, sharedStyles.shadow]}>
-                    <View style={commonStyles.flexRow}>
-                      <View style={{ flex: 1 }}>
-                        <Text style={commonStyles.bodyText}>{item.title}</Text>
-                        <Text style={textStyles.smallText}>Diagnosed: {item.diagnosedDate}</Text>
-                      </View>
-                      <Icon name="chevron-right" size={16} color={theme.colors.primary} />
-                    </View>
-                  </View>
-                ))}
-              </View>
-            )}
-          </View>
-
-          {/* Action Buttons */}
-          <TouchableOpacity 
-            style={[commonStyles.primaryButton, sharedStyles.shadow]}
-            onPress={() => navigation.navigate('ConsultationConfirm')}
-            accessibilityRole="button"
-            accessibilityLabel="Start consultation"
-          >
-            <Text style={commonStyles.primaryButtonText}>Start Consultation</Text>
-          </TouchableOpacity>
-          
-          <TouchableOpacity 
-            style={[commonStyles.secondaryButton, sharedStyles.shadow, { marginTop: theme.spacing.md }]}
-            onPress={() => navigation.goBack()}
-            accessibilityRole="button"
-            accessibilityLabel="Return to previous screen"
-          >
-            <Text style={commonStyles.secondaryButtonText}>Back</Text>
-          </TouchableOpacity>
+        <View style={containerStyles(theme).contentContainer}>
+          {renderPatientProfile()}
+          {renderConsultationsSection()}
+          {renderLabResultsSection()}
+          {renderPrescriptionsSection()}
+          {renderChronicConditionsSection()}
+          {renderActionButtons()}
         </View>
       </ScrollView>
     </SafeAreaView>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { TouchableOpacity, Text, StyleSheet, ActivityIndicator, ViewStyle, TextStyle } from 'react-native';
-import { theme } from '../../styles/theme';
-import { buttonStyles, commonStyles,textStyles } from 'src/styles/commonStyles';
+import { buttonStyles,textStyles } from 'src/styles/commonStyles';
+import { useTheme } from 'src/styles/ThemeProvider';
 
 type ButtonVariant = 'primary' | 'secondary' | 'outline';
 
@@ -28,39 +28,40 @@ const Button: React.FC<ButtonProps> = ({
   textStyle,
   icon,
 }) => {
+  const theme = useTheme().theme;
   const getButtonStyle = () => {
     switch (variant) {
       case 'primary':
-        return buttonStyles.primaryButton;
+        return buttonStyles(theme).primaryButton;
       case 'secondary':
-        return buttonStyles.secondaryButton;
+        return buttonStyles(theme).secondaryButton;
       case 'outline':
-        return buttonStyles.outlineButton;
+        return buttonStyles(theme).outlineButton;
       default:
-        return buttonStyles.primaryButton;
+        return buttonStyles(theme).primaryButton;
     }
   };
 
   const getTextStyle = () => {
     switch (variant) {
       case 'primary':
-        return commonStyles.primaryText;
+        return textStyles(theme).primaryText;
       case 'secondary':
-        return textStyles.secondaryText;
+        return textStyles(theme).secondaryText;
       case 'outline':
-        return textStyles.outlineText;
+        return textStyles(theme).outlineText;
       default:
-        return commonStyles.primaryText;
+        return textStyles(theme).primaryText;
     }
   };
 
   return (
     <TouchableOpacity
       style={[
-        buttonStyles.button,
+        buttonStyles(theme).button,
         getButtonStyle(),
-        fullWidth && textStyles.fullWidthText,
-        disabled && buttonStyles.disabledButton,
+        fullWidth && textStyles(theme).fullWidthText,
+        disabled && buttonStyles(theme).disabledButton,
         style,
       ]}
       onPress={onPress}
@@ -77,9 +78,9 @@ const Button: React.FC<ButtonProps> = ({
           {icon && icon}
           <Text 
             style={[
-                textStyles.text, 
+                textStyles(theme).text, 
               getTextStyle(), 
-              disabled && textStyles.disabledText,
+              disabled && textStyles(theme).disabledText,
               icon ? { marginLeft: theme.spacing.xs } : null,
               textStyle
             ]}

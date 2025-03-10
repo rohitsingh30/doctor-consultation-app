@@ -2,14 +2,18 @@ import React, { useState } from 'react';
 import { View, Text, SafeAreaView, Alert, ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { AuthStackParamList } from '../../types/types';
-import { buttonStyles, commonStyles, containerStyles, textStyles } from '../../styles/commonStyles';
+import { AppStackParamList } from '../../types/types';
+import { containerStyles, textStyles } from '../../styles/commonStyles';
 import CustomInput from './CustomInput';
 import CustomButton from './CustomButton';
+import { useTheme } from 'src/styles/ThemeProvider';
+
 import BackButton from './BackButton';
 
 const ResetPasswordScreen = () => {
-  const navigation = useNavigation<NativeStackNavigationProp<AuthStackParamList>>();
+  const theme = useTheme().theme;
+
+  const navigation = useNavigation<NativeStackNavigationProp<AppStackParamList>>();
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -26,7 +30,7 @@ const ResetPasswordScreen = () => {
       // Simulate password reset
       await new Promise(resolve => setTimeout(resolve, 1000));
       Alert.alert('Success', 'Password reset successfully', [
-        { text: 'OK', onPress: () => navigation.navigate('Login') }
+        { text: 'OK', onPress: () => navigation.navigate('DoctorLogin') }
       ]);
     } catch (error) {
       Alert.alert('Error', 'Something went wrong. Please try again.');
@@ -36,15 +40,15 @@ const ResetPasswordScreen = () => {
   };
 
   return (
-    <SafeAreaView style={commonStyles.safeArea}>
-      <ScrollView contentContainerStyle={containerStyles.loginScrollContainer}>
+    <SafeAreaView style={containerStyles(theme).safeArea}>
+      <ScrollView contentContainerStyle={containerStyles(theme).loginScrollContainer}>
         <BackButton />
-        <View style={containerStyles.logoContainer}>
-          <Text style={textStyles.headerTitle}>Create New Password</Text>
+        <View style={containerStyles(theme).logoContainer}>
+          <Text style={textStyles(theme).headerTitle}>Create New Password</Text>
         </View>
         
-        <View style={containerStyles.formContainer}>
-          <Text style={commonStyles.bodyText}>
+        <View style={containerStyles(theme).formContainer}>
+          <Text style={textStyles(theme).bodyText}>
             Enter your new password below.
           </Text>
           

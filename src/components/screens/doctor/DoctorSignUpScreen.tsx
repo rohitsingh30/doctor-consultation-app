@@ -1,17 +1,22 @@
+
+// Reference - doctor-consultation-app/appFlows/DoctorFlow-SignUp.html 
+// Reference Dark - doctor-consultation-app/appFlows/DoctorFlow-SignUpDark.html
+
 import React, { useState, useContext } from 'react';
 import { View, Text, SafeAreaView, ScrollView, Alert, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { AuthContext } from '../../../context/AuthContext';
-import { DoctorStackParamList } from '../../../types/types';
-import { commonStyles, containerStyles, textStyles, buttonStyles } from '../../../styles/commonStyles';
+import { AppStackParamList } from '../../../types/types';
+import {containerStyles, textStyles, buttonStyles } from '../../../styles/commonStyles';
 import CustomInput from '../../common/CustomInput';
 import CustomButton from '../../common/CustomButton';
-import BackButton from '../../common/BackButton';
+import { useTheme } from 'src/styles/ThemeProvider';
 
 const DoctorSignUpScreen = () => {
-  const navigation = useNavigation<NativeStackNavigationProp<DoctorStackParamList>>();
+  const navigation = useNavigation<NativeStackNavigationProp<AppStackParamList>>();
   const { login } = useContext(AuthContext);
+  const { theme } = useTheme();
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -49,14 +54,14 @@ const DoctorSignUpScreen = () => {
   };
 
   return (
-    <SafeAreaView style={commonStyles.safeArea}>
-      <ScrollView contentContainerStyle={containerStyles.loginScrollContainer}>
-        <View style={containerStyles.logoContainer}>
-          <Text style={textStyles.appName}>Doc-X</Text>
-          <Text style={textStyles.tagline}>Doctor Sign Up</Text>
+    <SafeAreaView style={containerStyles(theme).safeArea}>
+      <ScrollView contentContainerStyle={containerStyles(theme).loginScrollContainer}>
+        <View style={containerStyles(theme).logoContainer}>
+          <Text style={textStyles(theme).appName}>Doc-X</Text>
+          <Text style={textStyles(theme).tagline}>Doctor Sign Up</Text>
         </View>
 
-        <View style={containerStyles.formContainer}>
+        <View style={containerStyles(theme).formContainer}>
           <CustomInput
             label="Full Name"
             placeholder="Enter your full name"
@@ -92,14 +97,14 @@ const DoctorSignUpScreen = () => {
             title="Sign Up"
             onPress={handleSignUp}
             isLoading={isLoading}
-            style={buttonStyles.primary}
+            style={buttonStyles(theme).primary}
           />
 
           <TouchableOpacity 
             style={{ marginTop: 20, alignItems: 'flex-end' }}
             onPress={() => navigation.navigate('DoctorLogin')}
           >
-            <Text style={textStyles.forgotPasswordText}>Already have an account? Sign In</Text>
+            <Text style={textStyles(theme).forgotPasswordText}>Already have an account? Sign In</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>

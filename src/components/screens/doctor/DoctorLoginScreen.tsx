@@ -1,17 +1,21 @@
+// Reference - doctor-consultation-app/appFlows/DoctorFlow-Login.html 
+// Reference Dark - doctor-consultation-app/appFlows/DoctorFlow-LoginDark.html
+
 import React, { useState, useContext } from 'react';
 import { View, Text, SafeAreaView, ScrollView, Alert, Image, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { AuthContext } from '../../../context/AuthContext';
-import { DoctorStackParamList } from '../../../types/types';
-import { commonStyles, containerStyles, textStyles, buttonStyles } from '../../../styles/commonStyles';
+import { AppStackParamList } from '../../../types/types';
+import { containerStyles, textStyles, buttonStyles } from '../../../styles/commonStyles';
 import CustomInput from '../../common/CustomInput';
 import CustomButton from '../../common/CustomButton';
-import BackButton from '../../common/BackButton';
+import { useTheme } from 'src/styles/ThemeProvider';
 
 const DoctorLoginScreen = () => {
-  const navigation = useNavigation<NativeStackNavigationProp<DoctorStackParamList>>();
+  const navigation = useNavigation<NativeStackNavigationProp<AppStackParamList>>();
   const { login } = useContext(AuthContext);
+  const {theme} = useTheme();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -37,14 +41,14 @@ const DoctorLoginScreen = () => {
   };
 
   return (
-    <SafeAreaView style={commonStyles.safeArea}>
-      <ScrollView contentContainerStyle={containerStyles.loginScrollContainer}>
-        <View style={containerStyles.logoContainer}>
-          <Text style={textStyles.appName}>Doc-X</Text>
-          <Text style={textStyles.tagline}>Access your healthcare dashboard</Text>
+    <SafeAreaView style={containerStyles(theme).safeArea}>
+      <ScrollView contentContainerStyle={containerStyles(theme).loginScrollContainer}>
+        <View style={containerStyles(theme).logoContainer}>
+          <Text style={textStyles(theme).appName}>Doc-X</Text>
+          <Text style={textStyles(theme).tagline}>Access your healthcare dashboard</Text>
         </View>
 
-        <View style={containerStyles.formContainer}>
+        <View style={containerStyles(theme).formContainer}>
           <CustomInput
             label="Email"
             placeholder="Enter your email address"
@@ -65,21 +69,21 @@ const DoctorLoginScreen = () => {
             title="Sign In"
             onPress={handleLogin}
             isLoading={isLoading}
-            style={buttonStyles.primary}
+            style={buttonStyles(theme).primary}
           />
 
           <TouchableOpacity 
             style={{ marginTop: 20, alignItems: 'flex-end' }}
             onPress={() => navigation.navigate('ForgotPassword')}
           >
-            <Text style={textStyles.forgotPasswordText}>Forgot Password?</Text>
+            <Text style={textStyles(theme).forgotPasswordText}>Forgot Password?</Text>
           </TouchableOpacity>
         </View>
 
-        <View style={containerStyles.footer}>
-          <Text style={textStyles.footerText}>Don't have an account?</Text>
+        <View style={containerStyles(theme).footer}>
+          <Text style={textStyles(theme).footerText}>Don't have an account?</Text>
           <TouchableOpacity onPress={() => navigation.navigate('DoctorSignUp')}>
-            <Text style={textStyles.signUpText}>Sign Up</Text>
+            <Text style={textStyles(theme).signUpText}>Sign Up</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>

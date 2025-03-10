@@ -1,3 +1,6 @@
+// Reference - doctor-consultation-app/appFlows/DoctorFlow-RecommendedTests.html 
+// Reference Dark - doctor-consultation-app/appFlows/DoctorFlow-RecommendedTestsDark.html
+
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, ScrollView, SafeAreaView, TextInput } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
@@ -5,68 +8,38 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RouteProp } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-import { DoctorStackParamList } from '../../../types/types';
-import { theme, commonStyles, sharedStyles, textStyles } from '../../../styles/commonStyles';
+import { AppStackParamList } from '../../../types/types';
+import { useTheme } from '../../../styles/ThemeProvider';
+import { createRecommendedTestsStyles } from '../../../styles/screens/recommendedTestsStyles';
 import BackButton from '../../common/BackButton';
+import { Test, recommendedTests, testPatientData } from '../../../data/doctorData';
+import { containerStyles, textStyles } from 'src/styles/commonStyles';
 
-type RecommendedTestsScreenNavigationProp = NativeStackNavigationProp<DoctorStackParamList, 'RecommendedTests'>;
-type RecommendedTestsScreenRouteProp = RouteProp<DoctorStackParamList, 'RecommendedTests'>;
+type RecommendedTestsScreenNavigationProp = NativeStackNavigationProp<AppStackParamList, 'RecommendedTests'>;
+type RecommendedTestsScreenRouteProp = RouteProp<AppStackParamList, 'RecommendedTests'>;
 
-type Test = {
-  id: string;
-  name: string;
-  instructions: string;
-  addedBy: 'doctor' | 'ai';
-  verified: boolean;
-};
-
-const RecommendedTestsScreen = () => {
+/**
+ * RecommendedTestsScreen component for doctors to view and manage recommended tests
+ * Allows viewing AI recommendations and managing test details
+ */
+const RecommendedTestsScreen: React.FC = () => {
   const navigation = useNavigation<RecommendedTestsScreenNavigationProp>();
   const route = useRoute<RecommendedTestsScreenRouteProp>();
+  const { theme } = useTheme();
+  const styles = createRecommendedTestsStyles(theme);
   
-  // Mock patient data - in a real app, this would come from route params or API
-  const patientData = {
-    name: 'John Doe',
-    symptoms: ['Chest pain', 'Shortness of breath'],
-    suggestedTests: ['Blood Pressure Monitoring', 'Neurological Examination']
-  };
-
-  // State for tests
-  const [tests, setTests] = useState<Test[]>([
-    {
-      id: '1',
-      name: 'Blood Pressure Monitoring',
-      instructions: 'Avoid caffeine and exercise 30 minutes before the test. Sit quietly for 5 minutes before the test.',
-      addedBy: 'doctor',
-      verified: true
-    },
-    {
-      id: '2',
-      name: 'Neurological Examination',
-      instructions: 'Wear comfortable clothing. Inform the doctor of any medications you are taking.',
-      addedBy: 'ai',
-      verified: false
-    },
-    {
-      id: '3',
-      name: '',
-      instructions: 'Add any special instructions or warnings',
-      addedBy: 'doctor',
-      verified: false
-    }
-  ]);
-
-  // State for expanded test details
+  // State management
+  const [tests, setTests] = useState<Test[]>(recommendedTests);
   const [expandedTests, setExpandedTests] = useState<string[]>([]);
-
-  // State for editing test
   const [editingTest, setEditingTest] = useState<{
     id: string;
     name: string;
     instructions: string;
   } | null>(null);
 
-  // Toggle test expansion
+  /**
+   * Toggle test expansion state
+   */
   const toggleTestExpansion = (testId: string) => {
     setExpandedTests(prev => 
       prev.includes(testId) 
@@ -75,12 +48,16 @@ const RecommendedTestsScreen = () => {
     );
   };
 
-  // Check if test is expanded
+  /**
+   * Check if a test is currently expanded
+   */
   const isTestExpanded = (testId: string) => {
     return expandedTests.includes(testId);
   };
 
-  // Add new test
+  /**
+   * Add a new test to the list
+   */
   const addTest = () => {
     const newTest: Test = {
       id: `${tests.length + 1}`,
@@ -99,7 +76,9 @@ const RecommendedTestsScreen = () => {
     });
   };
 
-  // Start editing test
+  /**
+   * Start editing a test
+   */
   const startEditingTest = (test: Test) => {
     setEditingTest({
       id: test.id,
@@ -108,7 +87,9 @@ const RecommendedTestsScreen = () => {
     });
   };
 
-  // Save test changes
+  /**
+   * Save changes to a test
+   */
   const saveTestChanges = () => {
     if (!editingTest) return;
     
@@ -126,170 +107,206 @@ const RecommendedTestsScreen = () => {
     setEditingTest(null);
   };
 
-  // Save all tests
+  /**
+   * Save all tests and navigate back
+   */
   const saveTests = () => {
     // In a real app, this would send the tests to the backend
     alert('Tests saved successfully');
     navigation.goBack();
   };
 
+  /**
+   * Render AI recommended tests section
+   */
+  const renderAIRecommendedTests = (): JSX.Element => (
+    <View style={styles.aiRecommendationContainer}>
+      <View style={[containerStyles(theme).flexRow, { alignItems: 'center', marginBottom: theme.spacing.sm }]}>
+        <Icon name="vial" size={20} color={theme.colors.primary} style={{ marginRight: theme.spacing.sm }} />
+        <Text style={styles.aiSectionTitle}>AI Recommended Tests</Text>
+      </View>
+      
+      <View style={[containerStyles(theme).flexRow, containerStyles(theme).spaceBetween]}>
+        <View style={styles.symptomContainer}>
+          <Text style={styles.labelText}>Symptoms</Text>
+          {testPatientData.symptoms.map((symptom, index) => (
+            <Text key={index} style={styles.bodyText}>{symptom}</Text>
+          ))}
+        </View>
+        
+        <View style={styles.suggestedTestsContainer}>
+          <Text style={styles.labelText}>Suggested Tests</Text>
+          {testPatientData.suggestedTests.map((test, index) => (
+            <Text key={index} style={styles.bodyText}>{test}</Text>
+          ))}
+        </View>
+      </View>
+    </View>
+  );
+
+  /**
+   * Render test details header with add button
+   */
+  const renderTestDetailsHeader = (): JSX.Element => (
+    <View style={styles.testDetailsTitleContainer}>
+      <Text style={styles.sectionHeader}>Test Details</Text>
+      <TouchableOpacity 
+        style={styles.addButton}
+        onPress={addTest}
+        accessibilityRole="button"
+        accessibilityLabel="Add test"
+      >
+        <Icon name="plus" size={12} color={theme.colors.textInverted} />
+      </TouchableOpacity>
+    </View>
+  );
+
+  /**
+   * Render test status indicator based on test properties
+   */
+  const renderTestStatus = (test: Test): JSX.Element => {
+    if (test.addedBy === 'ai') {
+      return (
+        <View style={containerStyles(theme).flexRow}>
+          <Text style={styles.aiAddedText}>AI Added</Text>
+          <Icon name="info-circle" size={12} color={theme.colors.warning} />
+        </View>
+      );
+    } else if (test.verified) {
+      return <Text style={styles.doctorVerifiedText}>Verified by Doctor</Text>;
+    } else {
+      return <Text style={styles.doctorAddedText}>Added by Doctor</Text>;
+    }
+  };
+
+  /**
+   * Render expanded test details with form inputs
+   */
+  const renderExpandedTestDetails = (test: Test): JSX.Element => (
+    <View style={styles.expandedDetailsContainer}>
+      <View style={styles.inputContainer}>
+        <Text style={styles.labelText}>Test Name</Text>
+        <TextInput
+          style={styles.textInput}
+          placeholder="Enter test name"
+          value={editingTest?.id === test.id ? editingTest.name : test.name}
+          onChangeText={(text) => editingTest?.id === test.id && setEditingTest({...editingTest, name: text})}
+          onFocus={() => !editingTest && startEditingTest(test)}
+          editable={!test.verified}
+        />
+      </View>
+      
+      <View style={styles.inputContainer}>
+        <Text style={styles.labelText}>Things to Take Care</Text>
+        <TextInput
+          style={[styles.textInput, styles.multilineInput]}
+          placeholder="Add any special instructions or warnings"
+          multiline
+          value={editingTest?.id === test.id ? editingTest.instructions : test.instructions}
+          onChangeText={(text) => editingTest?.id === test.id && setEditingTest({...editingTest, instructions: text})}
+          onFocus={() => !editingTest && startEditingTest(test)}
+          editable={!test.verified}
+        />
+      </View>
+      
+      {!test.verified && (
+        <TouchableOpacity 
+          style={styles.saveChangesButton}
+          onPress={saveTestChanges}
+          accessibilityRole="button"
+          accessibilityLabel="Save changes"
+        >
+          <Text style={styles.saveChangesText}>Save Changes</Text>
+        </TouchableOpacity>
+      )}
+    </View>
+  );
+
+  /**
+   * Render a single test card with header and expandable content
+   */
+  const renderTestCard = (test: Test) => (
+    <View key={test.id} style={styles.testCard}>
+      <TouchableOpacity 
+        style={styles.testHeader}
+        onPress={() => toggleTestExpansion(test.id)}
+        accessibilityRole="button"
+        accessibilityLabel={`Toggle ${test.name} details`}
+      >
+        <View style={styles.testNameContainer}>
+          <Icon name="vial" size={16} color={theme.colors.primary} style={{ marginRight: theme.spacing.sm }} />
+          <Text style={styles.testName}>{test.name || `Test ${test.id}`}</Text>
+        </View>
+        
+        <View style={styles.testStatusContainer}>
+          {renderTestStatus(test)}
+          <Icon 
+            name={isTestExpanded(test.id) ? "chevron-up" : "chevron-down"} 
+            size={16} 
+            color={theme.colors.text}
+            style={styles.chevronIcon}
+          />
+        </View>
+      </TouchableOpacity>
+      
+      <View style={styles.instructionsContainer}>
+        <Text style={styles.instructionsText}>{test.instructions}</Text>
+      </View>
+      
+      {isTestExpanded(test.id) && renderExpandedTestDetails(test)}
+    </View>
+  );
+
+  /**
+   * Render action buttons for saving or canceling
+   */
+  const renderActionButtons = () => (
+    <View style={styles.actionButtonsContainer}>
+      <TouchableOpacity 
+        style={styles.primaryButton}
+        onPress={saveTests}
+        accessibilityRole="button"
+        accessibilityLabel="Save tests"
+      >
+        <Text style={styles.primaryButtonText}>Save Tests</Text>
+      </TouchableOpacity>
+      
+      <TouchableOpacity 
+        style={styles.secondaryButton}
+        onPress={() => navigation.goBack()}
+        accessibilityRole="button"
+        accessibilityLabel="Cancel"
+      >
+        <Text style={styles.secondaryButtonText}>Cancel</Text>
+      </TouchableOpacity>
+    </View>
+  );
+
+  /**
+   * Render tests list section
+   */
+  const renderTestsList = () => (
+    <View style={styles.testDetailsContainer}>
+      {renderTestDetailsHeader()}
+      {tests.map(test => renderTestCard(test))}
+    </View>
+  );
+
   return (
-    <SafeAreaView style={commonStyles.safeArea}>
-      <ScrollView style={commonStyles.scrollView}>
+    <SafeAreaView style={containerStyles(theme).safeArea}>
+      <ScrollView style={containerStyles(theme).scrollView}>
         <BackButton />
-        <View style={commonStyles.contentContainer}>
-          <Text style={commonStyles.titleText}>Recommended Tests</Text>
+        <View style={containerStyles(theme).contentContainer}>
+          <Text style={textStyles(theme).titleText}>Recommended Tests</Text>
           
           {/* AI Recommended Tests */}
-          <View style={[commonStyles.sectionContainer, sharedStyles.shadow, { backgroundColor: theme.colors.background, marginBottom: theme.spacing.md }]}>
-            <View style={[commonStyles.flexRow, { alignItems: 'center', marginBottom: theme.spacing.sm }]}>
-              <Icon name="vial" size={20} color={theme.colors.primary} style={{ marginRight: theme.spacing.sm }} />
-              <Text style={[textStyles.sectionTitle]}>AI Recommended Tests</Text>
-            </View>
-            
-            <View style={[commonStyles.flexRow, commonStyles.spaceBetween]}>
-              <View style={{ flex: 1 }}>
-                <Text style={[textStyles.labelText, { marginBottom: theme.spacing.xs }]}>Symptoms</Text>
-                {patientData.symptoms.map((symptom, index) => (
-                  <Text key={index} style={commonStyles.bodyText}>{symptom}</Text>
-                ))}
-              </View>
-              
-              <View style={{ flex: 1, alignItems: 'flex-end' }}>
-                <Text style={[textStyles.labelText, { marginBottom: theme.spacing.xs }]}>Suggested Tests</Text>
-                {patientData.suggestedTests.map((test, index) => (
-                  <Text key={index} style={commonStyles.bodyText}>{test}</Text>
-                ))}
-              </View>
-            </View>
-          </View>
+          {renderAIRecommendedTests()}
           
           {/* Test Details */}
-          <View style={{ marginBottom: theme.spacing.md }}>
-            <View style={[commonStyles.flexRow, { alignItems: 'center', marginBottom: theme.spacing.md }]}>
-              <Text style={[textStyles.sectionTitle]}>Test Details</Text>
-              <TouchableOpacity 
-                style={[{ 
-                  backgroundColor: theme.colors.primary, 
-                  borderRadius: 15, 
-                  width: 24, 
-                  height: 24, 
-                  justifyContent: 'center', 
-                  alignItems: 'center',
-                  marginLeft: theme.spacing.sm
-                }]}
-                onPress={addTest}
-                accessibilityRole="button"
-                accessibilityLabel="Add test"
-              >
-                <Icon name="plus" size={12} color={theme.colors.textInverted} />
-              </TouchableOpacity>
-            </View>
-            
-            {/* Tests List */}
-            {tests.map((test) => (
-              <View key={test.id} style={[commonStyles.sectionContainer, sharedStyles.shadow, { marginBottom: theme.spacing.md }]}>
-                <TouchableOpacity 
-                  style={[commonStyles.flexRow, commonStyles.spaceBetween]}
-                  onPress={() => toggleTestExpansion(test.id)}
-                  accessibilityRole="button"
-                  accessibilityLabel={`Toggle ${test.name} details`}
-                >
-                  <View style={commonStyles.flexRow}>
-                    <Icon name="vial" size={16} color={theme.colors.primary} style={{ marginRight: theme.spacing.sm }} />
-                    <Text style={commonStyles.bodyText}>{test.name || `Test ${test.id}`}</Text>
-                  </View>
-                  
-                  <View style={commonStyles.flexRow}>
-                    {test.addedBy === 'ai' ? (
-                      <View style={commonStyles.flexRow}>
-                        <Text style={{ color: theme.colors.warning, fontSize: 12, marginRight: theme.spacing.xs }}>AI Added</Text>
-                        <Icon name="info-circle" size={12} color={theme.colors.warning} />
-                      </View>
-                    ) : test.verified ? (
-                      <Text style={{ color: theme.colors.success, fontSize: 12 }}>Verified by Doctor</Text>
-                    ) : (
-                      <Text style={{ color: theme.colors.success, fontSize: 12 }}>Added by Doctor</Text>
-                    )}
-                    
-                    <Icon 
-                      name={isTestExpanded(test.id) ? "chevron-up" : "chevron-down"} 
-                      size={16} 
-                      color={theme.colors.text}
-                      style={{ marginLeft: theme.spacing.sm }}
-                    />
-                  </View>
-                </TouchableOpacity>
-                
-                {/* Test Instructions Summary */}
-                <View style={{ marginTop: theme.spacing.sm, marginBottom: theme.spacing.sm }}>
-                  <Text style={[textStyles.smallText, { fontWeight: 'bold' }]}>{test.instructions}</Text>
-                </View>
-                
-                {/* Expanded Test Details */}
-                {isTestExpanded(test.id) && (
-                  <View style={{ marginTop: theme.spacing.sm }}>
-                    <View style={{ marginBottom: theme.spacing.md }}>
-                      <Text style={textStyles.labelText}>Test Name</Text>
-                      <TextInput
-                        style={textStyles.textInput}
-                        placeholder="Enter test name"
-                        value={editingTest?.id === test.id ? editingTest.name : test.name}
-                        onChangeText={(text) => editingTest?.id === test.id && setEditingTest({...editingTest, name: text})}
-                        onFocus={() => !editingTest && startEditingTest(test)}
-                        editable={!test.verified}
-                      />
-                    </View>
-                    
-                    <View style={{ marginBottom: theme.spacing.md }}>
-                      <Text style={textStyles.labelText}>Things to Take Care</Text>
-                      <TextInput
-                        style={[textStyles.textInput, { height: 80, textAlignVertical: 'top' }]}
-                        placeholder="Add any special instructions or warnings"
-                        multiline
-                        value={editingTest?.id === test.id ? editingTest.instructions : test.instructions}
-                        onChangeText={(text) => editingTest?.id === test.id && setEditingTest({...editingTest, instructions: text})}
-                        onFocus={() => !editingTest && startEditingTest(test)}
-                        editable={!test.verified}
-                      />
-                    </View>
-                    
-                    {!test.verified && (
-                      <TouchableOpacity 
-                        style={[commonStyles.primaryButton, { marginBottom: theme.spacing.md }]}
-                        onPress={saveTestChanges}
-                        accessibilityRole="button"
-                        accessibilityLabel="Save changes"
-                      >
-                        <Text style={commonStyles.primaryButtonText}>Save Changes</Text>
-                      </TouchableOpacity>
-                    )}
-                  </View>
-                )}
-              </View>
-            ))}
-            
-            {/* Action Buttons */}
-            <View style={[commonStyles.flexRow, { marginBottom: theme.spacing.md }]}>
-              <TouchableOpacity 
-                style={[commonStyles.primaryButton, { flex: 1, marginRight: theme.spacing.sm }]}
-                onPress={saveTests}
-                accessibilityRole="button"
-                accessibilityLabel="Save tests"
-              >
-                <Text style={commonStyles.primaryButtonText}>Save Tests</Text>
-              </TouchableOpacity>
-              
-              <TouchableOpacity 
-                style={[commonStyles.secondaryButton, { flex: 1 }]}
-                onPress={() => navigation.goBack()}
-                accessibilityRole="button"
-                accessibilityLabel="Cancel"
-              >
-                <Text style={commonStyles.secondaryButtonText}>Cancel</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
+          {renderTestsList()}
+          
+          {/* Action Buttons */}
+          {renderActionButtons()}
         </View>
       </ScrollView>
     </SafeAreaView>

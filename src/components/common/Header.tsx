@@ -1,7 +1,8 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 import BackButton from './BackButton';
-import { commonStyles, headerStyles } from '../../styles/commonStyles';
+import { headerStyles } from '../../styles/commonStyles';
+import { useTheme } from 'src/styles/ThemeProvider';
 
 interface HeaderProps {
   title: string;
@@ -18,20 +19,21 @@ const Header: React.FC<HeaderProps> = ({
   rightComponent,
   testID = 'header'
 }) => {
+  const theme = useTheme().theme;
   return (
     <View 
-      style={headerStyles.container}
+      style={headerStyles(theme).container}
       testID={testID}
       accessibilityRole="header"
       accessible={true}
     >
-      <View style={commonStyles.flexRow}>
+      <View style={headerStyles(theme).flexRow}>
         {showBackButton && <BackButton />}
       </View>
       
       <Text 
         style={[
-          headerStyles.title,
+          headerStyles(theme).title,
           alignTitle === 'right' && { alignSelf: 'flex-end' },
           alignTitle === 'center' && { alignSelf: 'center' }
         ]}
@@ -44,7 +46,7 @@ const Header: React.FC<HeaderProps> = ({
         {title}
       </Text>
       
-      <View style={headerStyles.headerRight}>
+      <View style={headerStyles(theme).headerRight}>
         {rightComponent}
       </View>
     </View>

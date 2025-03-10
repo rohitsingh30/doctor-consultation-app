@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TextInputProps } from 'react-native';
-import { theme } from 'src/styles/theme';
-import { textStyles } from 'src/styles/commonStyles';
+import { useTheme } from '../../styles/ThemeProvider';
+import { textStyles } from '../../styles/commonStyles';
 
 interface CustomInputProps extends TextInputProps {
   label: string;
@@ -19,13 +19,15 @@ const CustomInput: React.FC<CustomInputProps> = ({
   ...rest 
 }) => {
   const [isFocused, setIsFocused] = useState(false);
-
+  const { theme } = useTheme();
+  console.log('CustomInput theme:', theme);
   return (
     <View style={{ marginBottom: 16 }}>
-      <Text style={textStyles.label}>{label}</Text>
+      <Text style={textStyles(theme).label}>{label}</Text>
       <TextInput
         style={[
-          error ? textStyles.input : null,
+          textStyles(theme).input,
+          error ? { borderColor: theme.colors.error } : null,
           isFocused ? { borderColor: theme.colors.primary } : null
         ]}
         value={value}
@@ -38,7 +40,7 @@ const CustomInput: React.FC<CustomInputProps> = ({
         onBlur={() => setIsFocused(false)}
         {...rest}
       />
-      {error ? <Text style={textStyles.errorText}>{error}</Text> : null}
+      {error ? <Text style={textStyles(theme).errorText}>{error}</Text> : null}
     </View>
   );
 };

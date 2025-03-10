@@ -1,14 +1,18 @@
+// Create similar to the one in doctor-consultation-app/appFlows/ but for a doctor managing appointments
+
 import React from 'react';
 import { View, Text, TouchableOpacity, ScrollView, SafeAreaView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { commonStyles, sharedStyles, textStyles, theme } from '../../../styles/commonStyles';
+import { buttonStyles, containerStyles, shadowsStyle, textStyles } from '../../../styles/commonStyles';
 import BackButton from '../../common/BackButton';
-import { DoctorStackParamList } from '../../../types/types';
+import { AppStackParamList } from '../../../types/types';
+import { useTheme } from 'src/styles/ThemeProvider';
 
 const AppointmentManagementScreen = () => {
-  const navigation = useNavigation<NativeStackNavigationProp<DoctorStackParamList>>();
+  const theme = useTheme().theme;
+  const navigation = useNavigation<NativeStackNavigationProp<AppStackParamList>>();
   
   // Mock appointment data
   const appointments = [
@@ -33,25 +37,25 @@ const AppointmentManagementScreen = () => {
   ];
 
   return (
-    <SafeAreaView style={commonStyles.safeArea}>
-      <ScrollView style={commonStyles.scrollView}>
+    <SafeAreaView style={containerStyles(theme).safeArea}>
+      <ScrollView style={containerStyles(theme).scrollView}>
         <BackButton />
-        <View style={commonStyles.contentContainer}>
+        <View style={containerStyles(theme).contentContainer}>
           {/* Appointments List */}
-          <View style={[commonStyles.sectionContainer, sharedStyles.shadow]}>
-            <Text style={commonStyles.titleText}>Upcoming Appointments</Text>
+          <View style={[containerStyles(theme).sectionContainer, shadowsStyle(theme).md]}>
+            <Text style={textStyles(theme).titleText}>Upcoming Appointments</Text>
             {appointments.map((appointment) => (
               <TouchableOpacity 
                 key={appointment.id}
-                style={[commonStyles.listItem, sharedStyles.shadow]}
-                onPress={() => navigation.navigate('PatientHistory')}
+                style={[containerStyles(theme).listItem, shadowsStyle(theme).md]}
+                onPress={() => navigation.navigate('PatientHistory', { patientId: appointment.id })}
                 accessibilityRole="button"
                 accessibilityLabel={`View appointment with ${appointment.patientName}`}
               >
-                <View style={commonStyles.flexRow}>
+                <View style={containerStyles(theme).flexRow}>
                   <View style={{ flex: 1 }}>
-                    <Text style={commonStyles.bodyText}>{appointment.patientName}</Text>
-                    <Text style={textStyles.smallText}>{appointment.time} - {appointment.type}</Text>
+                    <Text style={textStyles(theme).bodyText}>{appointment.patientName}</Text>
+                    <Text style={textStyles(theme).smallText}>{appointment.time} - {appointment.type}</Text>
                   </View>
                   <Icon name="calendar" size={16} color={theme.colors.primary} />
                 </View>
@@ -60,18 +64,18 @@ const AppointmentManagementScreen = () => {
           </View>
           
           {/* Past Appointments */}
-          <View style={[commonStyles.sectionContainer, sharedStyles.shadow]}>
-            <Text style={commonStyles.titleText}>Past Appointments</Text>
+          <View style={[containerStyles(theme).sectionContainer, shadowsStyle(theme).md]}>
+            <Text style={textStyles(theme).titleText}>Past Appointments</Text>
             <TouchableOpacity 
-              style={[commonStyles.listItem, sharedStyles.shadow]}
-              onPress={() => navigation.navigate('PatientHistory')}
+              style={[containerStyles(theme).listItem, shadowsStyle(theme).md]}
+              onPress={() => navigation.navigate('PatientHistory', { patientId: '4' })}
               accessibilityRole="button"
               accessibilityLabel="View past appointment with Robert Brown"
             >
-              <View style={commonStyles.flexRow}>
+              <View style={containerStyles(theme).flexRow}>
                 <View style={{ flex: 1 }}>
-                  <Text style={commonStyles.bodyText}>Robert Brown</Text>
-                  <Text style={textStyles.smallText}>Monday, 11:00 AM - Check-up</Text>
+                  <Text style={textStyles(theme).bodyText}>Robert Brown</Text>
+                  <Text style={textStyles(theme).smallText}>Monday, 11:00 AM - Check-up</Text>
                 </View>
                 <Icon name="check-circle" size={16} color={theme.colors.success} />
               </View>
@@ -80,21 +84,21 @@ const AppointmentManagementScreen = () => {
 
           {/* Action Buttons */}
           <TouchableOpacity 
-            style={[commonStyles.primaryButton, sharedStyles.shadow]}
+            style={[buttonStyles(theme).primaryButton, shadowsStyle(theme).md]}
             onPress={() => navigation.navigate('AvailabilitySettings')}
             accessibilityRole="button"
             accessibilityLabel="Manage availability settings"
           >
-            <Text style={commonStyles.primaryButtonText}>Manage Availability</Text>
+            <Text style={buttonStyles(theme).primaryButtonText}>Manage Availability</Text>
           </TouchableOpacity>
           
           <TouchableOpacity 
-            style={[commonStyles.secondaryButton, sharedStyles.shadow, { marginTop: theme.spacing.md }]}
+            style={[buttonStyles(theme).secondaryButton, shadowsStyle(theme).md, { marginTop: theme.spacing.md }]}
             onPress={() => navigation.navigate('DoctorDashboard')}
             accessibilityRole="button"
             accessibilityLabel="Return to dashboard"
           >
-            <Text style={commonStyles.secondaryButtonText}>Return to Dashboard</Text>
+            <Text style={buttonStyles(theme).secondaryButtonText}>Return to Dashboard</Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
