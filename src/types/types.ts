@@ -21,6 +21,7 @@ export type ColorPalette = {
   warning?: string;
   info?: string;
   disabled?: string;
+
 };
 
 export type Theme = {
@@ -96,16 +97,26 @@ export type PatientHistory = {
   date?: string;
   diagnosis?: string;
   status?: string;
+  notes?: string;
+  medications?: {
+    name: string;
+    frequency: string;
+    duration: string;
+    status: string;
+    image?: string;
+  }[];
 };
 
 export type Prescription = {
   id: string;
   patient: string;
-  medication: string;
-  frequency: string;
-  duration: string;
-  status: string;
-  image?: string;
+  medications: {
+    name: string
+    frequency: string;
+    duration: string;
+    status: string;  
+    image?: string;
+  }[]
 };
 
 export type testResult = {

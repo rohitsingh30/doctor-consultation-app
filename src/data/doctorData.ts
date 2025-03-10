@@ -72,53 +72,215 @@ export const todayAppointments: Appointment[] = [
 export const recentPatientHistory: PatientHistory[] = [
   {
     id: '1',
+    patient: 'John Smith',
+    diagnosis: 'Hypertension Stage 2',
+    medications: [
+      {
+        name: 'Lisinopril 10mg',
+        frequency: 'Once daily',
+        duration: '30 days',
+        status: 'Active'
+      },
+      {
+        name: 'Amlodipine 5mg',
+        frequency: 'Once daily',
+        duration: '30 days',
+        status: 'Active'
+      }
+    ],
+    status: 'Follow-up Required',
+    lastVisit: '1 day ago',
+    image: 'https://storage.googleapis.com/a1aa/image/patient1.jpg',
+    date: '2023-06-15'
+  },
+  {
+    id: '2',
+    patient: 'Emma Johnson',
+    diagnosis: 'Type 2 Diabetes',
+    medications: [
+      {
+        name: 'Metformin 500mg',
+        frequency: 'Once daily',
+        duration: '30 days',
+        status: 'Active'
+      },
+      {
+        name: 'Glipizide 5mg',
+        frequency: 'Once daily', 
+        duration: '30 days',
+        status: 'Active'
+      }
+    ],
+    status: 'Stable',
+    lastVisit: '1 day ago',
+    image: 'https://storage.googleapis.com/a1aa/image/patient2.jpg',
+    date: '2023-06-14'
+  },
+  {
+    id: '3',
     patient: 'Michael Brown',
     lastVisit: '2 days ago',
     date: '2023-06-15',
     diagnosis: 'Hypertension',
     status: 'Follow-up Required',
-    image: 'https://storage.googleapis.com/a1aa/image/u8hsR0gg2XWUNY-FBJOyfQK1muYG-8pkxyndTCMRCeg.jpg'
+    image: 'https://storage.googleapis.com/a1aa/image/u8hsR0gg2XWUNY-FBJOyfQK1muYG-8pkxyndTCMRCeg.jpg',
+    notes: 'Patient reported headaches and dizziness. BP readings consistently high. Medication dosage increased.',
+    medications: [
+      {
+        name: 'Lisinopril 10mg',
+        frequency: 'Once daily',
+        duration: '30 days',
+        status: 'Active',
+        image: 'https://storage.googleapis.com/a1aa/image/Eo0ibwmehk00hvZ8fYsDMRHqp5442O6J2_3LpTTtlqU.jpg'
+      },
+      {
+        name: 'Amlodipine 5mg',
+        frequency: 'Once daily',
+        duration: '30 days',
+        status: 'Active',
+        image: 'https://storage.googleapis.com/a1aa/image/Eo0ibwmehk00hvZ8fYsDMRHqp5442O6J2_3LpTTtlqU.jpg'
+      },
+      {
+        name: 'Hydrochlorothiazide 12.5mg',
+        frequency: 'Once daily',
+        duration: '30 days',
+        status: 'Active',
+        image: 'https://storage.googleapis.com/a1aa/image/Eo0ibwmehk00hvZ8fYsDMRHqp5442O6J2_3LpTTtlqU.jpg'
+      }
+    ]
   },
   {
-    id: '2',
+    id: '4',
     patient: 'Sarah Johnson',
     lastVisit: '5 days ago',
     date: '2023-06-12',
     diagnosis: 'Type 2 Diabetes',
     status: 'Stable',
-    image: 'https://storage.googleapis.com/a1aa/image/BK17QOjIvTjUYGzFvf0SnKosOYjqd9jlelOzieJnedw.jpg'
+    image: 'https://storage.googleapis.com/a1aa/image/BK17QOjIvTjUYGzFvf0SnKosOYjqd9jlelOzieJnedw.jpg',
+    notes: 'Blood sugar levels within target range. Continue current medication and diet plan.',
+    medications: [
+      {
+        name: 'Metformin 500mg',
+        frequency: 'Twice daily',
+        duration: '90 days',
+        status: 'Active',
+        image: 'https://storage.googleapis.com/a1aa/image/BK17QOjIvTjUYGzFvf0SnKosOYjqd9jlelOzieJnedw.jpg'
+      },
+      {
+        name: 'Glipizide 5mg',
+        frequency: 'Once daily',
+        duration: '90 days',
+        status: 'Active',
+        image: 'https://storage.googleapis.com/a1aa/image/BK17QOjIvTjUYGzFvf0SnKosOYjqd9jlelOzieJnedw.jpg'
+      },
+      {
+        name: 'Januvia 100mg',
+        frequency: 'Once daily',
+        duration: '90 days',
+        status: 'Active',
+        image: 'https://storage.googleapis.com/a1aa/image/BK17QOjIvTjUYGzFvf0SnKosOYjqd9jlelOzieJnedw.jpg'
+      }
+    ]
   },
   {
-    id: '3',
+    id: '5',
     patient: 'David Wilson',
     lastVisit: '1 week ago',
     date: '2023-06-08',
     diagnosis: 'Chronic Bronchitis',
     status: 'Improving',
-    image: 'https://storage.googleapis.com/a1aa/image/4y8fGWLVAiK9fRHkpDLi2HXrYDd6OK4fBjkFrOJV2KY.jpg'
+    image: 'https://storage.googleapis.com/a1aa/image/4y8fGWLVAiK9fRHkpDLi2HXrYDd6OK4fBjkFrOJV2KY.jpg',
+    notes: 'Cough frequency reduced. Lung sounds clearer. Continue antibiotics for 3 more days.',
+    medications: [
+      {
+        name: 'Azithromycin 250mg',
+        frequency: 'Once daily',
+        duration: '5 days',
+        status: 'Active',
+        image: 'https://storage.googleapis.com/a1aa/image/4y8fGWLVAiK9fRHkpDLi2HXrYDd6OK4fBjkFrOJV2KY.jpg'
+      },
+      {
+        name: 'Benzonatate 100mg',
+        frequency: 'Three times daily',
+        duration: '7 days',
+        status: 'Active',
+        image: 'https://storage.googleapis.com/a1aa/image/4y8fGWLVAiK9fRHkpDLi2HXrYDd6OK4fBjkFrOJV2KY.jpg'
+      },
+      {
+        name: 'Albuterol Inhaler',
+        frequency: 'As needed',
+        duration: '30 days',
+        status: 'Active',
+        image: 'https://storage.googleapis.com/a1aa/image/4y8fGWLVAiK9fRHkpDLi2HXrYDd6OK4fBjkFrOJV2KY.jpg'
+      }
+    ]
+  },
+  {
+    id: '6',
+    patient: 'Emily Rodriguez',
+    lastVisit: '10 days ago',
+    date: '2023-06-05',
+    diagnosis: 'Migraine',
+    status: 'Stable',
+    image: 'https://storage.googleapis.com/a1aa/image/u8hsR0gg2XWUNY-FBJOyfQK1muYG-8pkxyndTCMRCeg.jpg',
+    notes: 'Frequency of migraine attacks reduced with current medication regimen.',
+    medications: [
+      {
+        name: 'Sumatriptan 50mg',
+        frequency: 'As needed',
+        duration: '30 days',
+        status: 'Active',
+        image: 'https://storage.googleapis.com/a1aa/image/u8hsR0gg2XWUNY-FBJOyfQK1muYG-8pkxyndTCMRCeg.jpg'
+      },
+      {
+        name: 'Propranolol 40mg',
+        frequency: 'Twice daily',
+        duration: '90 days',
+        status: 'Active',
+        image: 'https://storage.googleapis.com/a1aa/image/u8hsR0gg2XWUNY-FBJOyfQK1muYG-8pkxyndTCMRCeg.jpg'
+      },
+      {
+        name: 'Topiramate 25mg',
+        frequency: 'Once daily',
+        duration: '90 days',
+        status: 'Active',
+        image: 'https://storage.googleapis.com/a1aa/image/u8hsR0gg2XWUNY-FBJOyfQK1muYG-8pkxyndTCMRCeg.jpg'
+      }
+    ]
+  },
+  {
+    id: '7',
+    patient: 'Robert Chen',
+    lastVisit: '2 weeks ago',
+    date: '2023-06-01',
+    diagnosis: 'Osteoarthritis',
+    status: 'Follow-up Required',
+    image: 'https://storage.googleapis.com/a1aa/image/BK17QOjIvTjUYGzFvf0SnKosOYjqd9jlelOzieJnedw.jpg',
+    notes: 'Joint pain persists despite current treatment. Consider physical therapy referral.',
+    medications: [
+      {
+        name: 'Meloxicam 15mg',
+        frequency: 'Once daily',
+        duration: '30 days',
+        status: 'Active',
+        image: 'https://storage.googleapis.com/a1aa/image/BK17QOjIvTjUYGzFvf0SnKosOYjqd9jlelOzieJnedw.jpg'
+      },
+      {
+        name: 'Acetaminophen 500mg',
+        frequency: 'As needed',
+        duration: '30 days',
+        status: 'Active',
+        image: 'https://storage.googleapis.com/a1aa/image/BK17QOjIvTjUYGzFvf0SnKosOYjqd9jlelOzieJnedw.jpg'
+      },
+      {
+        name: 'Glucosamine-Chondroitin',
+        frequency: 'Once daily',
+        duration: '90 days',
+        status: 'Active',
+        image: 'https://storage.googleapis.com/a1aa/image/BK17QOjIvTjUYGzFvf0SnKosOYjqd9jlelOzieJnedw.jpg'
+      }
+    ]
   }
-];
-
-
-export const recentPrescriptions: Prescription[] = [
-  { 
-    id: '1', 
-    patient: 'John Smith', 
-    medication: 'Lisinopril 10mg', 
-    frequency: 'Once daily', 
-    duration: '7 days', 
-    status: 'Active',
-    image: 'https://storage.googleapis.com/a1aa/image/Eo0ibwmehk00hvZ8fYsDMRHqp5442O6J2_3LpTTtlqU.jpg'
-  },
-  { 
-    id: '2', 
-    patient: 'Emma Davis', 
-    medication: 'Metformin 500mg', 
-    frequency: 'Twice daily', 
-    duration: '30 days', 
-    status: 'Active',
-    image: 'https://storage.googleapis.com/a1aa/image/4y8fGWLVAiK9fRHkpDLi2HXrYDd6OK4fBjkFrOJV2KY.jpg'
-  },
 ];
 
 // Mock AI reports data
