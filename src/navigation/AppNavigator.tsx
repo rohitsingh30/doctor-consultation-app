@@ -20,6 +20,7 @@ import AppointmentManagementScreen from '@components/screens/doctor/AppointmentM
 import RecommendedTestsScreen from '@components/screens/doctor/RecommendedTestsScreen';
 import { recommendedMedicineStyles } from 'src/styles/screens/recommendedMedicineStyles';
 import PrescribeMedicationScreen from '@components/screens/doctor/RecommendedMedicationScreen';
+import AvailabilitySettingsScreen from '@components/screens/doctor/AvailabilitySettingsScreen';
 
 const Stack = createNativeStackNavigator<AppStackParamList>();
 
@@ -41,5 +42,6 @@ export const AppNavigator = () => (
     <Stack.Screen name="ConsultationConfirm" component={ConsultationConfirmScreen} />
     <Stack.Screen name="RecommendedTests" component={RecommendedTestsScreen} />
     <Stack.Screen name="RecommendedMedicine" component={PrescribeMedicationScreen} />
+    <Stack.Screen name="AvailabilitySettings" component={AvailabilitySettingsScreen} />    
   </Stack.Navigator>
 );

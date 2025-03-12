@@ -196,7 +196,6 @@ export type AppStackParam = {
   RecommendedTests: { patientId?: string };
   RecommendedMedicine: { patientId?: string };
   AvailabilitySettings: undefined;
-  ConsultationSettings: undefined;
   Profile: undefined;
   ReportList: { patientId?: string };
   ReportListDoctor: { doctorId?: string };
