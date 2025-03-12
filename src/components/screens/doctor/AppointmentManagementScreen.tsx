@@ -48,7 +48,7 @@ const AppointmentManagementScreen = () => {
               <TouchableOpacity 
                 key={appointment.id}
                 style={[containerStyles(theme).listItem, shadowsStyle(theme).md]}
-                onPress={() => navigation.navigate('PatientHistory', { patientId: appointment.id })}
+                onPress={() => navigation.navigate('ConsultationConfirm', { patientId: appointment.id })}
                 accessibilityRole="button"
                 accessibilityLabel={`View appointment with ${appointment.patientName}`}
               >
@@ -68,7 +68,7 @@ const AppointmentManagementScreen = () => {
             <Text style={textStyles(theme).titleText}>Past Appointments</Text>
             <TouchableOpacity 
               style={[containerStyles(theme).listItem, shadowsStyle(theme).md]}
-              onPress={() => navigation.navigate('PatientHistory', { patientId: '4' })}
+              onPress={() => navigation.navigate('ConsultationConfirm', { patientId: '4' })}
               accessibilityRole="button"
               accessibilityLabel="View past appointment with Robert Brown"
             >

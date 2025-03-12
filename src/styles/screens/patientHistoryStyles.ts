@@ -1,20 +1,83 @@
 import { StyleSheet, Platform } from 'react-native';
 import { Theme } from 'src/types/types';
-
 export const createPatientHistoryStyles = (theme: Theme) => StyleSheet.create({
   // Container styles
   container: {
     flex: 1,
     backgroundColor: theme.colors.background,
-    padding: theme.spacing.md,
+    padding: theme.spacing.sm,
+    marginHorizontal: 'auto',
+  },
+  
+  // Header styles (similar to dashboard)
+  headerContainer: {
+    width:'100%',
+    backgroundColor: theme.colors.primary,
+    padding: theme.spacing.sm,
+    borderRadius: theme.borderRadius.md,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: theme.spacing.sm,
+    borderWidth: 1,
+    borderColor: theme.colors.border,
+    ...Platform.select({
+      ios: {
+        shadowColor: theme.colors.shadow,
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: 0.1,
+        shadowRadius: 2,
+      },
+      android: {
+        elevation: 2,
+      },
+    }),
+  },
+  profileIcon: {
+    fontSize: 20,
+    color: theme.colors.textInverted,
+    marginRight: theme.spacing.sm,
+  },
+  headerBackButton: {
+    fontSize: 20,
+    color: theme.colors.textInverted,
+    marginRight: theme.spacing.sm,
+  },
+  patientName: {
+    fontSize: 20,
+    fontWeight: '600',
+    color: theme.colors.textInverted,
+  },
+  patientBadge: {
+    backgroundColor: theme.colors.surface,
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: theme.spacing.xs,
+    paddingVertical: 2,
+    borderRadius: theme.borderRadius.sm,
+    marginLeft: theme.spacing.sm,
+    height: 24,
+  },
+  patientIcon: {
+    fontSize: 16,
+    color: theme.colors.primary,
+  },
+  patientText: {
+    color: theme.colors.primary,
+    fontSize: 12,
+    marginLeft: 2,
   },
   
   // Section container
   sectionContainer: {
     backgroundColor: theme.colors.surface,
-    borderRadius: 12,
+    borderRadius: theme.borderRadius.md,
     padding: theme.spacing.md,
     marginBottom: theme.spacing.md,
+    borderWidth: 1,
+    justifyContent:'space-between',
+    width: '100%',
+    borderColor: theme.colors.border,
     ...Platform.select({
       ios: {
         shadowColor: theme.colors.shadow,

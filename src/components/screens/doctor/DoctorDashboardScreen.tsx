@@ -15,7 +15,7 @@ const DoctorDashboardScreen = () => {
   const { user, logout } = useContext(AuthContext);
   const { theme } = useTheme();
   const styles = createDoctorDashboardStyles(theme);
-  const [patientHistoryCount, setPatientHistoryCount] = useState<number>(2);
+  const [patientHistoryCount, setPatientHistoryCount] = useState<number>(1);
 
   const handleLogout = () => {
     logout();
@@ -28,10 +28,15 @@ const DoctorDashboardScreen = () => {
   };
 
   return (
-    <SafeAreaView style={[containerStyles(theme).safeArea, { flex: 1 }]}>
-      <ScrollView style={[styles.container]} contentContainerStyle={{ paddingBottom: 16 }}>
+    <SafeAreaView style={[containerStyles(theme).safeArea, { flex: 1 }]}>  
+      <ScrollView 
+        style={[styles.container, { width: '100%' }]} 
+        contentContainerStyle={{ paddingBottom: 16, width: '100%' }}
+        showsHorizontalScrollIndicator={false}
+        horizontal={false}
+      >
         {/* Header */}
-        <View style={[styles.headerContainer, { paddingHorizontal: 12, paddingVertical: 8 }]}>
+        <View style={[styles.headerContainer, { paddingHorizontal: 12, paddingVertical: 8, width: '100%' }]}>
           <View style={[{ flexDirection: 'row', alignItems: 'center', flex: 1 }]}>
             <TouchableOpacity 
               onPress={() => navigation.navigate('DoctorProfile', { doctorId: user?.id })}
@@ -61,28 +66,39 @@ const DoctorDashboardScreen = () => {
         </View>
 
         {/* Stats Cards */}
-        <View style={[styles.statsContainer, { paddingHorizontal: 12, flexDirection: 'row', justifyContent: 'space-between' }]}>
-          <View style={[styles.statsCard, { flex: 1, marginRight: 6, padding: 10 }]}>
-            <Text style={{ color: theme.colors.text, fontWeight: '600', marginBottom: 2, fontSize: 14 }}>
-              Today's Appointments
-            </Text>
-            <Text style={{ color: theme.colors.primary, fontSize: 22, fontWeight: '700' }}>
-              {todayAppointments.length}
-            </Text>
-          </View>
-          <View style={[styles.statsCard, { flex: 1, marginLeft: 6, padding: 10 }]}>
+        <View style={[styles.statsContainer, { paddingHorizontal: 12, flexDirection: 'row', justifyContent: 'space-between', width: '100%' }]}>
+          <TouchableOpacity 
+              style={[styles.statsCard, { flex: 1, marginLeft: 6, padding: 10 }]}
+              onPress={() => navigation.navigate('AppointmentManagement')}
+              accessibilityRole="button"
+              accessibilityLabel="View Appointments"
+            >
+              <Text style={{ color: theme.colors.text, fontWeight: '600', marginBottom: 2, fontSize: 14 }}>
+                Today's Appointments
+              </Text>
+              <Text style={{ color: theme.colors.primary, fontSize: 22, fontWeight: '700' }}>
+                {todayAppointments.length}
+              </Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity 
+            style={[styles.statsCard, { flex: 1, marginLeft: 6, padding: 10 }]}
+            onPress={() => navigation.navigate('ReportList', { patientId: undefined })}
+            accessibilityRole="button"
+            accessibilityLabel="View AI Reports"
+          >
             <Text style={{ color: theme.colors.text, fontWeight: '600', marginBottom: 2, fontSize: 14 }}>
               AI Reports
             </Text>
             <Text style={{ color: theme.colors.primary, fontSize: 22, fontWeight: '700' }}>
               {aiReports.length}
             </Text>
-          </View>
+          </TouchableOpacity>
         </View>
 
         {/* Patient History Section */}
-        <View style={[styles.patientHistoryContainer, { paddingHorizontal: 12 }]}>
-          <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10, flexWrap: 'wrap' }}>
+        <View style={[styles.patientHistoryContainer, { paddingHorizontal: 12, justifyContent: 'space-between', width: '100%' }]}>
+          <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10, flexWrap: 'wrap', width: '100%' }}>
             <Text style={{ color: theme.colors.text, fontWeight: '600', fontSize: 14 }}>Recent Patient History</Text>
             <Icon name="users" style={{ color: theme.colors.textSecondary, marginLeft: 6, fontSize: 14 }} />
             <Text style={{ color: theme.colors.text, fontWeight: '600', marginLeft: 4, fontSize: 14 }}>
@@ -92,13 +108,14 @@ const DoctorDashboardScreen = () => {
 
           <ScrollView 
             horizontal 
-            showsHorizontalScrollIndicator={false} 
-            contentContainerStyle={{ paddingRight: 12 }}
+            style={{ width: '100%' }}
+            contentContainerStyle={{ flexDirection: 'row' }}
+            showsHorizontalScrollIndicator={false}
           >
             {recentPatientHistory.slice(0, patientHistoryCount).map((patient) => (
               <TouchableOpacity
                 key={patient.id}
-                style={[styles.patientCard, { width: 280, marginRight: 12, flexShrink: 0, height: 180 }]}
+                style={[styles.patientCard, { marginRight: 12, flexShrink: 0, height: 180 }]}
                 onPress={() => navigation.navigate('PatientHistory', { patientId: patient.id })}
                 accessibilityRole="button"
                 accessibilityLabel={`View patient history for ${patient.patient}`}

@@ -3,7 +3,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AuthContextType, User, UserType } from '../types/types';
 
 export const AuthContext = createContext<AuthContextType>({
-  user: null,
+  user: { 
+    id: '1', 
+    email: 'string',
+    name: 'John',
+    type: 'doctor' } as User,
   userType: null,
   isLoading: true,
   login: async () => {},
@@ -40,7 +44,7 @@ export const AuthProvider: React.FC<{children: ReactNode}> = ({ children }) => {
     try {
       // In a real app, you would validate credentials with your API
       const userInfo: User = {
-        id: userData.id || '123',
+        id: userData.id || '1',
         email: userData.email,
         name: userData.name,
         type: userData.type || 'user', // Default to 'user' if not specified

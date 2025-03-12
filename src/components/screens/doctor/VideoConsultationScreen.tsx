@@ -2,7 +2,7 @@
 // Reference Dark - doctor-consultation-app/appFlows/DoctorFlow-VideoConsultPageDark.html
 
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, SafeAreaView, ScrollView, TextInput } from 'react-native';
+import { View, Text, TouchableOpacity, SafeAreaView, ScrollView, TextInput, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -12,7 +12,7 @@ import { useTheme } from '../../../styles/ThemeProvider';
 import { createVideoConsultationStyles } from '../../../styles/screens/videoConsultationStyles';
 import BackButton from '../../common/BackButton';
 import { videoConsultationPatients, VideoConsultationPatient } from '../../../data/doctorData';
-import { containerStyles } from 'src/styles/commonStyles';
+import { containerStyles, textStyles } from 'src/styles/commonStyles';
 
 type VideoConsultationScreenProps = {
   route?: {
@@ -33,8 +33,8 @@ const VideoConsultationScreen = ({ route }: VideoConsultationScreenProps) => {
   const styles = createVideoConsultationStyles(theme);
   
   // State management
-  const [isMuted, setIsMuted] = useState(false);
-  const [isVideoOn, setIsVideoOn] = useState(true);
+  const [selectedDate, setSelectedDate] = useState('');
+  const [selectedTime, setSelectedTime] = useState('');
   const [consultationNotes, setConsultationNotes] = useState('');
   const [patient, setPatient] = useState<VideoConsultationPatient | null>(null);
   
@@ -57,27 +57,18 @@ const VideoConsultationScreen = ({ route }: VideoConsultationScreenProps) => {
   }
 
   /**
-   * Toggle microphone mute state
+   * Schedule consultation and navigate to confirmation screen
    */
-  const toggleMute = () => {
-    setIsMuted(!isMuted);
-    // In a real app, this would trigger the actual mute/unmute functionality
-  };
-
-  /**
-   * Toggle camera on/off state
-   */
-  const toggleVideo = () => {
-    setIsVideoOn(!isVideoOn);
-    // In a real app, this would trigger the actual video on/off functionality
-  };
-
-  /**
-   * End the consultation and navigate to confirmation screen
-   */
-  const endConsultation = () => {
-    // In a real app, this would end the video call and save consultation data
-    navigation.navigate('ConsultationConfirm', { appointmentId: route?.params?.appointmentId, patientId: route?.params?.patientId });
+  const scheduleConsultation = () => {
+    if (!selectedDate || !selectedTime) {
+      Alert.alert('Error', 'Please select both date and time for the consultation');
+      return;
+    }
+    navigation.navigate('ConsultationConfirm', { 
+      appointmentId: route?.params?.appointmentId, 
+      patientId: route?.params?.patientId,
+      dateTime: selectedDate,
+    });
   };
 
   /**
@@ -111,47 +102,37 @@ const VideoConsultationScreen = ({ route }: VideoConsultationScreenProps) => {
   );
 
   /**
-   * Render video call placeholder
+   * Render date and time selection
    */
-  const renderVideoPlaceholder = () => (
-    <View style={styles.videoPlaceholder}>
-      {!isVideoOn && (
-        <Icon name="video-slash" size={48} color={theme.colors.textInverted} />
-      )}
-    </View>
-  );
+  const renderDateTimeSelection = () => (
+    <View style={styles.dateTimeContainer}>
+      <Text style={styles.sectionTitle}>Select Date & Time</Text>
+      
+      <View style={styles.inputContainer}>
+        <Text style={styles.inputLabel}>Date</Text>
+        <TouchableOpacity 
+          style={styles.input}
+          onPress={() => {}}
+          accessibilityRole="button"
+          accessibilityLabel="Select date"
+        >
+          <Text style={styles.inputText}>{selectedDate || 'Select date'}</Text>
+          <Icon name="calendar" size={20} color={theme.colors.textSecondary} />
+        </TouchableOpacity>
+      </View>
 
-  /**
-   * Render video call control buttons
-   */
-  const renderVideoControls = () => (
-    <View style={styles.controlsContainer}>
-      <TouchableOpacity 
-        style={[styles.controlButton, isMuted && styles.controlButtonMuted]}
-        onPress={toggleMute}
-        accessibilityRole="button"
-        accessibilityLabel={isMuted ? "Unmute microphone" : "Mute microphone"}
-      >
-        <Icon name={isMuted ? "microphone-slash" : "microphone"} size={24} color={theme.colors.textInverted} />
-      </TouchableOpacity>
-      
-      <TouchableOpacity 
-        style={[styles.controlButton, !isVideoOn && styles.controlButtonMuted]}
-        onPress={toggleVideo}
-        accessibilityRole="button"
-        accessibilityLabel={isVideoOn ? "Turn off camera" : "Turn on camera"}
-      >
-        <Icon name={isVideoOn ? "video" : "video-slash"} size={24} color={theme.colors.textInverted} />
-      </TouchableOpacity>
-      
-      <TouchableOpacity 
-        style={[styles.controlButton, styles.controlButtonEnd]}
-        onPress={endConsultation}
-        accessibilityRole="button"
-        accessibilityLabel="End consultation"
-      >
-        <Icon name="phone-slash" size={24} color={theme.colors.textInverted} />
-      </TouchableOpacity>
+      <View style={styles.inputContainer}>
+        <Text style={styles.inputLabel}>Time</Text>
+        <TouchableOpacity 
+          style={styles.input}
+          onPress={() => {}}
+          accessibilityRole="button"
+          accessibilityLabel="Select time"
+        >
+          <Text style={styles.inputText}>{selectedTime || 'Select time slot'}</Text>
+          <Icon name="clock-o" size={20} color={theme.colors.textSecondary} />
+        </TouchableOpacity>
+      </View>
     </View>
   );
 
@@ -164,7 +145,7 @@ const VideoConsultationScreen = ({ route }: VideoConsultationScreenProps) => {
       <TextInput
         style={styles.notesInput}
         multiline
-        placeholder="Add consultation notes here..."
+        placeholder="Add any pre-consultation notes or requirements"
         placeholderTextColor={theme.colors.textSecondary}
         value={consultationNotes}
         onChangeText={setConsultationNotes}
@@ -174,36 +155,42 @@ const VideoConsultationScreen = ({ route }: VideoConsultationScreenProps) => {
   );
 
   /**
-   * Render action buttons for saving notes and viewing patient history
+   * Render action button for scheduling consultation
    */
   const renderActionButtons = () => (
     <View style={styles.actionButtonsContainer}>
       <TouchableOpacity 
         style={styles.actionButton}
-        onPress={() => {}}
-        accessibilityLabel="Save notes"
+        onPress={scheduleConsultation}
+        accessibilityRole="button"
+        accessibilityLabel="Schedule consultation"
       >
-        <Text style={styles.actionButtonText}>Save Notes</Text>
-      </TouchableOpacity>
-      
-      <TouchableOpacity 
-        style={styles.secondaryButton}
-        onPress={() => navigation.navigate('PatientHistory', { patientId: patient?.id })}
-        accessibilityLabel="View patient history"
-      >
-        <Text style={styles.secondaryButtonText}>View Patient History</Text>
+        <Text style={styles.actionButtonText}>Schedule Consultation</Text>
       </TouchableOpacity>
     </View>
   );
 
   return (
     <SafeAreaView style={containerStyles(theme).safeArea}>
-      <ScrollView style={containerStyles(theme).scrollView}>
-        <BackButton />
+      {/* Header */}
+      <View style={[containerStyles(theme).headerContainer, { paddingHorizontal: 12, paddingVertical: 8 }]}>
+        <View style={[{ flexDirection: 'row', alignItems: 'center' }]}>
+          <TouchableOpacity 
+            onPress={() => navigation.goBack()}
+            accessibilityRole="button"
+            accessibilityLabel="Go back"
+            style={{ padding: 6 }}
+          >
+            <Icon name="chevron-left" size={24} color={theme.colors.text} />
+          </TouchableOpacity>
+          <Text style={[textStyles(theme).headerTitle, { marginLeft: 12 }]}>Schedule Video Consultation</Text>
+        </View>
+      </View>
+
+      <ScrollView style={containerStyles(theme).scrollView} contentContainerStyle={{ padding: theme.spacing.md }}>
         <View style={containerStyles(theme).contentContainer}>
           {renderPatientInfoCard()}
-          {renderVideoPlaceholder()}
-          {renderVideoControls()}
+          {renderDateTimeSelection()}
           {renderConsultationNotes()}
           {renderActionButtons()}
         </View>

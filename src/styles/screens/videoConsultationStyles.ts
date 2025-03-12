@@ -4,7 +4,7 @@ import { Theme } from '../theme';
 export const createVideoConsultationStyles = (theme: Theme) => StyleSheet.create({
   // Patient Card
   patientCard: {
-    backgroundColor: theme.colors.surface,
+    backgroundColor: theme.colors.primaryLight,
     borderRadius: theme.borderRadius.md,
     padding: theme.spacing.md,
     marginBottom: theme.spacing.md,
@@ -30,39 +30,39 @@ export const createVideoConsultationStyles = (theme: Theme) => StyleSheet.create
     color: theme.colors.textSecondary,
   },
 
-  // Video Placeholder
-  videoPlaceholder: {
-    backgroundColor: theme.colors.surface,
-    height: 220,
-    borderRadius: theme.borderRadius.md,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: theme.spacing.md,
-    overflow: 'hidden',
-    borderWidth: 1,
-    borderColor: theme.colors.border,
-  },
-
-  // Video Controls
-  controlsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
+  // Date Time Selection
+  dateTimeContainer: {
     marginBottom: theme.spacing.lg,
   },
-  controlButton: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-    backgroundColor: theme.colors.primary,
-    justifyContent: 'center',
+  sectionTitle: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: theme.colors.text,
+    marginBottom: theme.spacing.md,
+  },
+  inputContainer: {
+    marginBottom: theme.spacing.md,
+  },
+  inputLabel: {
+    fontSize: 14,
+    fontWeight: '500',
+    color: theme.colors.text,
+    marginBottom: theme.spacing.xs,
+  },
+  input: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
+    backgroundColor: theme.colors.surface,
+    borderWidth: 1,
+    borderColor: theme.colors.border,
+    borderRadius: theme.borderRadius.sm,
+    padding: theme.spacing.sm,
+    height: 44,
   },
-  controlButtonMuted: {
-    backgroundColor: theme.colors.error,
-  },
-  controlButtonEnd: {
-    backgroundColor: theme.colors.error,
+  inputText: {
+    fontSize: 14,
+    color: theme.colors.textSecondary,
   },
 
   // Consultation Notes

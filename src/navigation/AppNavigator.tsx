@@ -12,6 +12,11 @@ import SignUpScreen from '../components/common/SignUpScreen';
 import { AppStackParamList } from '../types/types';
 import App from 'App';
 import DoctorSignUpScreen from '@components/screens/doctor/DoctorSignUpScreen';
+import DoctorProfileScreen from '../components/screens/doctor/DoctorProfileScreen';
+import AIReportsScreen from '@components/screens/doctor/AIReportsListScreen';
+import AIReportViewScreen from '@components/screens/doctor/AIReportViewScreen';
+import VideoConsultationScreen from '@components/screens/doctor/VideoConsultationScreen';
+import AppointmentManagementScreen from '@components/screens/doctor/AppointmentManagementScreen';
 
 const Stack = createNativeStackNavigator<AppStackParamList>();
 
@@ -22,9 +27,14 @@ export const AppNavigator = () => (
     <Stack.Screen name="DoctorDashboard" component={DoctorDashboardScreen} />
     {/* <Stack.Screen name="UserDashboard" component={DashboardScreen} /> */}
     <Stack.Screen name="PatientHistory" component={PatientHistoryScreen} />
-    <Stack.Screen name="ConsultationConfirm" component={ConsultationConfirmScreen} />
     <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
     <Stack.Screen name="ResetPassword" component={ResetPasswordScreen} />
     <Stack.Screen name="DoctorSignUp" component={DoctorSignUpScreen} />
+    <Stack.Screen name="DoctorProfile" component={DoctorProfileScreen} />
+    <Stack.Screen name="ReportList" component={AIReportsScreen} />
+    <Stack.Screen name="ReportDetail" component={AIReportViewScreen} />
+    <Stack.Screen name="VideoConsultation" component={VideoConsultationScreen} />
+    <Stack.Screen name="AppointmentManagement" component={AppointmentManagementScreen} />
+    <Stack.Screen name="ConsultationConfirm" component={ConsultationConfirmScreen} />
   </Stack.Navigator>
 );

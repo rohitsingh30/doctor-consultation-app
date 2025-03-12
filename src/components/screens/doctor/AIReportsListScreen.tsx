@@ -8,7 +8,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import { AppStackParamList, HealthReport } from '../../../types/types';
-import { buttonStyles, containerStyles, textStyles } from '../../../styles/commonStyles';
+import { buttonStyles, containerStyles, shadowsStyle, textStyles } from '../../../styles/commonStyles';
 import { createAIReportsListStyles } from '../../../styles/screens/AIReportsListStyles';
 import { useTheme } from '../../../styles/ThemeProvider';
 import BackButton from '../../common/BackButton';
@@ -82,22 +82,24 @@ const AIReportsScreen: React.FC = () => {
   };
 
   const renderReportHeader = (report: HealthReport): JSX.Element => (
-    <View style={styles.headerStyles}>
+    <View style={styles.headerContainer}>
       <View>
-        <TouchableOpacity 
-          style={buttonStyles(theme).button}
-          onPress={() => toggleReportExpansion(report.id??"1")}
-          accessibilityRole="button"
-          accessibilityLabel={`Toggle ${report.title} details`}
-        >
-          <Icon 
-            name={isReportExpanded(report.id ?? "1") ? "chevron-up" : "chevron-down"} 
-            size={16} 
-            color={theme.colors.text}
-            style={{ marginRight: theme.spacing.sm }}
-          />
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <TouchableOpacity 
+            onPress={() => toggleReportExpansion(report.id ?? "1")}
+            accessibilityRole="button"
+            accessibilityLabel={`Toggle ${report.title} details`}
+            style={{ padding: theme.spacing.xs }}
+          >
+            <Icon 
+              name={isReportExpanded(report.id ?? "1") ? "chevron-up" : "chevron-down"} 
+              size={16} 
+              color={theme.colors.text}
+              style={{ marginRight: theme.spacing.sm }}
+            />
+          </TouchableOpacity>
           <Text style={styles.sectionHeader}>{report.title}</Text>
-        </TouchableOpacity>
+        </View>
         <View style={styles.statusContainer}>
           <View 
             style={[styles.statusIndicator, { backgroundColor: getStatusColor(report.status) }]} 
@@ -119,58 +121,49 @@ const AIReportsScreen: React.FC = () => {
   );
 
   const renderReportContent = (report: HealthReport): JSX.Element => (
-    <View style={styles.reportContent}>
-      <Text style={styles.sectionContent}>
-        <Text style={{ fontWeight: 'bold' }}>Patient Name:</Text> {report.patientName}
+    <View style={[styles.reportContent, { backgroundColor: theme.colors.secondary, padding: theme.spacing.md, borderRadius: theme.borderRadius.sm }]}>
+      <Text style={[styles.sectionContent, { fontWeight: '600' }]}>
+        <Text style={{ color: theme.colors.text }}>Patient Name: </Text>
+        {report.patientName}
       </Text>
       <Text style={styles.sectionContent}>
-        <Text style={{ fontWeight: 'bold' }}>Age:</Text> {report.patientAge}
+        <Text style={{ color: theme.colors.text }}>Age: </Text>
+        {report.patientAge}
       </Text>
       <Text style={styles.sectionContent}>
-        <Text style={{ fontWeight: 'bold' }}>Diagnosis:</Text> {report.diagnosis}
+        <Text style={{ color: theme.colors.text }}>Diagnosis: </Text>
+        {report.diagnosis}
       </Text>
       <Text style={styles.sectionContent}>
-        <Text style={{ fontWeight: 'bold' }}>Medications:</Text> {report.recommendedMedicine?.join(', ')}
+        <Text style={{ color: theme.colors.text }}>Medications: </Text>
+        {report.recommendedMedicine?.join(', ')}
       </Text>
-    </View>
-  );
-
-  const renderEmptyState = (): JSX.Element => (
-    <View style={styles.emptyStateContainer}>
-      <Icon name="file-medical-alt" size={48} color={theme.colors.textSecondary} />
-      <Text style={styles.emptyStateText}>
-        No AI reports available
-      </Text>
-    </View>
-  );
-
-  const renderReportCard = (report: HealthReport): JSX.Element => (
-    <View key={report.id} style={[styles.reportCard, { marginBottom: theme.spacing.md }]}>
-      {renderReportHeader(report)}
-      {isReportExpanded(report.id ?? "1") && renderReportContent(report)}
-    </View>
-  );
-
-  const renderScreenContent = (): JSX.Element => (
-    <View style={containerStyles(theme).contentContainer}>
-      <Text style={[textStyles(theme).titleText, { marginBottom: theme.spacing.md }]}>AI Reports</Text>
-      
-      {reports.length > 0 
-        ? reports.map(report => renderReportCard(report))
-        : renderEmptyState()
-      }
     </View>
   );
 
   return (
     <SafeAreaView style={containerStyles(theme).safeArea}>
-      <View style={styles.headerContainer}>
-      <BackButton />
-      <Text style={[textStyles(theme).titleText, { marginLeft: theme.spacing.md }]}>AI Reports</Text>
+      <View style={styles.container}>
+        <View style={styles.headerContainer}>
+          <BackButton onPress={() => navigation.goBack()} />
+          <Text style={[textStyles(theme).titleText, { flex: 1, textAlign: 'center' }]}>AI Reports</Text>
+          <View style={{ width: 40 }} />
+        </View>
+        
+        <ScrollView style={styles.reportListContainer}>
+          {reports.map((report) => (
+            <View key={report.id} style={[styles.reportCard, shadowsStyle(theme).sm]}>
+              {renderReportHeader(report)}
+              {isReportExpanded(report.id ?? "1") && renderReportContent(report)}
+            </View>
+          ))}
+          {reports.length === 0 && (
+            <View style={styles.emptyStateContainer}>
+              <Text style={styles.emptyStateText}>No reports available</Text>
+            </View>
+          )}
+        </ScrollView>
       </View>
-      <ScrollView style={containerStyles(theme).scrollView}>
-      {renderScreenContent()}
-      </ScrollView>
     </SafeAreaView>
   );
 };

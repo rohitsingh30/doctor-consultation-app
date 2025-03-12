@@ -188,6 +188,7 @@ export const containerStyles = (theme?: Theme) => {
     padding: theme.spacing.md,
   },
   contentContainer: {
+    width:'100%',
     flex: 1,
     padding: theme.spacing.md,
   },
@@ -468,6 +469,13 @@ export const buttonStyles = (theme: Theme) => {
   theme = theme ?? lightTheme;
   return StyleSheet.create({
   // Primary action button
+
+  outlineButtonText:{
+    color: theme.colors.primary,
+    fontWeight: '500',
+    fontSize: theme.fontSize.md,
+    justifyContent:'center'
+  },
   primary: {
     alignItems: 'center',
     justifyContent: 'center',
@@ -552,6 +560,9 @@ export const buttonStyles = (theme: Theme) => {
     backgroundColor: 'transparent',
     borderWidth: 1,
     borderColor: theme.colors.primary,
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row'
   },
   fullWidth: {
     width: '100%',

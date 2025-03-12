@@ -1,110 +1,163 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Platform } from 'react-native';
 import { Theme } from 'src/types/types';
 
-export const loginStyles = (theme: Theme) =>  StyleSheet.create({
-  // Container
+export const createDoctorLoginStyles = (theme: Theme) => StyleSheet.create({
+  // Container styles
   container: {
     flex: 1,
     backgroundColor: theme.colors.background,
-    justifyContent: 'center',
-    padding: 32,
+    padding: theme.spacing.sm,
+    marginHorizontal: 'auto',
   },
-
-  // Header
+  
+  // Header styles
   headerContainer: {
     alignItems: 'center',
-    marginBottom: 32,
+    marginBottom: theme.spacing.xl,
+    paddingTop: theme.spacing.xl,
   },
   logoContainer: {
-    backgroundColor: theme.colors.primaryLight,
-    padding: 16,
-    borderRadius: 32,
-    marginBottom: 16,
+    backgroundColor: theme.colors.primary, // Changed to match blue-100 from HTML
+    padding: theme.spacing.lg,
+    borderRadius: 9999, // Full rounded for circle
+    marginBottom: theme.spacing.lg,
+    ...Platform.select({
+      ios: {
+        shadowColor: theme.colors.primary,
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.2,
+        shadowRadius: 8,
+      },
+      android: {
+        elevation: 5,
+      },
+    }),
   },
   logo: {
     width: 48,
     height: 48,
   },
   welcomeText: {
-    fontSize: 24,
-    fontWeight: '600',
+    fontSize: theme.fontSize.xl,
+    fontWeight: '700',
     color: theme.colors.text,
-    marginBottom: 8,
+    marginBottom: theme.spacing.xs,
   },
   instructionText: {
-    fontSize: 14,
+    fontSize: theme.fontSize.sm,
     color: theme.colors.textSecondary,
     textAlign: 'center',
+    marginTop: theme.spacing.xs,
   },
 
-  // Form
+  // Form styles
   formContainer: {
-    marginBottom: 24,
+    marginBottom: theme.spacing.lg,
+    width: '100%',
+    backgroundColor: theme.colors.surface,
+    borderRadius: theme.borderRadius.md,
+    padding: theme.spacing.lg,
+    borderWidth: 1,
+    borderColor: theme.colors.border,
+    ...Platform.select({
+      ios: {
+        shadowColor: theme.colors.shadow,
+        shadowOffset: { width: 0, height: 3 },
+        shadowOpacity: 0.15,
+        shadowRadius: 6,
+      },
+      android: {
+        elevation: 4,
+      },
+    }),
   },
   inputContainer: {
-    marginBottom: 16,
+    marginBottom: theme.spacing.md,
   },
   label: {
-    fontSize: 14,
+    fontSize: theme.fontSize.sm,
     color: theme.colors.textSecondary,
-    marginBottom: 8,
+    marginBottom: theme.spacing.xs,
+    fontWeight: '500',
   },
   input: {
     backgroundColor: theme.colors.surface,
-    borderRadius: 8,
-    padding: 16,
-    fontSize: 16,
+    borderRadius: theme.borderRadius.sm,
+    borderWidth: 1,
+    borderColor: theme.colors.border,
+    padding: theme.spacing.md,
+    fontSize: theme.fontSize.md,
     color: theme.colors.text,
   },
   forgotPassword: {
     alignSelf: 'flex-end',
-    marginTop: 8,
+    marginTop: theme.spacing.sm,
+    marginBottom: theme.spacing.md,
+    paddingVertical: theme.spacing.xs,
   },
   forgotPasswordText: {
-    fontSize: 14,
+    fontSize: theme.fontSize.sm,
     color: theme.colors.primary,
+    fontWeight: '600',
   },
 
-  // Buttons
+  // Button styles
   buttonContainer: {
-    marginTop: 16,
+    marginTop: theme.spacing.md,
   },
   primaryButton: {
     backgroundColor: theme.colors.primary,
-    borderRadius: 8,
-    padding: 16,
+    borderRadius: theme.borderRadius.md,
+    padding: theme.spacing.md,
     alignItems: 'center',
-    marginBottom: 16,
+    marginBottom: theme.spacing.md,
+    ...Platform.select({
+      ios: {
+        shadowColor: theme.colors.shadow,
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: 0.1,
+        shadowRadius: 2,
+      },
+      android: {
+        elevation: 2,
+      },
+    }),
   },
   primaryButtonText: {
     color: theme.colors.textInverted,
-    fontSize: 16,
+    fontSize: theme.fontSize.md,
     fontWeight: '600',
   },
   secondaryButton: {
     borderWidth: 1,
     borderColor: theme.colors.border,
-    borderRadius: 8,
-    padding: 16,
+    borderRadius: theme.borderRadius.sm,
+    padding: theme.spacing.md,
     alignItems: 'center',
   },
   secondaryButtonText: {
     color: theme.colors.text,
-    fontSize: 16,
+    fontSize: theme.fontSize.md,
     fontWeight: '600',
   },
 
-  // Footer
+  // Footer styles
   footerContainer: {
-    marginTop: 24,
+    marginTop: theme.spacing.lg,
     alignItems: 'center',
   },
   footerText: {
-    fontSize: 14,
+    fontSize: theme.fontSize.sm,
     color: theme.colors.textSecondary,
+    marginBottom: theme.spacing.xs,
   },
   signUpText: {
     color: theme.colors.primary,
-    fontWeight: '600',
+    fontWeight: '700',
+    fontSize: theme.fontSize.sm,
+    marginLeft: theme.spacing.xs,
   },
 });
+
+// For backward compatibility
+export const loginStyles = createDoctorLoginStyles;

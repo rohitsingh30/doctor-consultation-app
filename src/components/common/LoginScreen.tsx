@@ -1,51 +1,56 @@
 import React from 'react';
-import { View, Text, SafeAreaView, ScrollView, Image } from 'react-native';
+import { View, Text, SafeAreaView, ScrollView, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { AppStackParamList } from '../../types/types';
-import { textStyles, buttonStyles, containerStyles } from '../../styles/commonStyles';
+import { textStyles, buttonStyles, containerStyles, shadowsStyle } from '../../styles/commonStyles';
 import CustomButton from './CustomButton';
 import { useTheme } from 'src/styles/ThemeProvider';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import { createDoctorLoginStyles } from '../../styles/screens/doctorLoginStyles';
 
 const LoginScreen = () => {
   const navigation = useNavigation<NativeStackNavigationProp<AppStackParamList>>();
-  const theme = useTheme().theme;
+  const { theme } = useTheme();
+  const styles = createDoctorLoginStyles(theme);
 
   return (
     <SafeAreaView style={containerStyles(theme).safeArea}>
       <ScrollView contentContainerStyle={containerStyles(theme).loginScrollContainer}>
-        <View style={containerStyles(theme).logoContainer}>
-          <Image
-            source={{ uri: 'https://example.com/logo.png' }}
-            style={{ width: 100, height: 100, marginBottom: 20 }}
-            accessibilityLabel="App Logo"
-          />
-          <Text style={textStyles().appName}>Doc-X</Text>
-          <Text style={textStyles().tagline}>Your Health, Our Priority</Text>
+        <View style={styles.headerContainer}>
+          <Text style={[styles.welcomeText, { fontSize: 24, fontWeight: '700' }]}>DOC-X</Text>
+          <Text style={[textStyles(theme).tagline, { marginTop: 4 }]}>Your Health, Our Priority</Text>
         </View>
 
-        <View style={containerStyles(theme).formContainer}>
-          <CustomButton
-            title="Login as Doctor"
+        <View style={[styles.formContainer, shadowsStyle(theme).md]}>
+          <TouchableOpacity
+            style={[styles.primaryButton, shadowsStyle(theme).md, { width: '100%', paddingVertical: theme.spacing.md, marginBottom: 15 }]}
             onPress={() => navigation.navigate('DoctorLogin')}
-            style={[buttonStyles(theme).primary, { marginBottom: 15 }]}
-          />
+            accessibilityRole="button"
+            accessibilityLabel="Login as Doctor"
+          >
+            <Text style={[styles.primaryButtonText, { fontSize: 16 }]}>Login as Doctor</Text>
+          </TouchableOpacity>
 
-          <CustomButton
-            title="Login as User"
-            variant='secondary'
-            onPress={() => navigation.navigate('DoctorLogin')}
-            style={buttonStyles(theme).outlineButton}
-          />
+          <TouchableOpacity
+            style={[buttonStyles(theme).outlineButton, { width: '100%', paddingVertical: theme.spacing.md }]}
+            onPress={() => navigation.navigate('PatientLogin')}
+            accessibilityRole="button"
+            accessibilityLabel="Login as Patient"
+          >
+            <Text style={buttonStyles(theme).outlineButtonText}>Login as Patient</Text>
+          </TouchableOpacity>
         </View>
 
-        <View style={containerStyles(theme).footer}>
+        <View style={[containerStyles(theme).footer, { flexDirection: 'row', justifyContent: 'center' }]}>
           <Text style={textStyles(theme).footerText}>Don't have an account?</Text>
-          <CustomButton
-            title="Sign Up"
+          <TouchableOpacity 
             onPress={() => navigation.navigate('DoctorSignUp')}
-            style={buttonStyles(theme).button}
-          />
+            accessibilityRole="button"
+            accessibilityLabel="Sign Up"
+          >
+            <Text style={styles.signUpText}>Sign Up</Text>
+          </TouchableOpacity>
         </View>
       </ScrollView>
     </SafeAreaView>

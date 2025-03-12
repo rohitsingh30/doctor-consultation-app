@@ -67,7 +67,7 @@ export const todayAppointments: Appointment[] = [
     date: '2023-06-15'
   },
 ];
-
+export const recentPrescriptions = {}
 
 export const recentPatientHistory: PatientHistory[] = [
   {

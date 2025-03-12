@@ -9,8 +9,8 @@ export const createDoctorDashboardStyles = (theme: Theme) => StyleSheet.create({
     flex: 1,
     backgroundColor: theme.colors.background,
     padding: theme.spacing.sm,
-    maxWidth: width,
-    marginHorizontal: 'auto',
+    width: '100%',
+    marginHorizontal: 0,
   },
   headerContainer: {
     backgroundColor: theme.colors.primary,
