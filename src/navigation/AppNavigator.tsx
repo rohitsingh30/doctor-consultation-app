@@ -17,6 +17,9 @@ import AIReportsScreen from '@components/screens/doctor/AIReportsListScreen';
 import AIReportViewScreen from '@components/screens/doctor/AIReportViewScreen';
 import VideoConsultationScreen from '@components/screens/doctor/VideoConsultationScreen';
 import AppointmentManagementScreen from '@components/screens/doctor/AppointmentManagementScreen';
+import RecommendedTestsScreen from '@components/screens/doctor/RecommendedTestsScreen';
+import { recommendedMedicineStyles } from 'src/styles/screens/recommendedMedicineStyles';
+import PrescribeMedicationScreen from '@components/screens/doctor/RecommendedMedicationScreen';
 
 const Stack = createNativeStackNavigator<AppStackParamList>();
 
@@ -36,5 +39,7 @@ export const AppNavigator = () => (
     <Stack.Screen name="VideoConsultation" component={VideoConsultationScreen} />
     <Stack.Screen name="AppointmentManagement" component={AppointmentManagementScreen} />
     <Stack.Screen name="ConsultationConfirm" component={ConsultationConfirmScreen} />
+    <Stack.Screen name="RecommendedTests" component={RecommendedTestsScreen} />
+    <Stack.Screen name="RecommendedMedicine" component={PrescribeMedicationScreen} />
   </Stack.Navigator>
 );
