@@ -174,18 +174,26 @@ const PatientHistoryScreen = () => {
           <View style={[styles.sectionContainer, shadowsStyle(theme).md, { width: '100%', padding: theme.spacing.md + 4 }]}>
             {renderSectionHeader('labResults', 'vial', 'Lab Results')}
             {isSectionExpanded('labResults') && (
+                <TouchableOpacity 
+                onPress={() => navigation.navigate('RecommendedTests', { patientId: patient.id })}
+              >                        
               <View style={{ marginTop: theme.spacing.md }}>
                 {medicalHistory.labResults.map(item => renderHistoryItem(item))}
               </View>
+              </TouchableOpacity>
             )}
           </View>
           
           <View style={[styles.sectionContainer, shadowsStyle(theme).md, { width: '100%', padding: theme.spacing.md + 4 }]}>
             {renderSectionHeader('prescriptions', 'prescription-bottle', 'Prescriptions')}
             {isSectionExpanded('prescriptions') && (
-              <View style={{ marginTop: theme.spacing.md }}>
-                {medicalHistory.prescriptions.map(item => renderHistoryItem(item))}
-              </View>
+              <TouchableOpacity 
+                onPress={() => navigation.navigate('RecommendedMedicine', { patientId: patient.id })}
+              >            
+                <View style={{ marginTop: theme.spacing.md }}>
+                  {medicalHistory.prescriptions.map(item => renderHistoryItem(item))}
+                </View>
+              </TouchableOpacity>
             )}
           </View>
           
