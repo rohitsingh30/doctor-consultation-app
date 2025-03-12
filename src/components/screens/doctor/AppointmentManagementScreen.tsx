@@ -40,7 +40,7 @@ const AppointmentManagementScreen = () => {
   return (
     <SafeAreaView style={containerStyles(theme).safeArea}>
       <ScrollView style={containerStyles(theme).scrollView}>
-        {appHeaderWithBackButton(navigation,theme,'Patient History')}
+        {appHeaderWithBackButton(navigation,theme,'Appointment Management')}
         <View style={containerStyles(theme).contentContainer}>
           {/* Appointments List */}
           <View style={[containerStyles(theme).sectionContainer, shadowsStyle(theme).md]}>
