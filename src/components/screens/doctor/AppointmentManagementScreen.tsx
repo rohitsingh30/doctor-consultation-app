@@ -9,6 +9,7 @@ import { buttonStyles, containerStyles, shadowsStyle, textStyles } from '../../.
 import BackButton from '../../common/BackButton';
 import { AppStackParamList } from '../../../types/types';
 import { useTheme } from 'src/styles/ThemeProvider';
+import { appHeaderWithBackButton } from '@components/common/Header';
 
 const AppointmentManagementScreen = () => {
   const theme = useTheme().theme;
@@ -39,7 +40,7 @@ const AppointmentManagementScreen = () => {
   return (
     <SafeAreaView style={containerStyles(theme).safeArea}>
       <ScrollView style={containerStyles(theme).scrollView}>
-        <BackButton />
+        {appHeaderWithBackButton(navigation,theme,'Patient History')}
         <View style={containerStyles(theme).contentContainer}>
           {/* Appointments List */}
           <View style={[containerStyles(theme).sectionContainer, shadowsStyle(theme).md]}>
@@ -101,7 +102,7 @@ const AppointmentManagementScreen = () => {
             <Text style={buttonStyles(theme).secondaryButtonText}>Return to Dashboard</Text>
           </TouchableOpacity>
         </View>
-      </ScrollView>
+    </ScrollView>
     </SafeAreaView>
   );
 };

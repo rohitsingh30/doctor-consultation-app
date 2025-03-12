@@ -12,6 +12,7 @@ import { useTheme } from '../../../styles/ThemeProvider';
 import { createConsultationConfirmStyles } from '../../../styles/screens/consultationConfirmStyles';
 import BackButton from '../../common/BackButton';
 import { buttonStyles, containerStyles } from 'src/styles/commonStyles';
+import { appHeaderWithBackButton } from '@components/common/Header';
 
 const ConsultationConfirmScreen = () => {
   const navigation = useNavigation<NativeStackNavigationProp<AppStackParamList>>();
@@ -81,7 +82,7 @@ const ConsultationConfirmScreen = () => {
   return (
     <SafeAreaView style={containerStyles(theme).safeArea}>
       <ScrollView style={containerStyles(theme).scrollView}>
-        <BackButton />
+        {appHeaderWithBackButton(navigation,theme,'Consultation Confirmation')}
         <View style={containerStyles(theme).contentContainer}>
           {renderConfirmationHeader()}
           {renderConsultationDetails()}

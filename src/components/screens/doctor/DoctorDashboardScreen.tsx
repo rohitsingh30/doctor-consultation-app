@@ -1,14 +1,33 @@
 import React, { useContext, useState } from 'react';
 import { View, Text, SafeAreaView, ScrollView, TouchableOpacity, Image } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { AppStackParamList, PatientHistory } from '../../../types/types';
+import { AppStackParamList, PatientHistory, Theme } from '../../../types/types';
 import { AuthContext } from '../../../context/AuthContext';
 import { useTheme } from '../../../styles/ThemeProvider';
 import { createDoctorDashboardStyles } from '../../../styles/screens/doctorDashboardStyles';
 import { containerStyles } from 'src/styles/commonStyles';
 import { recentPatientHistory, todayAppointments, aiReports } from 'src/data/doctorData';
+import { dashboardDoctorHeader } from '@components/common/Header';
+import { useNavigation } from '@react-navigation/native';
+
+const renderStatsCard = (styles: any, onClick: ()=>void, theme: Theme, info: any[], name: string)=>{
+  return (
+    <TouchableOpacity 
+    style={[styles.statsCard, { flex: 1, marginLeft: 6, padding: 10 }]}
+    onPress={onClick}
+    accessibilityRole="button"
+    accessibilityLabel="View Appointments"
+  >
+    <Text style={{ color: theme.colors.text, fontWeight: '600', marginBottom: 2, fontSize: 14 }}>
+      {name}
+    </Text>
+    <Text style={{ color: theme.colors.primary, fontSize: 22, fontWeight: '700' }}>
+      {info.length}
+    </Text>
+    </TouchableOpacity>
+  )
+}
 
 const DoctorDashboardScreen = () => {
   const navigation = useNavigation<NativeStackNavigationProp<AppStackParamList>>();
@@ -30,70 +49,18 @@ const DoctorDashboardScreen = () => {
   return (
     <SafeAreaView style={[containerStyles(theme).safeArea, { flex: 1 }]}>  
       <ScrollView 
-        style={[styles.container, { width: '100%' }]} 
+        style={[containerStyles(theme).container, { width: '100%' }]} 
         contentContainerStyle={{ paddingBottom: 16, width: '100%' }}
         showsHorizontalScrollIndicator={false}
         horizontal={false}
       >
         {/* Header */}
-        <View style={[styles.headerContainer, { paddingHorizontal: 12, paddingVertical: 8, width: '100%' }]}>
-          <View style={[{ flexDirection: 'row', alignItems: 'center', flex: 1 }]}>
-            <TouchableOpacity 
-              onPress={() => navigation.navigate('DoctorProfile', { doctorId: user?.id })}
-              accessibilityRole="button"
-              accessibilityLabel="Go to doctor profile"
-              style={{ padding: 6 }}
-            >
-              <Icon name="user-md" style={styles.profileIcon} />
-            </TouchableOpacity>
-            <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', marginHorizontal: 6 }}>
-              <Text style={[styles.doctorName, { marginRight: 8 }]} numberOfLines={1}>Dr. John Doe</Text>
-              <View style={[styles.availabilityBadge]}>
-                <Icon name="check-circle" style={styles.availabilityIcon} />
-                <Text style={styles.availabilityText}>Available</Text>
-              </View>
-            </View>
-          </View>
-          <TouchableOpacity 
-            onPress={handleLogout}
-            style={[styles.logoutButton, { padding: 6 }]}
-            accessibilityRole="button"
-            accessibilityLabel="Log out"
-          >
-            <Icon name="sign-out" style={{ marginRight: 6, color: theme.colors.primary }} />
-            <Text style={styles.logoutButtonText}>Log Out</Text>
-          </TouchableOpacity>
-        </View>
+        {dashboardDoctorHeader(navigation, theme, user, handleLogout)};
 
         {/* Stats Cards */}
         <View style={[styles.statsContainer, { paddingHorizontal: 12, flexDirection: 'row', justifyContent: 'space-between', width: '100%' }]}>
-          <TouchableOpacity 
-              style={[styles.statsCard, { flex: 1, marginLeft: 6, padding: 10 }]}
-              onPress={() => navigation.navigate('AppointmentManagement')}
-              accessibilityRole="button"
-              accessibilityLabel="View Appointments"
-            >
-              <Text style={{ color: theme.colors.text, fontWeight: '600', marginBottom: 2, fontSize: 14 }}>
-                Today's Appointments
-              </Text>
-              <Text style={{ color: theme.colors.primary, fontSize: 22, fontWeight: '700' }}>
-                {todayAppointments.length}
-              </Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity 
-            style={[styles.statsCard, { flex: 1, marginLeft: 6, padding: 10 }]}
-            onPress={() => navigation.navigate('ReportList', { patientId: undefined })}
-            accessibilityRole="button"
-            accessibilityLabel="View AI Reports"
-          >
-            <Text style={{ color: theme.colors.text, fontWeight: '600', marginBottom: 2, fontSize: 14 }}>
-              AI Reports
-            </Text>
-            <Text style={{ color: theme.colors.primary, fontSize: 22, fontWeight: '700' }}>
-              {aiReports.length}
-            </Text>
-          </TouchableOpacity>
+          {renderStatsCard(styles, () => navigation.navigate('AppointmentManagement'), theme, todayAppointments, 'Today\'s Appointments')}
+          {renderStatsCard(styles, () => navigation.navigate('ReportList', { patientId: undefined }), theme, aiReports, 'AI Reports')}
         </View>
 
         {/* Patient History Section */}

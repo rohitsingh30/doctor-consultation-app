@@ -14,6 +14,7 @@ import { createRecommendedTestsStyles } from '../../../styles/screens/recommende
 import BackButton from '../../common/BackButton';
 import { Test, recommendedTests, testPatientData } from '../../../data/doctorData';
 import { containerStyles, textStyles } from 'src/styles/commonStyles';
+import { appHeaderWithBackButton } from '@components/common/Header';
 
 type RecommendedTestsScreenNavigationProp = NativeStackNavigationProp<AppStackParamList, 'RecommendedTests'>;
 type RecommendedTestsScreenRouteProp = RouteProp<AppStackParamList, 'RecommendedTests'>;
@@ -295,7 +296,7 @@ const RecommendedTestsScreen: React.FC = () => {
   return (
     <SafeAreaView style={containerStyles(theme).safeArea}>
       <ScrollView style={containerStyles(theme).scrollView}>
-        <BackButton />
+      {appHeaderWithBackButton(navigation, theme,'Recommended Tests')}
         <View style={containerStyles(theme).contentContainer}>
           <Text style={textStyles(theme).titleText}>Recommended Tests</Text>
           

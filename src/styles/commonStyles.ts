@@ -1,6 +1,7 @@
 import { StyleSheet, Platform, FlexAlignType } from 'react-native';
 import { Theme } from 'src/types/types';
 import { lightTheme } from './theme';
+import { Header } from 'react-native/Libraries/NewAppScreen';
 
 // Type definitions for better type safety
 type FlexJustifyContent = 'flex-start' | 'flex-end' | 'center' | 'space-between' | 'space-around';
@@ -176,6 +177,14 @@ export const containerStyles = (theme?: Theme) => {
   baseContainer:{
     flex: 1,
   },
+
+  scrollContainer: {
+    flex: 1,
+    backgroundColor: theme.colors.background,
+    padding: theme.spacing.sm,
+    marginHorizontal: 'auto',
+  },
+
   headerContainer: {
     flexDirection: 'row',
   },
@@ -224,12 +233,84 @@ export const headerStyles = (theme: Theme) => {
       justifyContent: 'space-between',
       alignItems: 'center',
       marginBottom: theme.spacing.md,
-    },
+  },
+  availabilityBadge: {
+    backgroundColor: theme.colors.surface,
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: theme.spacing.xs,
+    paddingVertical: 2,
+    borderRadius: theme.borderRadius.sm,
+    marginLeft: theme.spacing.sm,
+    height: 24,
+  },
+  availabilityIcon: {
+    fontSize: 16,
+    color: theme.colors.success,
+  },
+  availabilityText: {
+    color: theme.colors.success,
+    fontSize: 12,
+    marginLeft: 2,
+  },
+  logoutButton: {
+    backgroundColor: theme.colors.surface,
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: theme.spacing.sm,
+    paddingVertical: theme.spacing.xs,
+    borderRadius: theme.borderRadius.sm,
+  },
+  logoutButtonText: {
+    color: theme.colors.primary,
+    fontSize: 12,
+    fontWeight: '500',
+  },
+  profileIcon: {
+    fontSize: 20,
+    color: theme.colors.textInverted,
+    marginRight: theme.spacing.sm,
+  },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: theme.spacing.md,
+  },
+
+  headerBackButton: {
+    fontSize: 20,
+    color: theme.colors.textInverted,
+    marginRight: theme.spacing.sm,
+  },
+  headerText: {
+    fontSize: 20,
+    fontWeight: '600',
+    color: theme.colors.textInverted,
+  },
+
+  headerContainer: {
+    width:'100%',
+    backgroundColor: theme.colors.primary,
+    padding: theme.spacing.sm,
+    borderRadius: theme.borderRadius.md,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: theme.spacing.sm,
+    borderWidth: 1,
+    borderColor: theme.colors.border,
+    ...Platform.select({
+      ios: {
+        shadowColor: theme.colors.shadow,
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: 0.1,
+        shadowRadius: 2,
+      },
+      android: {
+        elevation: 2,
+      },
+    }),
   },
   headerRight:{
     flexDirection: 'row',

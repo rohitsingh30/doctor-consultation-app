@@ -13,6 +13,7 @@ import { createVideoConsultationStyles } from '../../../styles/screens/videoCons
 import BackButton from '../../common/BackButton';
 import { videoConsultationPatients, VideoConsultationPatient } from '../../../data/doctorData';
 import { containerStyles, textStyles } from 'src/styles/commonStyles';
+import { appHeaderWithBackButton } from '@components/common/Header';
 
 type VideoConsultationScreenProps = {
   route?: {
@@ -173,19 +174,7 @@ const VideoConsultationScreen = ({ route }: VideoConsultationScreenProps) => {
   return (
     <SafeAreaView style={containerStyles(theme).safeArea}>
       {/* Header */}
-      <View style={[containerStyles(theme).headerContainer, { paddingHorizontal: 12, paddingVertical: 8 }]}>
-        <View style={[{ flexDirection: 'row', alignItems: 'center' }]}>
-          <TouchableOpacity 
-            onPress={() => navigation.goBack()}
-            accessibilityRole="button"
-            accessibilityLabel="Go back"
-            style={{ padding: 6 }}
-          >
-            <Icon name="chevron-left" size={24} color={theme.colors.text} />
-          </TouchableOpacity>
-          <Text style={[textStyles(theme).headerTitle, { marginLeft: 12 }]}>Schedule Video Consultation</Text>
-        </View>
-      </View>
+      {appHeaderWithBackButton(navigation, theme, 'Schedule Video Consultation')}
 
       <ScrollView style={containerStyles(theme).scrollView} contentContainerStyle={{ padding: theme.spacing.md }}>
         <View style={containerStyles(theme).contentContainer}>

@@ -15,7 +15,7 @@ import { AppStackParamList } from '../../../types/types';
 import { buttonStyles, containerStyles, textStyles } from '../../../styles/commonStyles';
 import { useTheme } from '../../../styles/ThemeProvider';
 import { createAvailabilitySettingsStyles } from '../../../styles/screens/AvailabilitySettingsStyles';
-import Header from '../../common/Header';
+import Header, { appHeaderWithBackButton } from '../../common/Header';
 
 const AvailabilitySettingsScreen = () => {
   const navigation = useNavigation<NativeStackNavigationProp<AppStackParamList>>();
@@ -34,10 +34,9 @@ const AvailabilitySettingsScreen = () => {
   ];
 
   return (
-    <SafeAreaView style={containerStyles(theme).safeArea}>
-      <Header title="Availability Settings" />
-      
+    <SafeAreaView style={containerStyles(theme).safeArea}>      
       <ScrollView style={containerStyles(theme).scrollView}>
+        {appHeaderWithBackButton(navigation,theme,'Availability Settings')}
         <View style={containerStyles(theme).contentContainer}>
           {/* Overall Availability Toggle */}
           <View style={containerStyles(theme).sectionContainer}>

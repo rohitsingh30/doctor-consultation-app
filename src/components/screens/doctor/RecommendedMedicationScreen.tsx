@@ -11,6 +11,7 @@ import { useTheme } from '../../../styles/ThemeProvider';
 import { createPrescribeMedicationStyles } from '../../../styles/screens/recommendedMedicineStyles';
 import BackButton from '../../common/BackButton';
 import { buttonStyles, containerStyles, headerStyles, profileStyles, textStyles } from 'src/styles/commonStyles';
+import { appHeaderWithBackButton } from '@components/common/Header';
 
 type Medication = {
   id: string;
@@ -59,10 +60,6 @@ const PrescribeMedicationScreen: React.FC = () => {
     );
     setEditingMedication(null);
   };
-
-  const renderHeader = (): JSX.Element => (
-    <Text style={textStyles(theme).titleText}>Prescribe Medication</Text>
-  );
 
   const renderMedicationForm = (medication: Medication): JSX.Element => (
     <View style={containerStyles(theme).medicationForm}>
@@ -173,7 +170,6 @@ const PrescribeMedicationScreen: React.FC = () => {
 
   const renderScreenContent = (): JSX.Element => (
     <View style={containerStyles(theme).contentContainer}>
-      {renderHeader()}
       {renderMedicationsList()}
       {renderAddButton()}
       {renderActionButtons()}
@@ -183,8 +179,8 @@ const PrescribeMedicationScreen: React.FC = () => {
   return (
     <SafeAreaView style={containerStyles(theme).safeArea}>
       <ScrollView style={containerStyles(theme).scrollView}>
-        <BackButton />
-        {renderScreenContent()}
+      {appHeaderWithBackButton(navigation, theme, 'Prescribe Medication')}
+      {renderScreenContent()}
       </ScrollView>
     </SafeAreaView>
   );

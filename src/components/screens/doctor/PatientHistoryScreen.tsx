@@ -12,6 +12,7 @@ import { AuthContext } from '../../../context/AuthContext';
 import { useTheme } from '../../../styles/ThemeProvider';
 import { createPatientHistoryStyles } from '../../../styles/screens/patientHistoryStyles';
 import { containerStyles, shadowsStyle } from 'src/styles/commonStyles';
+import { appHeaderWithBackButton } from '@components/common/Header';
 
 type Section = 'consultations' | 'labResults' | 'prescriptions' | 'chronicConditions';
 
@@ -107,23 +108,9 @@ const PatientHistoryScreen = () => {
 
   return (
     <SafeAreaView style={[containerStyles(theme).safeArea, { flex: 1 }]}>
-      <ScrollView style={[styles.container, { width: '100%' }]} contentContainerStyle={{ paddingBottom: 16, width: '100%' }} horizontal={false} showsHorizontalScrollIndicator={false}>
+      <ScrollView style={[containerStyles(theme).container, { width: '100%' }]} contentContainerStyle={{ paddingBottom: 16, width: '100%' }} horizontal={false} showsHorizontalScrollIndicator={false}>
         {/* Header */}
-        <View style={[styles.headerContainer, { paddingHorizontal: 12, paddingVertical: 8, width: '100%' }]}>
-          <View style={[{ flexDirection: 'row', alignItems: 'center', flex: 1 }]}>
-            <TouchableOpacity 
-              onPress={() => navigation.goBack()}
-              accessibilityRole="button"
-              accessibilityLabel="Go back"
-              style={{ padding: 6 }}
-            >
-              <Icon name="chevron-left" style={styles.headerBackButton} />
-            </TouchableOpacity>
-            <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center', marginHorizontal: 6 }}>
-              <Text style={[styles.patientName]} numberOfLines={1}>Patient History</Text>
-            </View>
-          </View>
-        </View>
+        {appHeaderWithBackButton(navigation,theme,'Patient History')}
 
         <View style={[containerStyles(theme).contentContainer, { alignItems: 'center', width: '100%' }]}>
           {/* Patient Profile Card - Styled like dashboard cards */}

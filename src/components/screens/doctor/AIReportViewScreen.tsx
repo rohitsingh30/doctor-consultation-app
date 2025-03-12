@@ -16,6 +16,7 @@ import BackButton from '../../common/BackButton';
 
 // Import AIReport type and helper functions from doctorData
 import { getDetailedAIReport } from '../../../data/doctorData';
+import { appHeaderWithBackButton } from '@components/common/Header';
 
 type ReportDetailScreenNavigationProp = NativeStackNavigationProp<AppStackParamList, 'ReportDetail'>;
 /**
@@ -333,8 +334,8 @@ const AIReportViewScreen: React.FC = () => {
   return (
     <SafeAreaView style={containerStyles(theme).safeArea}>
       <ScrollView style={containerStyles(theme).scrollView}>
-        <BackButton />
-        {renderScreenContent()}
+      {appHeaderWithBackButton(navigation,theme,'AI Report')}
+      {renderScreenContent()}
       </ScrollView>
     </SafeAreaView>
   );

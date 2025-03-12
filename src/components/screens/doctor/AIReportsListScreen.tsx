@@ -12,6 +12,7 @@ import { buttonStyles, containerStyles, shadowsStyle, textStyles } from '../../.
 import { createAIReportsListStyles } from '../../../styles/screens/AIReportsListStyles';
 import { useTheme } from '../../../styles/ThemeProvider';
 import BackButton from '../../common/BackButton';
+import { appHeaderWithBackButton } from '@components/common/Header';
 
 const AIReportsScreen: React.FC = () => {
   const navigation = useNavigation<NativeStackNavigationProp<AppStackParamList>>();
@@ -143,27 +144,20 @@ const AIReportsScreen: React.FC = () => {
 
   return (
     <SafeAreaView style={containerStyles(theme).safeArea}>
-      <View style={styles.container}>
-        <View style={styles.headerContainer}>
-          <BackButton onPress={() => navigation.goBack()} />
-          <Text style={[textStyles(theme).titleText, { flex: 1, textAlign: 'center' }]}>AI Reports</Text>
-          <View style={{ width: 40 }} />
-        </View>
-        
-        <ScrollView style={styles.reportListContainer}>
-          {reports.map((report) => (
-            <View key={report.id} style={[styles.reportCard, shadowsStyle(theme).sm]}>
-              {renderReportHeader(report)}
-              {isReportExpanded(report.id ?? "1") && renderReportContent(report)}
-            </View>
-          ))}
-          {reports.length === 0 && (
-            <View style={styles.emptyStateContainer}>
-              <Text style={styles.emptyStateText}>No reports available</Text>
-            </View>
-          )}
-        </ScrollView>
-      </View>
+      <ScrollView style={containerStyles(theme).container}>
+        {appHeaderWithBackButton(navigation,theme,'AI Reports')}        
+        {reports.map((report) => (
+          <View key={report.id} style={[styles.reportCard, shadowsStyle(theme).sm]}>
+            {renderReportHeader(report)}
+            {isReportExpanded(report.id ?? "1") && renderReportContent(report)}
+          </View>
+        ))}
+        {reports.length === 0 && (
+          <View style={styles.emptyStateContainer}>
+            <Text style={styles.emptyStateText}>No reports available</Text>
+          </View>
+        )}
+      </ScrollView>
     </SafeAreaView>
   );
 };

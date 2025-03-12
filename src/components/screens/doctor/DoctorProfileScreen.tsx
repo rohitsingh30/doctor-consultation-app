@@ -10,6 +10,7 @@ import { useTheme } from 'src/styles/ThemeProvider';
 import { mockDoctorData } from 'src/data/doctorData';
 import { createDoctorProfileStyles } from '../../../styles/screens/doctorProfileStyles';
 import { useAuth } from 'src/hooks/useAuth';
+import { appHeaderWithBackButton } from '@components/common/Header';
 
 const DoctorProfileScreen = () => {
   const navigation = useNavigation<NativeStackNavigationProp<AppStackParamList>>();
@@ -69,31 +70,8 @@ const DoctorProfileScreen = () => {
 
   return (
     <SafeAreaView style={containerStyles(theme).safeArea}>
-      <View style={[styles.headerContainer]}>
-        <TouchableOpacity 
-          onPress={() => navigation.goBack()}
-          style={styles.backButton}
-          accessibilityRole="button"
-          accessibilityLabel="Go back"
-        >
-          <Icon name="chevron-left" size={24} color={theme.colors.textInverted} />
-        </TouchableOpacity>
-        <Text style={styles.headerTitle}>Doctor Profile</Text>
-        <TouchableOpacity 
-          onPress={() => setIsEditing(!isEditing)}
-          style={styles.editButton}
-          accessibilityRole="button"
-          accessibilityLabel={isEditing ? "Save changes" : "Edit profile"}
-        >
-          <Icon 
-            name={isEditing ? "check" : "edit"} 
-            size={20} 
-            color={theme.colors.primary} 
-          />
-        </TouchableOpacity>
-      </View>
-
-      <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 80 }}>
+      <ScrollView style={containerStyles(theme).container} contentContainerStyle={{ paddingBottom: 80 }}>
+        {appHeaderWithBackButton(navigation,theme,'Profile')}
         <View style={styles.contentContainer}>
           <Text style={styles.sectionTitle}>Personal Information</Text>
           
